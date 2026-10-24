@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generasi Sandwich, Keuangan Tetap Sehat: Ebook Cantikna</title>
+  <meta name="description" content="Ebook untuk wanita yang menopang anak dan orang tua dari satu gaji. Sistem Anggaran 3 Pos, 10 bab, 152 halaman, plus bonus Workbook berisi 13 worksheet siap isi." />
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              rose: '#C58F87',
+              'rose-dark': '#B0756D',
+              terracotta: '#D98A6C',
+              'terracotta-dark': '#C27557',
+              sand: '#F6F2EB',
+              linen: '#FAF7F2',
+              cream: '#FFFDF9',
+              charcoal: '#2C2624',
+              'charcoal-deep': '#1F1A18',
+              taupe: '#7A6F6B',
+              muted: '#A59B96',
+              sage: '#66785C',
+              'sage-deep': '#42503F',
+              'sage-light': '#E9EDE3',
+              gold: '#C6A15B',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 10px 35px -5px rgba(66, 80, 63, 0.14), 0 8px 16px -6px rgba(44, 38, 36, 0.05)',
+            'book': '0 30px 60px -15px rgba(31, 26, 24, 0.35), 0 18px 30px -12px rgba(66, 80, 63, 0.30)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .book-spine { background: linear-gradient(90deg, rgba(0,0,0,0.18) 0, rgba(0,0,0,0) 14px); }
+    .dotted-leader { border-bottom: 2px dotted rgba(198, 161, 91, 0.55); }
+  </style>
+</head>
+
+<body class="bg-brand-cream text-brand-charcoal font-sans antialiased">
+
+  <!-- ================= HEADER ================= -->
+  <header class="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur border-b border-brand-sand">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
+      <a href="/" class="font-serif text-2xl tracking-[0.22em] font-semibold text-brand-charcoal">CANTIKNA</a>
+      <div class="flex items-center gap-3 sm:gap-5">
+        <a href="/" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-brand-taupe hover:text-brand-terracotta-dark transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Beranda
+        </a>
+        <a href="#pesan" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-sage-deep text-white text-sm font-semibold hover:bg-brand-sage transition-colors">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i> Dapatkan Ebooknya
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="bg-gradient-to-b from-brand-linen to-brand-cream pt-12 pb-16 sm:pt-16 sm:pb-20">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-12 items-center">
+
+      <div>
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-sage-deep text-white text-xs font-semibold tracking-wide">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i> SERI WANITA PRODUKTIF · EBOOK + WORKBOOK
+        </span>
+        <h1 class="font-serif text-4xl sm:text-5xl leading-tight mt-6">
+          Generasi Sandwich,<br>
+          <span class="text-brand-terracotta-dark">Keuangan Tetap Sehat</span>
+        </h1>
+        <p class="font-serif italic text-lg text-brand-taupe mt-3">Sistem Anggaran 3 Pos untuk Wanita yang Menopang Anak dan Orang Tua</p>
+        <p class="text-brand-taupe leading-relaxed mt-5">
+          Satu gaji, banyak yang bergantung padanya. Buku ini membantumu membagi penghasilan dengan jelas untuk anak,
+          orang tua, dan dirimu sendiri, tanpa rasa bersalah dan tanpa janji muluk. Dilengkapi contoh angka nyata
+          dan worksheet yang bisa langsung kamu isi.
+        </p>
+
+        <ul class="mt-6 space-y-2.5 text-[15px]">
+          <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-sage shrink-0"></i> 10 bab, 152 halaman, bahasa Indonesia yang ringan dibaca</li>
+          <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-sage shrink-0"></i> Bonus Workbook 29 halaman berisi 13 worksheet siap isi (khusus pembelian langsung di Cantikna)</li>
+          <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-sage shrink-0"></i> Rencana 30 hari pertama agar sistemnya benar benar berjalan</li>
+        </ul>
+
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <a href="#pesan" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-brand-terracotta-dark text-white font-semibold hover:bg-brand-terracotta transition-colors shadow-soft">
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i> Dapatkan Ebook + Workbook
+          </a>
+          <a href="#isi-buku" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-brand-sage text-brand-sage-deep font-semibold hover:bg-brand-sage-light transition-colors">
+            <i data-lucide="list" class="w-5 h-5"></i> Lihat Isi Buku
+          </a>
+        </div>
+        <p class="text-sm text-brand-muted mt-4">Harga peluncuran <span class="font-bold text-brand-charcoal">Rp49.000</span> <span class="line-through">Rp69.000</span> · Format EPUB dan PDF, nyaman dibaca di HP</p>
+      </div>
+
+      <!-- Cover mockup (CSS) -->
+      <div class="relative mx-auto w-72 sm:w-80">
+        <div class="absolute -right-6 top-8 w-full h-full rounded-r-2xl rounded-l-md bg-brand-sage-light border border-brand-gold/40 rotate-3 flex items-start justify-center pt-6">
+          <span class="text-xs font-bold tracking-[0.18em] text-brand-sage-deep/70 text-center px-6">WORKBOOK WORKSHEET<br><span class="font-medium normal-case tracking-normal">29 halaman · 13 worksheet</span></span>
+        </div>
+        <div class="relative rounded-r-2xl rounded-l-md shadow-book overflow-hidden bg-[#FBF6EC] rotate-[-1.5deg]">
+          <div class="book-spine absolute inset-0 pointer-events-none"></div>
+          <div class="bg-brand-sage-deep px-6 pt-6 pb-5 text-center">
+            <p class="text-white font-serif tracking-[0.35em] text-lg">CANTIKNA</p>
+            <p class="text-brand-gold text-[11px] tracking-[0.3em] mt-1.5 font-semibold">SERI WANITA PRODUKTIF</p>
+          </div>
+          <div class="px-7 pt-7 pb-8 text-center">
+            <h2 class="font-serif text-[27px] leading-snug text-brand-charcoal-deep">Generasi Sandwich,</h2>
+            <h2 class="font-serif text-[27px] leading-snug text-brand-terracotta-dark">Keuangan Tetap Sehat</h2>
+            <div class="w-14 h-[2px] bg-brand-gold mx-auto my-4"></div>
+            <p class="text-[13px] text-brand-taupe leading-relaxed">Sistem Anggaran 3 Pos untuk Wanita yang Menopang Anak dan Orang Tua</p>
+            <div class="mt-6 rounded-2xl bg-gradient-to-br from-brand-sage-light to-brand-sand h-28 flex items-center justify-center">
+              <i data-lucide="heart-handshake" class="w-12 h-12 text-brand-sage"></i>
+            </div>
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+              <span class="px-3 py-1 rounded-full bg-brand-sage-light text-brand-sage-deep text-[11px] font-semibold">Sistem Anggaran 3 Pos</span>
+              <span class="px-3 py-1 rounded-full bg-brand-sage-light text-brand-sage-deep text-[11px] font-semibold">Worksheet Siap Isi</span>
+              <span class="px-3 py-1 rounded-full bg-brand-sage-light text-brand-sage-deep text-[11px] font-semibold">Contoh Angka Nyata</span>
+            </div>
+            <p class="tracking-[0.3em] text-xs text-brand-taupe mt-7 font-semibold">CANTIKNA</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MASALAH ================= -->
+  <section class="py-16 bg-brand-cream">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      <h2 class="font-serif text-3xl sm:text-4xl text-center">Kamu Tidak Boros. <span class="text-brand-terracotta-dark">Bebanmu Berlapis.</span></h2>
+      <p class="text-center text-brand-taupe max-w-2xl mx-auto mt-4 leading-relaxed">Yang membuat keuangan terasa berat biasanya bukan gaya hidup, melainkan banyaknya tanggungan yang belum punya tempat yang jelas di anggaran.</p>
+      <div class="grid sm:grid-cols-3 gap-6 mt-10">
+        <div class="rounded-3xl bg-brand-linen p-7 shadow-soft">
+          <i data-lucide="wallet" class="w-8 h-8 text-brand-terracotta-dark"></i>
+          <h3 class="font-serif text-xl mt-4">Gaji Cepat Habis, Arahnya Tidak Jelas</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">Uang untuk anak, orang tua, dan kebutuhan sendiri tercampur dalam satu arus, jadi setiap akhir bulan terasa seperti menebak nebak.</p>
+        </div>
+        <div class="rounded-3xl bg-brand-linen p-7 shadow-soft">
+          <i data-lucide="bell-ring" class="w-8 h-8 text-brand-terracotta-dark"></i>
+          <h3 class="font-serif text-xl mt-4">Biaya Orang Tua Selalu Jadi Kejutan</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">Obat rutin, kontrol berkala, dan kebutuhan mendadak datang tanpa pola, padahal sebagian besar sebenarnya bisa dipetakan dan dijadwalkan.</p>
+        </div>
+        <div class="rounded-3xl bg-brand-linen p-7 shadow-soft">
+          <i data-lucide="heart" class="w-8 h-8 text-brand-terracotta-dark"></i>
+          <h3 class="font-serif text-xl mt-4">Diri Sendiri Selalu Nomor Terakhir</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">Tabungan masa depan tertunda terus, dan merawat diri terasa seperti pengeluaran yang harus dibela, bukan bagian wajar dari anggaran.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SISTEM 3 POS ================= -->
+  <section class="py-16 bg-brand-sage-light/60">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      <h2 class="font-serif text-3xl sm:text-4xl text-center">Solusinya: Sistem Anggaran 3 Pos</h2>
+      <p class="text-center text-brand-taupe max-w-2xl mx-auto mt-4 leading-relaxed">Setiap rupiah sejak hari gajian sudah punya rumahnya. Contoh pembagian dari kisah Ratna di buku ini, guru dengan gaji Rp6.500.000 yang tinggal bersama ibunya dan dua anak:</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+        <div class="rounded-3xl bg-white p-7 text-center shadow-soft">
+          <p class="font-serif text-4xl text-brand-terracotta-dark">40%</p>
+          <h3 class="font-semibold mt-2">Pos Anak</h3>
+          <p class="text-brand-taupe text-sm mt-1.5">Sekolah, kebutuhan harian, dan masa depan anak.</p>
+        </div>
+        <div class="rounded-3xl bg-white p-7 text-center shadow-soft">
+          <p class="font-serif text-4xl text-brand-terracotta-dark">20%</p>
+          <h3 class="font-semibold mt-2">Pos Orang Tua</h3>
+          <p class="text-brand-taupe text-sm mt-1.5">Jatah tetap bulanan plus bantalan untuk biaya berkala.</p>
+        </div>
+        <div class="rounded-3xl bg-white p-7 text-center shadow-soft">
+          <p class="font-serif text-4xl text-brand-terracotta-dark">25%</p>
+          <h3 class="font-semibold mt-2">Pos Diri &amp; Masa Depan</h3>
+          <p class="text-brand-taupe text-sm mt-1.5">Dana darurat, tabungan masa depan, cicilan, dan pos terawat.</p>
+        </div>
+        <div class="rounded-3xl bg-white p-7 text-center shadow-soft">
+          <p class="font-serif text-4xl text-brand-terracotta-dark">15%</p>
+          <h3 class="font-semibold mt-2">Pos Fleksibel</h3>
+          <p class="text-brand-taupe text-sm mt-1.5">Ruang napas bulanan yang boleh dipakai tanpa rasa bersalah.</p>
+        </div>
+      </div>
+      <p class="text-center text-sm text-brand-muted mt-6">Persentase ini contoh yang bisa disesuaikan dengan komposisi keluargamu. Cara menyesuaikannya dibahas langkah demi langkah di Bab 2.</p>
+    </div>
+  </section>
+
+  <!-- ================= ISI BUKU ================= -->
+  <section id="isi-buku" class="py-16 bg-brand-cream">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8">
+      <h2 class="font-serif text-3xl sm:text-4xl text-center">Isi Buku</h2>
+      <p class="text-center text-brand-taupe mt-4">Pendahuluan: Kamu Tidak Boros, Bebanmu Berlapis, lalu sepuluh bab yang saling menyambung:</p>
+      <div class="mt-10 space-y-1 text-[15px]">
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 1</span><span class="flex-1">Peta Uang 3 Generasi</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 1</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 2</span><span class="flex-1">Sistem Anggaran 3 Pos</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 2</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 3</span><span class="flex-1">Jatah Tetap untuk Orang Tua</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 3</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 4</span><span class="flex-1">Dana Darurat Mini di Tengah Tanggungan</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 4</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 5</span><span class="flex-1">Utang, Mana yang Dibereskan Dulu</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 5</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 6</span><span class="flex-1">Melindungi Masa Depanmu Sendiri</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 6</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 7</span><span class="flex-1">Saat Penghasilan Perlu Ditambah</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 7</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 8</span><span class="flex-1">Merawat Diri Tanpa Rasa Bersalah</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 8</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 9</span><span class="flex-1">Mengatur Uang Perawatan Orang Tua, termasuk urusan administratif BPJS Kesehatan</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 9</span></div>
+        <div class="flex items-baseline gap-3 py-2.5"><span class="font-serif font-bold text-brand-terracotta-dark w-14 shrink-0">Bab 10</span><span class="flex-1">Rencana 30 Hari Pertamamu</span><span class="dotted-leader flex-1 hidden sm:block"></span><span class="text-brand-muted text-sm hidden sm:inline">Worksheet 10</span></div>
+      </div>
+      <p class="text-center text-sm text-brand-muted mt-6">Ditutup dengan Lampiran A: templat anggaran vs realisasi, checklist gajian 30 menit, dan catatan penyesuaian bulanan.</p>
+    </div>
+  </section>
+
+  <!-- ================= YANG DIDAPAT ================= -->
+  <section class="py-16 bg-brand-linen">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      <h2 class="font-serif text-3xl sm:text-4xl text-center">Yang Kamu Dapatkan</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+        <div class="rounded-3xl bg-white p-7 shadow-soft">
+          <i data-lucide="book-open" class="w-8 h-8 text-brand-sage"></i>
+          <h3 class="font-serif text-xl mt-4">Ebook 152 Halaman</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">Format EPUB dan PDF. Ada kisah Ratna di setiap bab, contoh angka nyata yang bisa kamu tiru polanya.</p>
+        </div>
+        <div class="rounded-3xl bg-white p-7 shadow-soft">
+          <i data-lucide="notebook-pen" class="w-8 h-8 text-brand-sage"></i>
+          <h3 class="font-serif text-xl mt-4">Workbook 29 Halaman</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">13 worksheet kosong siap isi, dari peta uang sampai rencana 30 hari. Bisa dicetak atau diisi digital, dan dipakai berulang setiap bulan.</p>
+        </div>
+        <div class="rounded-3xl bg-white p-7 shadow-soft">
+          <i data-lucide="calendar-check" class="w-8 h-8 text-brand-sage"></i>
+          <h3 class="font-serif text-xl mt-4">Rencana 30 Hari</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">Panduan minggu demi minggu yang dimulai dari hari gajian terdekat, plus versi minimal 7 hari untuk yang sedang kewalahan.</p>
+        </div>
+        <div class="rounded-3xl bg-white p-7 shadow-soft">
+          <i data-lucide="shield-check" class="w-8 h-8 text-brand-sage"></i>
+          <h3 class="font-serif text-xl mt-4">Jujur dan Membumi</h3>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-2">Tanpa janji kaya cepat, tanpa janji penghasilan, tanpa menakut nakuti. Edukasi keuangan umum yang bisa diterapkan bertahap.</p>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6 mt-10">
+        <div class="rounded-3xl bg-brand-sage-light/70 p-7">
+          <h3 class="font-serif text-xl flex items-center gap-2"><i data-lucide="heart" class="w-5 h-5 text-brand-sage-deep"></i> Buku ini untukmu jika</h3>
+          <ul class="mt-4 space-y-2 text-[15px] text-brand-charcoal/85">
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-brand-sage shrink-0"></i> Kamu bekerja dan ikut menopang orang tua, sambil membesarkan anak</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-brand-sage shrink-0"></i> Kamu ingin sistem yang jelas, bukan sekadar motivasi</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-brand-sage shrink-0"></i> Kamu siap meluangkan 30 menit setiap hari gajian untuk merapikan uangmu</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-white p-7 border border-brand-sand">
+          <h3 class="font-serif text-xl flex items-center gap-2"><i data-lucide="info" class="w-5 h-5 text-brand-muted"></i> Buku ini bukan untukmu jika</h3>
+          <ul class="mt-4 space-y-2 text-[15px] text-brand-taupe">
+            <li class="flex gap-2"><i data-lucide="x" class="w-5 h-5 text-brand-muted shrink-0"></i> Kamu mencari cara cepat kaya atau janji penghasilan tambahan yang pasti</li>
+            <li class="flex gap-2"><i data-lucide="x" class="w-5 h-5 text-brand-muted shrink-0"></i> Kamu membutuhkan nasihat keuangan pribadi yang spesifik, silakan konsultasikan ke perencana keuangan berlisensi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HARGA / PESAN ================= -->
+  <section id="pesan" class="py-16 bg-brand-sage-deep text-white">
+    <div class="max-w-3xl mx-auto px-6 sm:px-8 text-center">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-brand-gold text-xs font-semibold tracking-wide">PAKET PEMBELIAN LANGSUNG DI CANTIKNA</span>
+      <h2 class="font-serif text-3xl sm:text-4xl mt-6">Mulai Rapikan Uang 3 Generasimu</h2>
+      <div class="rounded-3xl bg-white text-brand-charcoal p-8 sm:p-10 mt-10 shadow-book text-left">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div>
+            <p class="text-sm text-brand-muted">Harga normal</p>
+            <p class="text-xl line-through text-brand-muted">Rp69.000</p>
+            <p class="text-sm text-brand-muted mt-3">Harga peluncuran</p>
+            <p class="font-serif text-5xl text-brand-terracotta-dark">Rp49.000</p>
+          </div>
+          <ul class="space-y-2.5 text-[15px]">
+            <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-sage shrink-0"></i> Ebook 152 halaman (EPUB + PDF)</li>
+            <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-sage shrink-0"></i> Bonus Workbook 29 halaman, 13 worksheet siap isi</li>
+            <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-sage shrink-0"></i> Sekali bayar, milikmu selamanya, bisa dibaca di HP</li>
+          </ul>
+        </div>
+        <a href="mailto:halo@cantikna.com?subject=Pesan%20Ebook%20Generasi%20Sandwich&body=Halo%20Cantikna%2C%20saya%20ingin%20memesan%20paket%20Ebook%20Generasi%20Sandwich%2C%20Keuangan%20Tetap%20Sehat%20(Rp49.000%2C%20termasuk%20Workbook).%20Mohon%20info%20cara%20pembayarannya.%20Terima%20kasih." class="mt-8 flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full bg-brand-terracotta-dark text-white font-semibold text-lg hover:bg-brand-terracotta transition-colors">
+          <i data-lucide="mail" class="w-5 h-5"></i> Pesan via Email
+        </a>
+        <p class="text-sm text-brand-muted mt-4 text-center">Klik tombol di atas, email pemesananmu akan terbuka dengan isi yang sudah disiapkan. Kami balas dengan info pembayaran, dan file dikirim setelah pembayaran terkonfirmasi.</p>
+      </div>
+      <p class="text-white/70 text-sm mt-8">Ebook ini juga akan tersedia di Google Play Books. Perlu diingat, bonus Workbook hanya disertakan untuk pembelian langsung di cantikna.com, karena file bonus terpisah tidak bisa dibundel dalam satu pembelian di Google Play Books.</p>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="py-16 bg-brand-cream">
+    <div class="max-w-3xl mx-auto px-6 sm:px-8">
+      <h2 class="font-serif text-3xl sm:text-4xl text-center">Sering Ditanyakan</h2>
+      <div class="mt-10 space-y-4">
+        <details class="rounded-3xl bg-brand-linen p-6 shadow-soft">
+          <summary class="font-semibold cursor-pointer">Dalam format apa ebooknya, dan bagaimana cara membacanya?</summary>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-3">Kamu menerima file EPUB dan PDF. PDF bisa langsung dibuka di HP, tablet, atau laptop. EPUB nyaman dibaca di aplikasi pembaca buku seperti Google Play Books, dengan ukuran huruf yang bisa diatur.</p>
+        </details>
+        <details class="rounded-3xl bg-brand-linen p-6 shadow-soft">
+          <summary class="font-semibold cursor-pointer">Apakah Workbook termasuk dalam harga Rp49.000?</summary>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-3">Ya, untuk pembelian langsung di cantikna.com. Workbook berisi 13 worksheet kosong siap isi dalam format PDF 29 halaman. Di Google Play Books, yang dijual hanya ebooknya saja.</p>
+        </details>
+        <details class="rounded-3xl bg-brand-linen p-6 shadow-soft">
+          <summary class="font-semibold cursor-pointer">Apakah buku ini nasihat keuangan untuk kondisi saya?</summary>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-3">Bukan. Buku ini edukasi keuangan umum dengan contoh fiktif bernama Ratna. Untuk keputusan besar yang spesifik dengan kondisimu, pertimbangkan berkonsultasi dengan perencana keuangan berlisensi.</p>
+        </details>
+        <details class="rounded-3xl bg-brand-linen p-6 shadow-soft">
+          <summary class="font-semibold cursor-pointer">Bagaimana jika saya membeli di Google Play Books, apakah bisa mendapat Workbooknya?</summary>
+          <p class="text-brand-taupe text-[15px] leading-relaxed mt-3">Workbook adalah bonus khusus jalur pembelian langsung di cantikna.com. Jika kamu sudah terlanjur membeli di Google Play Books, hubungi halo@cantikna.com dan kami bantu carikan jalan terbaiknya.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-brand-charcoal-deep text-white/80 py-10">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-serif tracking-[0.22em] text-white">CANTIKNA</p>
+      <p class="text-sm text-center">Seri Wanita Produktif · <a href="/" class="underline hover:text-white">cantikna.com</a> · <a href="mailto:halo@cantikna.com" class="underline hover:text-white">halo@cantikna.com</a></p>
+      <p class="text-sm">© 2026 Cantikna</p>
+    </div>
+    <p class="text-center text-xs text-white/40 max-w-2xl mx-auto px-6 mt-6">Buku ini adalah materi edukasi keuangan umum dan bukan nasihat keuangan, medis, atau hukum untuk kondisi pribadi siapa pun. Contoh tokoh Ratna adalah fiktif.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
