@@ -217,6 +217,10 @@ img{max-width:100%}
 .move-fill{background:linear-gradient(90deg,#8FA37E,#7D8C6F)}
 .total-track{height:12px;margin-top:8px}
 #gmMoveDesc{font-weight:600;color:var(--charcoal);margin-top:4px}
+#gmPlayerBlock .timer-big{margin:6px 0 2px}
+#gmPlayerBlock .progress-track{margin-top:6px}
+#gmMoveTimeInfo,#gmNextInfo,#gmTotalInfo{margin-top:4px}
+#gmMoveDesc{margin-top:2px}
 .move-img{display:block;width:min(300px,78%);aspect-ratio:4/5;object-fit:cover;border-radius:20px;margin:10px auto 4px;box-shadow:0 10px 30px rgba(44,38,36,.12)}
 .thumb{width:74px;height:94px;object-fit:cover;border-radius:12px;flex:none}
 </style>
@@ -247,10 +251,10 @@ img{max-width:100%}
       <p class="timer-cap">Sisa waktu gerakan ini</p>
       <p class="timer-big" id="gmTimer">1:00</p>
       <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
-      <p class="center hint" id="gmMoveTimeInfo">Gerakan ini: sisa 1:00 dari 1:00</p>
-      <p class="center hint" id="gmNextInfo"></p>
       <div class="progress-track total-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
       <p class="center hint" id="gmTotalInfo">Total sesi: tersisa 15:00 dari 15:00</p>
+      <p class="center hint" id="gmMoveTimeInfo">Gerakan ini: sisa 1:00 dari 1:00</p>
+      <p class="center hint" id="gmNextInfo"></p>
       
       
       <p class="center hint" id="gmDoneInfo"></p>
