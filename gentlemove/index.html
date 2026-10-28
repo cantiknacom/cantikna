@@ -170,6 +170,8 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .link-danger{color:#B3261E;background:none;border:none;cursor:pointer;font:inherit;font-size:.85rem;text-decoration:underline}
 .center{text-align:center}
 .mt{margin-top:14px}
+.move-img{display:block;width:min(300px,78%);aspect-ratio:4/5;object-fit:cover;border-radius:20px;margin:10px auto 4px;box-shadow:0 10px 30px rgba(44,38,36,.12)}
+.thumb{width:74px;height:94px;object-fit:cover;border-radius:12px;flex:none}
 </style>
 
 <body>
@@ -187,6 +189,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
     <div class="block">
       <div class="block-head"><span class="num-badge">1</span><h3>Pemain peregangan</h3></div>
       <p class="center hint" id="gmStepLabel">10 gerakan lembut, total 15 menit. Tanpa alat, cukup ruang kecil dan napas yang tenang.</p>
+      <img class="move-img" id="gmMoveImg" src="/assets/gm-01.jpg" alt="Ilustrasi gerakan Napas pembuka" />
       <p class="move-name" id="gmMoveName">Siap mulai?</p>
       <p class="timer-big" id="gmTimer">15:00</p>
       <div class="progress-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
@@ -201,16 +204,16 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 
     <div class="block">
       <div class="block-head"><span class="num-badge sage">2</span><h3>Urutan gerakannya</h3></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">1</span><span style="flex:1"><b>Napas pembuka</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Duduk atau berdiri tegak. Tarik napas perlahan lewat hidung, hembuskan lewat mulut. Ulangi dengan ritme tenang.</span></span><span>60 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">2</span><span style="flex:1"><b>Leher yang rileks</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Miringkan kepala ke bahu kanan, tahan beberapa napas, lalu ganti sisi. Gerak kecil dan lembut, jangan ditarik paksa.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">3</span><span style="flex:1"><b>Bahu dan dada membuka</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Putar bahu ke belakang perlahan 5 kali, lalu ke depan 5 kali. Akhiri dengan merentangkan kedua lengan dan membuka dada.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">4</span><span style="flex:1"><b>Lengan dan sisi tubuh</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Angkat satu lengan ke atas lalu lengkungkan tubuh ke sisi berlawanan. Tahan, bernapas, lalu ganti sisi.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">5</span><span style="flex:1"><b>Punggung duduk cat-cow</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Sambil duduk, lengkungkan punggung ke depan sambil menarik napas, lalu bulatkan punggung sambil menghembuskan napas. Ikuti ritme napasmu.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">6</span><span style="flex:1"><b>Pinggang berputar lembut</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Putar tubuh bagian atas ke kanan sambil memegang lutut, tahan beberapa napas, lalu ganti sisi. Pinggul tetap menghadap depan.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">7</span><span style="flex:1"><b>Pinggul dan paha</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Berdiri sambil berpegangan pada kursi. Ayun satu kaki perlahan ke depan dan belakang, lalu ganti kaki. Jaga keseimbangan.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">8</span><span style="flex:1"><b>Betis dan pergelangan kaki</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Jinjit perlahan lalu turunkan, ulangi 8 sampai 10 kali. Lanjutkan dengan memutar pergelangan kaki ke dua arah, bergantian.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">9</span><span style="flex:1"><b>Rentang seluruh tubuh</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Berdiri, angkat kedua tangan tinggi-tinggi sambil jinjit ringan, regangkan seluruh tubuh, lalu turunkan perlahan. Ulangi 3 sampai 4 kali.</span></span><span>90 detik</span></div>
-      <div class="hist-row"><span class="num-badge sage" style="flex:none">10</span><span style="flex:1"><b>Napas penutup</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Kembali duduk tenang. Pejamkan mata bila nyaman, bernapas perlahan, dan syukuri satu hal kecil tentang tubuhmu hari ini.</span></span><span>120 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">1</span><img class="thumb" src="/assets/gm-01.jpg" alt="Ilustrasi gerakan 1" loading="lazy" /><span style="flex:1"><b>Napas pembuka</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Duduk atau berdiri tegak. Tarik napas perlahan lewat hidung, hembuskan lewat mulut. Ulangi dengan ritme tenang.</span></span><span>60 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">2</span><img class="thumb" src="/assets/gm-02.jpg" alt="Ilustrasi gerakan 2" loading="lazy" /><span style="flex:1"><b>Leher yang rileks</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Miringkan kepala ke bahu kanan, tahan beberapa napas, lalu ganti sisi. Gerak kecil dan lembut, jangan ditarik paksa.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">3</span><img class="thumb" src="/assets/gm-03.jpg" alt="Ilustrasi gerakan 3" loading="lazy" /><span style="flex:1"><b>Bahu dan dada membuka</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Putar bahu ke belakang perlahan 5 kali, lalu ke depan 5 kali. Akhiri dengan merentangkan kedua lengan dan membuka dada.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">4</span><img class="thumb" src="/assets/gm-04.jpg" alt="Ilustrasi gerakan 4" loading="lazy" /><span style="flex:1"><b>Lengan dan sisi tubuh</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Angkat satu lengan ke atas lalu lengkungkan tubuh ke sisi berlawanan. Tahan, bernapas, lalu ganti sisi.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">5</span><img class="thumb" src="/assets/gm-05.jpg" alt="Ilustrasi gerakan 5" loading="lazy" /><span style="flex:1"><b>Punggung duduk cat-cow</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Sambil duduk, lengkungkan punggung ke depan sambil menarik napas, lalu bulatkan punggung sambil menghembuskan napas. Ikuti ritme napasmu.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">6</span><img class="thumb" src="/assets/gm-06.jpg" alt="Ilustrasi gerakan 6" loading="lazy" /><span style="flex:1"><b>Dekap lutut duduk</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Duduk tegak di kursi, angkat satu lutut dan dekap lembut ke arah dada dengan kedua tangan. Tahan beberapa napas, lalu ganti sisi.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">7</span><img class="thumb" src="/assets/gm-07.jpg" alt="Ilustrasi gerakan 7" loading="lazy" /><span style="flex:1"><b>Ayunan kaki berdiri</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Berdiri sambil berpegangan pada kursi. Ayun satu kaki perlahan ke depan dan belakang, lalu ganti kaki. Jaga keseimbangan.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">8</span><img class="thumb" src="/assets/gm-08.jpg" alt="Ilustrasi gerakan 8" loading="lazy" /><span style="flex:1"><b>Betis dan pergelangan kaki</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Jinjit perlahan lalu turunkan, ulangi 8 sampai 10 kali. Lanjutkan dengan memutar pergelangan kaki ke dua arah, bergantian.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">9</span><img class="thumb" src="/assets/gm-09.jpg" alt="Ilustrasi gerakan 9" loading="lazy" /><span style="flex:1"><b>Rentang seluruh tubuh</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Berdiri, angkat kedua tangan tinggi-tinggi sambil jinjit ringan, regangkan seluruh tubuh, lalu turunkan perlahan. Ulangi 3 sampai 4 kali.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">10</span><img class="thumb" src="/assets/gm-10.jpg" alt="Ilustrasi gerakan 10" loading="lazy" /><span style="flex:1"><b>Napas penutup</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Kembali duduk tenang. Pejamkan mata bila nyaman, bernapas perlahan, dan syukuri satu hal kecil tentang tubuhmu hari ini.</span></span><span>120 detik</span></div>
       <p class="hint" style="margin-top:12px">Semua gerakan bersifat lembut dan umum. Hentikan bila terasa nyeri, dan sesuaikan dengan kondisi tubuhmu. Alat ini bukan pengganti saran dokter atau fisioterapis.</p>
     </div>
 
@@ -224,16 +227,16 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 
 <script>
 
-var MOVES=[{name:'Napas pembuka', secs:60, desc:'Duduk atau berdiri tegak. Tarik napas perlahan lewat hidung, hembuskan lewat mulut. Ulangi dengan ritme tenang.'},
-{name:'Leher yang rileks', secs:90, desc:'Miringkan kepala ke bahu kanan, tahan beberapa napas, lalu ganti sisi. Gerak kecil dan lembut, jangan ditarik paksa.'},
-{name:'Bahu dan dada membuka', secs:90, desc:'Putar bahu ke belakang perlahan 5 kali, lalu ke depan 5 kali. Akhiri dengan merentangkan kedua lengan dan membuka dada.'},
-{name:'Lengan dan sisi tubuh', secs:90, desc:'Angkat satu lengan ke atas lalu lengkungkan tubuh ke sisi berlawanan. Tahan, bernapas, lalu ganti sisi.'},
-{name:'Punggung duduk cat-cow', secs:90, desc:'Sambil duduk, lengkungkan punggung ke depan sambil menarik napas, lalu bulatkan punggung sambil menghembuskan napas. Ikuti ritme napasmu.'},
-{name:'Pinggang berputar lembut', secs:90, desc:'Putar tubuh bagian atas ke kanan sambil memegang lutut, tahan beberapa napas, lalu ganti sisi. Pinggul tetap menghadap depan.'},
-{name:'Pinggul dan paha', secs:90, desc:'Berdiri sambil berpegangan pada kursi. Ayun satu kaki perlahan ke depan dan belakang, lalu ganti kaki. Jaga keseimbangan.'},
-{name:'Betis dan pergelangan kaki', secs:90, desc:'Jinjit perlahan lalu turunkan, ulangi 8 sampai 10 kali. Lanjutkan dengan memutar pergelangan kaki ke dua arah, bergantian.'},
-{name:'Rentang seluruh tubuh', secs:90, desc:'Berdiri, angkat kedua tangan tinggi-tinggi sambil jinjit ringan, regangkan seluruh tubuh, lalu turunkan perlahan. Ulangi 3 sampai 4 kali.'},
-{name:'Napas penutup', secs:120, desc:'Kembali duduk tenang. Pejamkan mata bila nyaman, bernapas perlahan, dan syukuri satu hal kecil tentang tubuhmu hari ini.'}];
+var MOVES=[{name:'Napas pembuka', img:'/assets/gm-01.jpg', secs:60, desc:'Duduk atau berdiri tegak. Tarik napas perlahan lewat hidung, hembuskan lewat mulut. Ulangi dengan ritme tenang.'},
+{name:'Leher yang rileks', img:'/assets/gm-02.jpg', secs:90, desc:'Miringkan kepala ke bahu kanan, tahan beberapa napas, lalu ganti sisi. Gerak kecil dan lembut, jangan ditarik paksa.'},
+{name:'Bahu dan dada membuka', img:'/assets/gm-03.jpg', secs:90, desc:'Putar bahu ke belakang perlahan 5 kali, lalu ke depan 5 kali. Akhiri dengan merentangkan kedua lengan dan membuka dada.'},
+{name:'Lengan dan sisi tubuh', img:'/assets/gm-04.jpg', secs:90, desc:'Angkat satu lengan ke atas lalu lengkungkan tubuh ke sisi berlawanan. Tahan, bernapas, lalu ganti sisi.'},
+{name:'Punggung duduk cat-cow', img:'/assets/gm-05.jpg', secs:90, desc:'Sambil duduk, lengkungkan punggung ke depan sambil menarik napas, lalu bulatkan punggung sambil menghembuskan napas. Ikuti ritme napasmu.'},
+{name:'Dekap lutut duduk', img:'/assets/gm-06.jpg', secs:90, desc:'Duduk tegak di kursi, angkat satu lutut dan dekap lembut ke arah dada dengan kedua tangan. Tahan beberapa napas, lalu ganti sisi.'},
+{name:'Ayunan kaki berdiri', img:'/assets/gm-07.jpg', secs:90, desc:'Berdiri sambil berpegangan pada kursi. Ayun satu kaki perlahan ke depan dan belakang, lalu ganti kaki. Jaga keseimbangan.'},
+{name:'Betis dan pergelangan kaki', img:'/assets/gm-08.jpg', secs:90, desc:'Jinjit perlahan lalu turunkan, ulangi 8 sampai 10 kali. Lanjutkan dengan memutar pergelangan kaki ke dua arah, bergantian.'},
+{name:'Rentang seluruh tubuh', img:'/assets/gm-09.jpg', secs:90, desc:'Berdiri, angkat kedua tangan tinggi-tinggi sambil jinjit ringan, regangkan seluruh tubuh, lalu turunkan perlahan. Ulangi 3 sampai 4 kali.'},
+{name:'Napas penutup', img:'/assets/gm-10.jpg', secs:120, desc:'Kembali duduk tenang. Pejamkan mata bila nyaman, bernapas perlahan, dan syukuri satu hal kecil tentang tubuhmu hari ini.'}];
 var gmIdx=0, gmLeft=MOVES[0].secs, gmRunning=false, gmInt=null;
 function gmTotalLeft(){ var t=gmLeft; for(var i=gmIdx+1;i<MOVES.length;i++){ t+=MOVES[i].secs; } return t; }
 function gmFmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
@@ -248,6 +251,7 @@ function gmRender(){
   var total=900; var elapsed=total-(done?0:gmTotalLeft());
   document.getElementById('gmBar').style.width=Math.round(elapsed/total*100)+'%';
   document.getElementById('gmStepLabel').textContent = done ? 'Sesi selesai.' : ('Gerakan '+(gmIdx+1)+' dari '+MOVES.length+' · sisa total '+gmFmt(gmTotalLeft()));
+  var im=document.getElementById('gmMoveImg'); if(im){ var mi=done?MOVES.length-1:gmIdx; im.src=MOVES[mi].img; im.alt='Ilustrasi gerakan '+MOVES[mi].name; }
   document.getElementById('gmMainBtn').textContent = gmRunning ? 'Jeda' : (done ? 'Mulai lagi' : (gmIdx>0||gmLeft<MOVES[0].secs ? 'Lanjut' : 'Mulai'));
 }
 function gmTick(){ gmLeft--; if(gmLeft<=0){ gmBeep(); gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
