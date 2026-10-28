@@ -170,6 +170,26 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .link-danger{color:#B3261E;background:none;border:none;cursor:pointer;font:inherit;font-size:.85rem;text-decoration:underline}
 .center{text-align:center}
 .mt{margin-top:14px}
+
+html,body{overflow-x:hidden}
+img{max-width:100%}
+@media(max-width:560px){
+  .hist-row{flex-wrap:wrap;row-gap:4px}
+  .hist-row>span{min-width:0!important}
+  .hist-row .thumb{width:56px;height:70px}
+  .add-grid>.btn{flex:1 1 100%}
+  .add-grid>.btn-ghost{flex:1 1 42%}
+  .timer-big{font-size:clamp(3.2rem,17vw,4.6rem)}
+  .move-img{width:min(320px,88%)}
+  .block{border-radius:20px}
+}
+
+.sticky-player{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:60;display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(44,38,36,.94);color:#FAF7F2;border-radius:16px;padding:10px 12px 10px 16px;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+.sticky-player .sp-info{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.sticky-player .sp-info b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.95rem}
+.sticky-player .sp-info span{font-weight:800}
+.sticky-player .btn{background:#C58F87;color:#fff;min-height:46px;padding:10px 20px;flex:none}
+@media(max-width:760px){.sticky-player.show{display:flex}}
 .timer-big{font-size:4.6rem;font-weight:700;letter-spacing:.01em}
 .timer-cap{text-align:center;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#A96F66;font-weight:700;margin:4px 0 0}
 .move-track{height:22px}
@@ -191,7 +211,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
   </header>
 
 
-    <div class="block">
+    <div class="block" id="gmPlayerBlock">
       <div class="block-head"><span class="num-badge">1</span><h3>Pemain peregangan</h3></div>
       <p class="center hint" id="gmStepLabel">10 gerakan lembut, total 15 menit. Tanpa alat, cukup ruang kecil dan napas yang tenang.</p>
       <img class="move-img" id="gmMoveImg" src="/assets/gm-01.jpg" alt="Ilustrasi gerakan Napas pembuka" />
@@ -234,6 +254,12 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
   <p class="footer-note">Teman Digital Cantikna, bagian dari Cantikna. Alat bantu harian yang lembut, praktis, dan gratis.</p>
 </div>
 
+
+<div class="sticky-player" id="gmSticky">
+  <div class="sp-info"><b id="gmStickyMove">Gerakan</b><span id="gmStickyTime">1:00 tersisa</span></div>
+  <button class="btn" type="button" id="gmStickyBtn" onclick="gmToggle()">Jeda</button>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite">Tersalin</div>
 
 <script>
@@ -270,6 +296,7 @@ function gmRender(){
   document.getElementById('gmTotalInfo').textContent = 'Total sesi: tersisa '+gmFmt(totalLeft)+' dari 15:00';
   document.getElementById('gmStepLabel').textContent = done ? 'Sesi selesai.' : ('Gerakan '+(gmIdx+1)+' dari '+MOVES.length);
   document.getElementById('gmMainBtn').textContent = gmRunning ? 'Jeda' : (done ? 'Mulai lagi' : (started ? 'Lanjut' : 'Mulai'));
+  gmStickySync();
 }
 function gmTick(){ gmLeft--; if(gmLeft<=0){ gmBeep(); gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
 function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
@@ -282,6 +309,18 @@ function gmComplete(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v
 function gmRenderDone(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var count=0; for(var i=0;i<7;i++){ var d=new Date(); d.setDate(d.getDate()-i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); if(s[k]) count+=s[k]; }
   document.getElementById('gmDoneInfo').textContent = count>0 ? ('Sesi selesai yang tercatat di peramban ini dalam 7 hari terakhir: '+count+' kali.') : ''; } catch(e){} }
 gmRender(); gmRenderDone();
+var gmPlayerVisible=true;
+function gmStickySync(){ var bar=document.getElementById('gmSticky'); if(!bar) return;
+  var done = gmIdx>=MOVES.length;
+  var started = gmRunning || gmIdx>0 || (gmIdx<MOVES.length && gmLeft<MOVES[gmIdx].secs);
+  document.getElementById('gmStickyMove').textContent = done ? 'Sesi selesai' : MOVES[Math.min(gmIdx,MOVES.length-1)].name;
+  document.getElementById('gmStickyTime').textContent = done ? '' : (gmFmt(gmLeft)+' tersisa · gerakan '+(gmIdx+1)+' dari '+MOVES.length);
+  document.getElementById('gmStickyBtn').textContent = gmRunning ? 'Jeda' : 'Lanjut';
+  bar.classList.toggle('show', started && !done && !gmPlayerVisible); }
+if('IntersectionObserver' in window && document.getElementById('gmPlayerBlock')){
+  new IntersectionObserver(function(en){ gmPlayerVisible=en[0].isIntersecting; gmStickySync(); },{threshold:0.2}).observe(document.getElementById('gmPlayerBlock'));
+}
+
 
 </script>
 </body>
