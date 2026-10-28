@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>GentleMove - Peregangan Lembut 15 Menit Cantikna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#C58F87; --rose-dark:#A96F66; --terra:#D98A6C; --terra-dark:#B96A4B;
+  --sand:#F6F2EB; --linen:#FAF7F2; --cream:#FFFDF9; --charcoal:#2C2624;
+  --sage:#7D8C6F; --sage-dark:#5F7052; --sage-soft:#EAF0E2; --gold:#C2A164; --gold-soft:#F7EED6;
+  --muted:#7A6E68; --line:#EADFD6; --input-bg:#FFFDF9; --shadow:0 10px 30px rgba(44,38,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --sand:#211D1B; --linen:#1A1715; --cream:#2A2522; --charcoal:#F3EDE6;
+    --muted:#C4B4AB; --line:#453B36; --input-bg:#241F1C; --sage-soft:#2E3529; --gold-soft:#3A3222;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--linen);color:var(--charcoal);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--terra-dark)}
+.wrap{max-width:820px;margin:0 auto;padding:20px 18px 56px}
+@media(min-width:760px){.wrap{padding:36px 24px 72px}}
+img,svg{max-width:100%}
+h1,h2,h3,h4{font-family:"Playfair Display",serif;line-height:1.15;margin:0}
+
+/* Header */
+.top-badge{display:inline-flex;align-items:center;gap:8px;background:var(--sage-soft);color:var(--sage-dark);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1px solid var(--line)}
+.top-badge i{width:8px;height:8px;border-radius:50%;background:var(--sage);display:inline-block}
+.hero{padding:10px 2px 6px;text-align:center}
+.hero h1{font-size:36px;font-weight:800;margin:16px 0 10px;letter-spacing:-.01em}
+@media(min-width:760px){.hero h1{font-size:50px}}
+.hero p{font-size:16.5px;color:var(--muted);max-width:560px;margin:0 auto}
+.hero p strong{color:var(--charcoal)}
+.hero-illus{max-width:430px;margin:20px auto 4px}
+.hero-illus svg{width:100%;height:auto;display:block}
+.mini-steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:center}
+.mini-steps span{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700}
+.mini-steps b{color:var(--terra-dark);margin-right:4px}
+
+/* Flow chooser */
+.chooser{display:grid;gap:14px;margin:26px 0 8px}
+@media(min-width:700px){.chooser{grid-template-columns:1fr 1fr}}
+.flow-card{appearance:none;text-align:left;width:100%;cursor:pointer;background:var(--cream);border:2px solid var(--line);border-radius:24px;padding:0;overflow:hidden;box-shadow:var(--shadow);transition:border-color .2s, transform .15s;color:var(--charcoal);font-family:inherit}
+.flow-card:active{transform:scale(.99)}
+.flow-card.active{border-color:var(--terra)}
+.card-illus{display:block;line-height:0}
+.card-illus svg{width:100%;height:auto;display:block}
+.card-body{display:block;padding:18px 20px 20px}
+.flow-card h2{font-size:22px;margin-bottom:4px}
+.flow-card p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55;font-family:"Plus Jakarta Sans",sans-serif}
+.flow-card .go{display:inline-block;margin-top:10px;font-weight:800;font-size:13px;color:var(--terra-dark)}
+.flow-card.active .go{color:var(--sage-dark)}
+
+/* Panels and blocks */
+.flow-panel{display:none;margin-top:20px}
+.flow-panel.show{display:block}
+.panel-head{text-align:center;padding:6px 4px 2px}
+.panel-head h2{font-size:28px;margin-bottom:6px}
+.panel-head p{margin:0 auto;color:var(--muted);font-size:15px;max-width:520px}
+.block{background:var(--cream);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);margin-top:16px}
+@media(min-width:760px){.block{padding:26px 28px}}
+.block-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.num-badge{flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:800;font-size:16px;font-family:"Plus Jakarta Sans",sans-serif}
+.num-badge.sage{background:var(--sage)}
+.block-head h3{font-size:22px}
+.block .desc{color:var(--muted);margin:0 0 14px;font-size:14.5px}
+.block.secondary{box-shadow:none;background:var(--sand)}
+.block.secondary .block-head h3{font-size:19px}
+.sub-label{font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--terra-dark);margin:18px 0 12px}
+.sub-label:first-of-type{margin-top:4px}
+
+/* Checklist */
+.check-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.check-list li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.check-list .ck{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--sage-soft);color:var(--sage-dark);display:grid;place-items:center;margin-top:1px}
+.check-list .ck svg{width:13px;height:13px}
+.note{border-radius:14px;padding:11px 14px;font-size:13.5px;margin-top:13px;background:var(--gold-soft);color:var(--charcoal)}
+.note strong{color:var(--terra-dark)}
+
+/* Buttons */
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;border-radius:999px;padding:14px 22px;min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-copy-big{background:var(--sage);color:#fff;width:100%;font-size:16px;min-height:56px;box-shadow:0 8px 20px rgba(125,140,111,.3)}
+.btn-copy-big:hover{background:var(--sage-dark)}
+.btn-ghost{background:transparent;color:var(--charcoal);border:2px solid var(--line)}
+.btn-small{padding:10px 16px;min-height:44px;font-size:13.5px;width:100%}
+@media(min-width:560px){.btn-small{width:auto}}
+
+/* Forms */
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:800;font-size:14px;margin-bottom:7px}
+.field label small{font-weight:600;color:var(--muted)}
+.field input[type="text"],.field input[type="number"],.field select{width:100%;border:2px solid var(--line);background:var(--input-bg);color:var(--charcoal);border-radius:14px;padding:13px 14px;font-family:inherit;font-size:16px;outline:none}
+.field input:focus,.field select:focus{border-color:var(--rose)}
+.form-grid{display:grid;gap:0 14px}
+@media(min-width:640px){.form-grid{grid-template-columns:1fr 1fr 1fr}.form-grid.two{grid-template-columns:1fr 1fr}}
+fieldset{border:0;padding:0;margin:0 0 16px}
+legend{font-weight:800;font-size:14px;margin-bottom:9px;padding:0}
+.radio-list{display:grid;gap:9px}
+@media(min-width:640px){.radio-list.cols{grid-template-columns:1fr 1fr}}
+.radio-item{display:flex;gap:11px;align-items:flex-start;background:var(--sand);border:2px solid transparent;border-radius:14px;padding:12px 14px;cursor:pointer;font-size:14.5px}
+.radio-item:has(input:checked){border-color:var(--rose);background:var(--cream)}
+.radio-item input{margin-top:3px;width:19px;height:19px;accent-color:var(--terra);flex:0 0 auto}
+.radio-item b{display:block;font-size:14.5px}
+.radio-item span{color:var(--muted);font-size:13.5px;line-height:1.45}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg .seg-box{border:2px solid var(--line);background:var(--sand);border-radius:16px;padding:14px;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center}
+.seg .seg-box input{width:19px;height:19px;accent-color:var(--terra);margin:0;flex:0 0 auto}
+.seg label:has(input:checked) .seg-box{border-color:var(--terra);background:#FBECE4;color:var(--charcoal)}
+@media (prefers-color-scheme: dark){.seg label:has(input:checked) .seg-box{background:#3A2C24}}
+
+/* Prompt box */
+.prompt-block{margin-top:18px}
+.prompt-block:first-of-type{margin-top:6px}
+.prompt-title{display:flex;align-items:baseline;gap:9px;margin-bottom:9px;flex-wrap:wrap}
+.prompt-title h4{font-size:18px}
+.prompt-title span{font-size:12.5px;color:var(--muted);font-weight:700}
+.prompt-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--sand)}
+.prompt-text{width:100%;border:0;background:transparent;color:var(--charcoal);font-family:inherit;font-size:14.8px;line-height:1.65;padding:16px;resize:vertical;min-height:180px;outline:none;display:block}
+.prompt-text.short{min-height:130px}
+.copy-row{padding:0 14px 14px}
+.hint{font-size:13px;color:var(--muted);margin:10px 0 0}
+.order-note{display:flex;gap:10px;align-items:flex-start;background:var(--sage-soft);border-radius:16px;padding:13px 15px;font-size:14px;margin-top:16px}
+.order-note svg{flex:0 0 20px;width:20px;height:20px;color:var(--sage-dark);margin-top:2px}
+
+/* Follow-up fold */
+details.fold{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+details.fold summary{cursor:pointer;list-style:none;padding:18px 20px;display:flex;align-items:center;gap:12px;font-family:"Playfair Display",serif;font-weight:700;font-size:19px}
+details.fold summary::-webkit-details-marker{display:none}
+details.fold summary .chev{margin-left:auto;color:var(--terra-dark);transition:transform .2s;display:grid;place-items:center}
+details.fold summary .chev svg{width:20px;height:20px}
+details.fold[open ] summary .chev{transform:rotate(180deg)}
+.fold-body{padding:0 20px 20px}
+@media(min-width:760px){.fold-body{padding:0 28px 24px}details.fold summary{padding:20px 28px}}
+.mini-card{border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;background:var(--sand)}
+.mini-card:last-child{margin-bottom:0}
+.mini-card h4{margin:0 0 4px;font-size:16.5px}
+.mini-card p{margin:0 0 12px;color:var(--muted);font-size:13.5px}
+.mini-card .prompt-wrap{background:var(--cream);margin-top:12px}
+
+.privacy{margin-top:20px;font-size:13.5px;color:var(--muted);background:var(--sand);border-radius:14px;padding:13px 15px}
+.footer-note{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);background:var(--charcoal);color:var(--linen);padding:12px 20px;border-radius:999px;font-weight:800;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<style>
+.progress-track{background:#EFE6DA;border-radius:999px;height:18px;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,#C58F87,#A96F66);height:100%;border-radius:999px;transition:width .4s ease}
+.big-stat{font-family:'Playfair Display',serif;font-size:2.4rem;line-height:1.1;color:#2C2624}
+.add-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.timer-big{font-family:'Playfair Display',serif;font-size:3.4rem;text-align:center;color:#2C2624;line-height:1}
+.move-name{font-family:'Playfair Display',serif;font-size:1.5rem;text-align:center;margin:6px 0 2px}
+.hist-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(197,143,135,.35);font-size:.95rem}
+.hist-row:last-child{border-bottom:none}
+.hist-bar{flex:1;background:#EFE6DA;border-radius:999px;height:10px;overflow:hidden}
+.hist-bar i{display:block;height:100%;background:#8FA37E;border-radius:999px}
+.entry-item{border:1px solid rgba(197,143,135,.35);border-radius:16px;padding:14px 16px;margin-top:12px;background:#FFFDF9}
+.entry-item .meta{font-size:.85rem;color:#8a7a72}
+.link-danger{color:#B3261E;background:none;border:none;cursor:pointer;font:inherit;font-size:.85rem;text-decoration:underline}
+.center{text-align:center}
+.mt{margin-top:14px}
+</style>
+
+<body>
+<div style="background:#FAF7F2;border-bottom:1px solid rgba(197,143,135,.25);padding:10px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;"><a href="/" style="color:#2C2624;text-decoration:none;font-weight:600;">&#8592; Cantikna.com</a><span style="color:#8a7a72;"> &nbsp;|&nbsp; Teman Digital Cantikna, gratis dipakai langsung di web</span></div>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="top-badge"><i></i> Teman Digitalmu</span>
+    <h1>GentleMove</h1>
+    <p>Peregangan lembut 15 menit dengan timer terpandu, untuk punggung dan persendian yang lebih lega. Ikuti dari rumah, tanpa alat apa pun.</p>
+    <div class="hero-illus" style="max-width:540px"><img src="/assets/gentlemove-karakter.jpg" alt="Karakter Cantikna melakukan peregangan pagi di dekat jendela" style="width:100%;height:auto;display:block;border-radius:24px" /></div>
+  </header>
+
+
+    <div class="block">
+      <div class="block-head"><span class="num-badge">1</span><h3>Pemain peregangan</h3></div>
+      <p class="center hint" id="gmStepLabel">10 gerakan lembut, total 15 menit. Tanpa alat, cukup ruang kecil dan napas yang tenang.</p>
+      <p class="move-name" id="gmMoveName">Siap mulai?</p>
+      <p class="timer-big" id="gmTimer">15:00</p>
+      <div class="progress-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
+      <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
+      <div class="add-grid" style="justify-content:center">
+        <button class="btn" type="button" id="gmMainBtn" onclick="gmToggle()">Mulai</button>
+        <button class="btn-ghost" type="button" onclick="gmSkip()">Lewati gerakan</button>
+        <button class="btn-ghost" type="button" onclick="gmRestart()">Ulangi dari awal</button>
+      </div>
+      <p class="center hint" id="gmDoneInfo"></p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><span class="num-badge sage">2</span><h3>Urutan gerakannya</h3></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">1</span><span style="flex:1"><b>Napas pembuka</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Duduk atau berdiri tegak. Tarik napas perlahan lewat hidung, hembuskan lewat mulut. Ulangi dengan ritme tenang.</span></span><span>60 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">2</span><span style="flex:1"><b>Leher yang rileks</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Miringkan kepala ke bahu kanan, tahan beberapa napas, lalu ganti sisi. Gerak kecil dan lembut, jangan ditarik paksa.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">3</span><span style="flex:1"><b>Bahu dan dada membuka</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Putar bahu ke belakang perlahan 5 kali, lalu ke depan 5 kali. Akhiri dengan merentangkan kedua lengan dan membuka dada.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">4</span><span style="flex:1"><b>Lengan dan sisi tubuh</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Angkat satu lengan ke atas lalu lengkungkan tubuh ke sisi berlawanan. Tahan, bernapas, lalu ganti sisi.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">5</span><span style="flex:1"><b>Punggung duduk cat-cow</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Sambil duduk, lengkungkan punggung ke depan sambil menarik napas, lalu bulatkan punggung sambil menghembuskan napas. Ikuti ritme napasmu.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">6</span><span style="flex:1"><b>Pinggang berputar lembut</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Putar tubuh bagian atas ke kanan sambil memegang lutut, tahan beberapa napas, lalu ganti sisi. Pinggul tetap menghadap depan.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">7</span><span style="flex:1"><b>Pinggul dan paha</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Berdiri sambil berpegangan pada kursi. Ayun satu kaki perlahan ke depan dan belakang, lalu ganti kaki. Jaga keseimbangan.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">8</span><span style="flex:1"><b>Betis dan pergelangan kaki</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Jinjit perlahan lalu turunkan, ulangi 8 sampai 10 kali. Lanjutkan dengan memutar pergelangan kaki ke dua arah, bergantian.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">9</span><span style="flex:1"><b>Rentang seluruh tubuh</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Berdiri, angkat kedua tangan tinggi-tinggi sambil jinjit ringan, regangkan seluruh tubuh, lalu turunkan perlahan. Ulangi 3 sampai 4 kali.</span></span><span>90 detik</span></div>
+      <div class="hist-row"><span class="num-badge sage" style="flex:none">10</span><span style="flex:1"><b>Napas penutup</b><br><span class="meta" style="color:#8a7a72;font-size:.9rem">Kembali duduk tenang. Pejamkan mata bila nyaman, bernapas perlahan, dan syukuri satu hal kecil tentang tubuhmu hari ini.</span></span><span>120 detik</span></div>
+      <p class="hint" style="margin-top:12px">Semua gerakan bersifat lembut dan umum. Hentikan bila terasa nyeri, dan sesuaikan dengan kondisi tubuhmu. Alat ini bukan pengganti saran dokter atau fisioterapis.</p>
+    </div>
+
+
+  <div class="privacy"><strong>Privasi:</strong> semua catatanmu hanya tersimpan di perambanmu sendiri (penyimpanan lokal). Tidak ada yang dikirim atau disimpan oleh Cantikna, dan kamu bisa menghapusnya kapan saja.</div>
+
+  <p class="footer-note">Teman Digital Cantikna, bagian dari Cantikna. Alat bantu harian yang lembut, praktis, dan gratis.</p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Tersalin</div>
+
+<script>
+
+var MOVES=[{name:'Napas pembuka', secs:60, desc:'Duduk atau berdiri tegak. Tarik napas perlahan lewat hidung, hembuskan lewat mulut. Ulangi dengan ritme tenang.'},
+{name:'Leher yang rileks', secs:90, desc:'Miringkan kepala ke bahu kanan, tahan beberapa napas, lalu ganti sisi. Gerak kecil dan lembut, jangan ditarik paksa.'},
+{name:'Bahu dan dada membuka', secs:90, desc:'Putar bahu ke belakang perlahan 5 kali, lalu ke depan 5 kali. Akhiri dengan merentangkan kedua lengan dan membuka dada.'},
+{name:'Lengan dan sisi tubuh', secs:90, desc:'Angkat satu lengan ke atas lalu lengkungkan tubuh ke sisi berlawanan. Tahan, bernapas, lalu ganti sisi.'},
+{name:'Punggung duduk cat-cow', secs:90, desc:'Sambil duduk, lengkungkan punggung ke depan sambil menarik napas, lalu bulatkan punggung sambil menghembuskan napas. Ikuti ritme napasmu.'},
+{name:'Pinggang berputar lembut', secs:90, desc:'Putar tubuh bagian atas ke kanan sambil memegang lutut, tahan beberapa napas, lalu ganti sisi. Pinggul tetap menghadap depan.'},
+{name:'Pinggul dan paha', secs:90, desc:'Berdiri sambil berpegangan pada kursi. Ayun satu kaki perlahan ke depan dan belakang, lalu ganti kaki. Jaga keseimbangan.'},
+{name:'Betis dan pergelangan kaki', secs:90, desc:'Jinjit perlahan lalu turunkan, ulangi 8 sampai 10 kali. Lanjutkan dengan memutar pergelangan kaki ke dua arah, bergantian.'},
+{name:'Rentang seluruh tubuh', secs:90, desc:'Berdiri, angkat kedua tangan tinggi-tinggi sambil jinjit ringan, regangkan seluruh tubuh, lalu turunkan perlahan. Ulangi 3 sampai 4 kali.'},
+{name:'Napas penutup', secs:120, desc:'Kembali duduk tenang. Pejamkan mata bila nyaman, bernapas perlahan, dan syukuri satu hal kecil tentang tubuhmu hari ini.'}];
+var gmIdx=0, gmLeft=MOVES[0].secs, gmRunning=false, gmInt=null;
+function gmTotalLeft(){ var t=gmLeft; for(var i=gmIdx+1;i<MOVES.length;i++){ t+=MOVES[i].secs; } return t; }
+function gmFmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function showToast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },2600); }
+function gmBeep(){ try { var ctx=gmBeep.ctx||(gmBeep.ctx=new (window.AudioContext||window.webkitAudioContext)()); var o=ctx.createOscillator(); var g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value=660; g.gain.setValueAtTime(0.001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime+0.05); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.7); o.start(); o.stop(ctx.currentTime+0.75); } catch(e){} }
+function gmRender(){
+  var done=false;
+  if(gmIdx>=MOVES.length){ done=true; }
+  document.getElementById('gmMoveName').textContent = done ? 'Selesai. Tubuhmu berterima kasih.' : (gmRunning||gmIdx>0||gmLeft<MOVES[0].secs ? MOVES[gmIdx].name : 'Siap mulai?');
+  document.getElementById('gmTimer').textContent = done ? '0:00' : gmFmt(gmRunning||gmIdx>0||gmLeft<MOVES[0].secs ? gmLeft : 900);
+  document.getElementById('gmMoveDesc').textContent = done ? 'Kamu menyelesaikan 15 menit peregangan lembut. Catat di CalmHeart bila ingin menyimpan momen ini.' : (gmRunning||gmIdx>0||gmLeft<MOVES[0].secs ? MOVES[gmIdx].desc : 'Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.');
+  var total=900; var elapsed=total-(done?0:gmTotalLeft());
+  document.getElementById('gmBar').style.width=Math.round(elapsed/total*100)+'%';
+  document.getElementById('gmStepLabel').textContent = done ? 'Sesi selesai.' : ('Gerakan '+(gmIdx+1)+' dari '+MOVES.length+' · sisa total '+gmFmt(gmTotalLeft()));
+  document.getElementById('gmMainBtn').textContent = gmRunning ? 'Jeda' : (done ? 'Mulai lagi' : (gmIdx>0||gmLeft<MOVES[0].secs ? 'Lanjut' : 'Mulai'));
+}
+function gmTick(){ gmLeft--; if(gmLeft<=0){ gmBeep(); gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
+function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
+function gmToggle(){ if(gmIdx>=MOVES.length){ gmRestart(); }
+  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); } gmRender(); }
+function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; } } gmRender(); }
+function gmRestart(){ gmStop(); gmIdx=0; gmLeft=MOVES[0].secs; gmRender(); }
+function gmComplete(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
+  showToast('Sesi 15 menit selesai. Kerja bagus!'); gmRenderDone(); }
+function gmRenderDone(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var count=0; for(var i=0;i<7;i++){ var d=new Date(); d.setDate(d.getDate()-i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); if(s[k]) count+=s[k]; }
+  document.getElementById('gmDoneInfo').textContent = count>0 ? ('Sesi selesai yang tercatat di peramban ini dalam 7 hari terakhir: '+count+' kali.') : ''; } catch(e){} }
+gmRender(); gmRenderDone();
+
+</script>
+</body>
+</html>
