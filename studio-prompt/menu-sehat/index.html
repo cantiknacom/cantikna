@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Menu Sehat AI - Studio Prompt Cantikna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#C58F87; --rose-dark:#A96F66; --terra:#D98A6C; --terra-dark:#B96A4B;
+  --sand:#F6F2EB; --linen:#FAF7F2; --cream:#FFFDF9; --charcoal:#2C2624;
+  --sage:#7D8C6F; --sage-dark:#5F7052; --sage-soft:#EAF0E2; --gold:#C2A164; --gold-soft:#F7EED6;
+  --muted:#7A6E68; --line:#EADFD6; --input-bg:#FFFDF9; --shadow:0 10px 30px rgba(44,38,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --sand:#211D1B; --linen:#1A1715; --cream:#2A2522; --charcoal:#F3EDE6;
+    --muted:#C4B4AB; --line:#453B36; --input-bg:#241F1C; --sage-soft:#2E3529; --gold-soft:#3A3222;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--linen);color:var(--charcoal);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--terra-dark)}
+.wrap{max-width:820px;margin:0 auto;padding:20px 18px 56px}
+@media(min-width:760px){.wrap{padding:36px 24px 72px}}
+img,svg{max-width:100%}
+h1,h2,h3,h4{font-family:"Playfair Display",serif;line-height:1.15;margin:0}
+
+/* Header */
+.top-badge{display:inline-flex;align-items:center;gap:8px;background:var(--sage-soft);color:var(--sage-dark);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1px solid var(--line)}
+.top-badge i{width:8px;height:8px;border-radius:50%;background:var(--sage);display:inline-block}
+.hero{padding:10px 2px 6px;text-align:center}
+.hero h1{font-size:36px;font-weight:800;margin:16px 0 10px;letter-spacing:-.01em}
+@media(min-width:760px){.hero h1{font-size:50px}}
+.hero p{font-size:16.5px;color:var(--muted);max-width:560px;margin:0 auto}
+.hero p strong{color:var(--charcoal)}
+.hero-illus{max-width:430px;margin:20px auto 4px}
+.hero-illus svg{width:100%;height:auto;display:block}
+.mini-steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:center}
+.mini-steps span{background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700}
+.mini-steps b{color:var(--terra-dark);margin-right:4px}
+
+/* Flow chooser */
+.chooser{display:grid;gap:14px;margin:26px 0 8px}
+@media(min-width:700px){.chooser{grid-template-columns:1fr 1fr}}
+.flow-card{appearance:none;text-align:left;width:100%;cursor:pointer;background:var(--cream);border:2px solid var(--line);border-radius:24px;padding:0;overflow:hidden;box-shadow:var(--shadow);transition:border-color .2s, transform .15s;color:var(--charcoal);font-family:inherit}
+.flow-card:active{transform:scale(.99)}
+.flow-card.active{border-color:var(--terra)}
+.card-illus{display:block;line-height:0}
+.card-illus svg{width:100%;height:auto;display:block}
+.card-body{display:block;padding:18px 20px 20px}
+.flow-card h2{font-size:22px;margin-bottom:4px}
+.flow-card p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55;font-family:"Plus Jakarta Sans",sans-serif}
+.flow-card .go{display:inline-block;margin-top:10px;font-weight:800;font-size:13px;color:var(--terra-dark)}
+.flow-card.active .go{color:var(--sage-dark)}
+
+/* Panels and blocks */
+.flow-panel{display:none;margin-top:20px}
+.flow-panel.show{display:block}
+.panel-head{text-align:center;padding:6px 4px 2px}
+.panel-head h2{font-size:28px;margin-bottom:6px}
+.panel-head p{margin:0 auto;color:var(--muted);font-size:15px;max-width:520px}
+.block{background:var(--cream);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);margin-top:16px}
+@media(min-width:760px){.block{padding:26px 28px}}
+.block-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.num-badge{flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:800;font-size:16px;font-family:"Plus Jakarta Sans",sans-serif}
+.num-badge.sage{background:var(--sage)}
+.block-head h3{font-size:22px}
+.block .desc{color:var(--muted);margin:0 0 14px;font-size:14.5px}
+.block.secondary{box-shadow:none;background:var(--sand)}
+.block.secondary .block-head h3{font-size:19px}
+.sub-label{font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--terra-dark);margin:18px 0 12px}
+.sub-label:first-of-type{margin-top:4px}
+
+/* Checklist */
+.check-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.check-list li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.check-list .ck{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--sage-soft);color:var(--sage-dark);display:grid;place-items:center;margin-top:1px}
+.check-list .ck svg{width:13px;height:13px}
+.note{border-radius:14px;padding:11px 14px;font-size:13.5px;margin-top:13px;background:var(--gold-soft);color:var(--charcoal)}
+.note strong{color:var(--terra-dark)}
+
+/* Buttons */
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;border-radius:999px;padding:14px 22px;min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-copy-big{background:var(--sage);color:#fff;width:100%;font-size:16px;min-height:56px;box-shadow:0 8px 20px rgba(125,140,111,.3)}
+.btn-copy-big:hover{background:var(--sage-dark)}
+.btn-ghost{background:transparent;color:var(--charcoal);border:2px solid var(--line)}
+.btn-small{padding:10px 16px;min-height:44px;font-size:13.5px;width:100%}
+@media(min-width:560px){.btn-small{width:auto}}
+
+/* Forms */
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:800;font-size:14px;margin-bottom:7px}
+.field label small{font-weight:600;color:var(--muted)}
+.field input[type="text"],.field input[type="number"],.field select{width:100%;border:2px solid var(--line);background:var(--input-bg);color:var(--charcoal);border-radius:14px;padding:13px 14px;font-family:inherit;font-size:16px;outline:none}
+.field input:focus,.field select:focus{border-color:var(--rose)}
+.form-grid{display:grid;gap:0 14px}
+@media(min-width:640px){.form-grid{grid-template-columns:1fr 1fr 1fr}.form-grid.two{grid-template-columns:1fr 1fr}}
+fieldset{border:0;padding:0;margin:0 0 16px}
+legend{font-weight:800;font-size:14px;margin-bottom:9px;padding:0}
+.radio-list{display:grid;gap:9px}
+@media(min-width:640px){.radio-list.cols{grid-template-columns:1fr 1fr}}
+.radio-item{display:flex;gap:11px;align-items:flex-start;background:var(--sand);border:2px solid transparent;border-radius:14px;padding:12px 14px;cursor:pointer;font-size:14.5px}
+.radio-item:has(input:checked){border-color:var(--rose);background:var(--cream)}
+.radio-item input{margin-top:3px;width:19px;height:19px;accent-color:var(--terra);flex:0 0 auto}
+.radio-item b{display:block;font-size:14.5px}
+.radio-item span{color:var(--muted);font-size:13.5px;line-height:1.45}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg .seg-box{border:2px solid var(--line);background:var(--sand);border-radius:16px;padding:14px;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center}
+.seg .seg-box input{width:19px;height:19px;accent-color:var(--terra);margin:0;flex:0 0 auto}
+.seg label:has(input:checked) .seg-box{border-color:var(--terra);background:#FBECE4;color:var(--charcoal)}
+@media (prefers-color-scheme: dark){.seg label:has(input:checked) .seg-box{background:#3A2C24}}
+
+/* Prompt box */
+.prompt-block{margin-top:18px}
+.prompt-block:first-of-type{margin-top:6px}
+.prompt-title{display:flex;align-items:baseline;gap:9px;margin-bottom:9px;flex-wrap:wrap}
+.prompt-title h4{font-size:18px}
+.prompt-title span{font-size:12.5px;color:var(--muted);font-weight:700}
+.prompt-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--sand)}
+.prompt-text{width:100%;border:0;background:transparent;color:var(--charcoal);font-family:inherit;font-size:14.8px;line-height:1.65;padding:16px;resize:vertical;min-height:180px;outline:none;display:block}
+.prompt-text.short{min-height:130px}
+.copy-row{padding:0 14px 14px}
+.hint{font-size:13px;color:var(--muted);margin:10px 0 0}
+.order-note{display:flex;gap:10px;align-items:flex-start;background:var(--sage-soft);border-radius:16px;padding:13px 15px;font-size:14px;margin-top:16px}
+.order-note svg{flex:0 0 20px;width:20px;height:20px;color:var(--sage-dark);margin-top:2px}
+
+/* Follow-up fold */
+details.fold{margin-top:16px;background:var(--cream);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+details.fold summary{cursor:pointer;list-style:none;padding:18px 20px;display:flex;align-items:center;gap:12px;font-family:"Playfair Display",serif;font-weight:700;font-size:19px}
+details.fold summary::-webkit-details-marker{display:none}
+details.fold summary .chev{margin-left:auto;color:var(--terra-dark);transition:transform .2s;display:grid;place-items:center}
+details.fold summary .chev svg{width:20px;height:20px}
+details.fold[open ] summary .chev{transform:rotate(180deg)}
+.fold-body{padding:0 20px 20px}
+@media(min-width:760px){.fold-body{padding:0 28px 24px}details.fold summary{padding:20px 28px}}
+.mini-card{border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;background:var(--sand)}
+.mini-card:last-child{margin-bottom:0}
+.mini-card h4{margin:0 0 4px;font-size:16.5px}
+.mini-card p{margin:0 0 12px;color:var(--muted);font-size:13.5px}
+.mini-card .prompt-wrap{background:var(--cream);margin-top:12px}
+
+.privacy{margin-top:20px;font-size:13.5px;color:var(--muted);background:var(--sand);border-radius:14px;padding:13px 15px}
+.footer-note{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);background:var(--charcoal);color:var(--linen);padding:12px 20px;border-radius:999px;font-weight:800;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<div style="background:#FAF7F2;border-bottom:1px solid rgba(197,143,135,.25);padding:10px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;"><a href="/" style="color:#2C2624;text-decoration:none;font-weight:600;">&#8592; Cantikna.com</a><span style="color:#8a7a72;"> &nbsp;|&nbsp; Studio Prompt AI, gratis dari Cantikna</span></div>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="top-badge"><i></i> Cantikna AI</span>
+    <h1>Menu Sehat AI</h1>
+    <p>Hitung kebutuhan kalorimu, lalu susun menu sehat 7 hari lengkap dengan daftar belanja. Isi datamu, salin promptnya, lalu tempel di <strong>Gemini atau ChatGPT</strong> milikmu.</p>
+    <div class="hero-illus" aria-hidden="true">
+      <svg viewBox="0 0 360 220" role="img">
+        <circle cx="180" cy="110" r="98" fill="#F7EED6"/>
+        <circle cx="52" cy="42" r="16" fill="#EAF0E2"/>
+        <circle cx="316" cy="52" r="12" fill="#FBECE4"/>
+        <!-- dress kiri -->
+        <g>
+          <path d="M62 58 v10" stroke="#C2A164" stroke-width="3" stroke-linecap="round"/>
+          <path d="M48 84 c0-10 6-16 14-16 s14 6 14 16 l6 34 c-13 5-27 5-40 0 Z" fill="#C58F87"/>
+          <path d="M42 118 c13-4 27-4 40 0 l3 14 c-15 6-31 6-46 0 Z" fill="#A96F66"/>
+        </g>
+        <!-- kemeja kanan atas -->
+        <g>
+          <path d="M292 66 l14-8 20 10 12 20-14 7-4-8 v35 h-24 v-35 l-4 8-14-7 Z" fill="#7D8C6F"/>
+          <circle cx="308" cy="92" r="2.4" fill="#FAF7F2"/><circle cx="308" cy="104" r="2.4" fill="#FAF7F2"/>
+        </g>
+        <!-- mangkuk sehat kanan bawah -->
+        <g>
+          <path d="M272 168 a34 34 0 0 0 68 0 Z" fill="#C2A164"/>
+          <rect x="292" y="170" width="28" height="5" rx="2.5" fill="#A98848"/>
+          <circle cx="288" cy="164" r="8" fill="#7D8C6F"/><circle cx="306" cy="160" r="9" fill="#8FA37E"/>
+          <circle cx="322" cy="164" r="7" fill="#D98A6C"/><circle cx="298" cy="166" r="6" fill="#E9B44C"/>
+          <path d="M292 146 c-4-6 4-8 0-14 M308 148 c-4-6 4-8 0-14 M322 146 c-4-6 4-8 0-14" stroke="#C58F87" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- bintang kecil -->
+        <path d="M96 150 l2.6 6.4 6.4 2.6-6.4 2.6-2.6 6.4-2.6-6.4-6.4-2.6 6.4-2.6Z" fill="#C2A164"/>
+        <path d="M252 40 l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="#D98A6C"/>
+        <!-- karakter wanita -->
+        <g>
+          <path d="M146 78 c0-26 14-40 34-40 s34 14 34 40 v58 c0 10-8 16-16 16 h-36 c-8 0-16-6-16-16 Z" fill="#3A2A24"/>
+          <circle cx="180" cy="76" r="25" fill="#B98056"/>
+          <path d="M155 74 c0-16 11-26 25-26 s25 10 25 26 c0 4-2 6-4 4-6-8-8-16-21-16 s-15 8-21 16 c-2 2-4 0-4-4Z" fill="#3A2A24"/>
+          <circle cx="168" cy="80" r="2.2" fill="#2C2624"/><circle cx="192" cy="80" r="2.2" fill="#2C2624"/>
+          <path d="M172 90 q8 6 16 0" stroke="#8A4B2A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <circle cx="160" cy="88" r="3.4" fill="#D98A6C" opacity=".55"/><circle cx="200" cy="88" r="3.4" fill="#D98A6C" opacity=".55"/>
+          <path d="M180 100 v10" stroke="#B98056" stroke-width="10" stroke-linecap="round"/>
+          <path d="M148 122 c4-10 16-14 32-14 s28 4 32 14 l6 44 h-76 Z" fill="#D98A6C"/>
+          <path d="M142 166 h76 l6 40 h-88 Z" fill="#7D8C6F"/>
+          <path d="M148 128 c-12 8-18 20-20 34" stroke="#B98056" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <path d="M212 128 c10 6 15 14 17 24" stroke="#B98056" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <g transform="rotate(14 232 158)">
+            <rect x="223" y="138" width="19" height="34" rx="4" fill="#2C2624"/>
+            <rect x="226" y="143" width="13" height="22" rx="2" fill="#F6F2EB"/>
+            <path d="M229 156 l2.4 4.8 4.8 2.4-4.8 2.4-2.4 4.8-2.4-4.8-4.8-2.4 4.8-2.4Z" fill="#C2A164" transform="translate(0 -8) scale(.8) translate(7 4)"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="mini-steps" aria-label="Ringkas cara pakai">
+      <span><b>1</b> Isi data</span>
+      <span><b>2</b> Salin prompt</span>
+      <span><b>3</b> Tempel di AI milikmu</span>
+    </div>
+  </header>
+
+  <nav style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:4px 0 20px;font-size:.95rem"><a href="/studio-prompt/" style="color:#A96F66;font-weight:600;text-decoration:none">← Semua alat Studio AI</a><a href="/studio-prompt/coba-dulu/" style="color:#A96F66;font-weight:600;text-decoration:none">Coba Dulu AI →</a></nav>
+
+    <section class="flow-panel show" id="panelB" aria-label="Alur Menu Sehat AI">
+    <div class="panel-head">
+      <h2>Menu Sehat AI</h2>
+      <p>Satu formulir, dua prompt berurutan. Isi sekali, salin dua kali.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><span class="num-badge sage">1</span><h3>Isi datamu</h3></div>
+
+      <p class="sub-label">Data diri</p>
+      <div class="form-grid">
+        <div class="field"><label for="bUsia">Usia (tahun)</label><input type="number" id="bUsia" inputmode="numeric" min="10" max="90" placeholder="Contoh: 28" oninput="updateB1()"></div>
+        <div class="field"><label for="bBB">Berat badan (kg)</label><input type="number" id="bBB" inputmode="decimal" min="30" max="200" placeholder="Contoh: 58" oninput="updateB1()"></div>
+        <div class="field"><label for="bTB">Tinggi badan (cm)</label><input type="number" id="bTB" inputmode="numeric" min="120" max="210" placeholder="Contoh: 160" oninput="updateB1()"></div>
+      </div>
+
+      <fieldset>
+        <legend>Tingkat aktivitas</legend>
+        <div class="radio-list cols">
+          <label class="radio-item"><input type="radio" name="bAkt" value="sangat ringan, kerja duduk dan jarang olahraga" onchange="updateB1()"><span><b>Sangat ringan</b><span>Kerja duduk, jarang olahraga.</span></span></label>
+          <label class="radio-item"><input type="radio" name="bAkt" value="ringan, olahraga 1 sampai 3 hari per minggu" onchange="updateB1()"><span><b>Ringan</b><span>Olahraga 1 sampai 3 hari per minggu.</span></span></label>
+          <label class="radio-item"><input type="radio" name="bAkt" value="sedang, olahraga 3 sampai 5 hari per minggu" onchange="updateB1()"><span><b>Sedang</b><span>Olahraga 3 sampai 5 hari per minggu.</span></span></label>
+          <label class="radio-item"><input type="radio" name="bAkt" value="aktif, olahraga 6 sampai 7 hari per minggu atau kerja fisik" onchange="updateB1()"><span><b>Aktif</b><span>Olahraga 6 sampai 7 hari atau kerja fisik.</span></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tujuanmu</legend>
+        <div class="radio-list cols">
+          <label class="radio-item"><input type="radio" name="bTujuan" value="menurunkan berat badan" onchange="updateB1()"><span><b>Menurunkan berat badan</b></span></label>
+          <label class="radio-item"><input type="radio" name="bTujuan" value="menjaga berat badan" onchange="updateB1()"><span><b>Menjaga berat badan</b></span></label>
+          <label class="radio-item"><input type="radio" name="bTujuan" value="menaikkan berat badan secara sehat" onchange="updateB1()"><span><b>Menaikkan berat badan secara sehat</b></span></label>
+        </div>
+      </fieldset>
+
+      <p class="sub-label">Preferensi menu</p>
+      <div class="form-grid two">
+        <div class="field"><label for="bPantangan">Pantangan dan alergi</label><input type="text" id="bPantangan" placeholder="Contoh: tidak makan seafood, alergi kacang" oninput="updateB2()"></div>
+        <div class="field"><label for="bTidakSuka">Bahan yang tidak kamu suka</label><input type="text" id="bTidakSuka" placeholder="Contoh: jeroan, pare, petai" oninput="updateB2()"></div>
+      </div>
+      <p class="hint" style="margin:-4px 0 14px">Kosongkan saja bila tidak ada.</p>
+
+      <fieldset>
+        <legend>Bujet belanja</legend>
+        <div class="seg" role="radiogroup" aria-label="Bujet belanja">
+          <label><span class="seg-box"><input type="radio" name="bBujet" value="hemat" onchange="updateB2()">Hemat</span></label>
+          <label><span class="seg-box"><input type="radio" name="bBujet" value="standar" onchange="updateB2()">Standar</span></label>
+        </div>
+      </fieldset>
+      <fieldset style="margin-bottom:2px">
+        <legend>Cara masak</legend>
+        <div class="seg" role="radiogroup" aria-label="Cara masak">
+          <label><span class="seg-box"><input type="radio" name="bMasak" value="banyak masak sendiri" onchange="updateB2()">Banyak masak sendiri</span></label>
+          <label><span class="seg-box"><input type="radio" name="bMasak" value="campuran masak dan beli jadi" onchange="updateB2()">Campuran masak dan beli jadi</span></label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><span class="num-badge sage">2</span><h3>Salin promptnya berurutan</h3></div>
+      <div class="order-note" style="margin-top:2px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+        <span>Tempel <strong>Prompt 1</strong> dulu di obrolan AI mu. Setelah dijawab, tempel <strong>Prompt 2</strong> di obrolan yang sama.</span>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-title"><h4>Prompt 1: Hitung kalorimu</h4><span>Kirim pertama</span></div>
+        <div class="prompt-wrap">
+          <textarea class="prompt-text" id="promptB1" readonly aria-label="Pratinjau prompt hitung kalori"></textarea>
+          <div class="copy-row">
+            <button class="btn btn-copy-big" onclick="copyPrompt('promptB1', this)">Salin Prompt 1</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-title"><h4>Prompt 2: Susun menu 7 hari</h4><span>Kirim setelah Prompt 1 dijawab</span></div>
+        <div class="prompt-wrap">
+          <textarea class="prompt-text" id="promptB2" readonly aria-label="Pratinjau prompt susun menu"></textarea>
+          <div class="copy-row">
+            <button class="btn btn-copy-big" onclick="copyPrompt('promptB2', this)">Salin Prompt 2</button>
+          </div>
+        </div>
+      </div>
+      <div class="note"><strong>Ingat:</strong> angka kalori dari AI adalah perkiraan untuk edukasi, bukan saran medis. Prompt 1 sudah membawa batas amannya: target tidak boleh di bawah 1.200 kalori per hari. Bila kamu hamil, menyusui, di bawah 18 tahun, atau punya kondisi khusus, konsultasikan dulu ke dokter atau ahli gizi.</div>
+    </div>
+
+    <details class="fold">
+      <summary><span class="num-badge sage">3</span> Kalau perlu lanjutan <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <div class="fold-body">
+        <p class="desc" style="color:var(--muted);font-size:14px;margin:0 0 14px">Pakai setelah menu 7 harimu jadi, masih di obrolan yang sama. Pilih yang kamu butuhkan saja.</p>
+
+        <div class="mini-card">
+          <h4>Ganti satu hari yang tidak cocok</h4>
+          <div class="field" style="margin-bottom:0"><label for="b3Hari">Hari yang diganti</label>
+            <select id="b3Hari" onchange="updateB3()">
+              <option value="">Pilih hari dulu</option>
+              <option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option><option>Sabtu</option><option>Minggu</option>
+            </select>
+          </div>
+          <div class="prompt-wrap">
+            <textarea class="prompt-text short" id="promptB3a" readonly aria-label="Prompt ganti satu hari"></textarea>
+            <div class="copy-row">
+              <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3a', this)">Salin Prompt</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <h4>Substitusi bahan yang sedang tidak ada</h4>
+          <div class="form-grid two">
+            <div class="field"><label for="b3Bahan">Nama bahan</label><input type="text" id="b3Bahan" placeholder="Contoh: dada ayam" oninput="updateB3()"></div>
+            <div class="field"><label for="b3Waktu">Hari dan waktu makan</label><input type="text" id="b3Waktu" placeholder="Contoh: Rabu makan siang" oninput="updateB3()"></div>
+          </div>
+          <div class="prompt-wrap">
+            <textarea class="prompt-text short" id="promptB3b" readonly aria-label="Prompt substitusi bahan"></textarea>
+            <div class="copy-row">
+              <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3b', this)">Salin Prompt</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <h4>Versi lebih hemat</h4>
+          <p>Susun ulang seluruh menu jadi lebih ramah bujet, target kalori tetap sama.</p>
+          <div class="prompt-wrap">
+            <textarea class="prompt-text short" id="promptB3c" readonly aria-label="Prompt versi lebih hemat"></textarea>
+            <div class="copy-row">
+              <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3c', this)">Salin Prompt</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <div class="privacy"><strong>Privasi:</strong> isianmu hanya diproses di perambanmu untuk menyusun prompt. Tidak ada yang dikirim atau disimpan oleh Cantikna. Cantikna juga tidak menyimpan fotomu, foto hanya kamu unggah sendiri ke aplikasi AI pilihanmu.</div>
+
+  <p class="footer-note">Studio Prompt Cantikna AI, bagian dari Cantikna. Belajar AI, pakai AI, untuk cantik dan sehat dengan cara yang smart.</p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Tersalin</div>
+
+<script>
+
+function radioVal(name){
+  var el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : '';
+}
+function val(id){ var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+function ph(v, placeholder){ return v ? v : placeholder; }
+
+/* Alur A */
+function updateB1(){
+  var usia = ph(val('bUsia'), '[usia]');
+  var bb = ph(val('bBB'), '[berat badan]');
+  var tb = ph(val('bTB'), '[tinggi badan]');
+  var akt = ph(radioVal('bAkt'), '[aktivitas]');
+  var tujuan = ph(radioVal('bTujuan'), '[tujuan]');
+  var box = document.getElementById('promptB1');
+  box.value = 'Kamu adalah asisten perencanaan makan. Hitung kebutuhan kaloriku dengan rumus Mifflin-St Jeor untuk wanita, lalu tunjukkan langkah hitungnya.\n\nData diriku:\nUsia: ' + usia + ' tahun. Berat badan: ' + bb + ' kg. Tinggi badan: ' + tb + ' cm. Aktivitas: ' + akt + '. Tujuan: ' + tujuan + '.\n\nAturan yang wajib kamu ikuti:\n1. BMR wanita = (10 x berat kg) + (6,25 x tinggi cm) - (5 x usia) - 161.\n2. TDEE = BMR x faktor aktivitas: sangat ringan 1,2; ringan 1,375; sedang 1,55; aktif 1,725.\n3. Target kalori harian: menjaga = TDEE; menurunkan = TDEE dikurangi 300 sampai 500; menaikkan = TDEE ditambah 250.\n4. Target tidak boleh di bawah 1.200 kalori per hari. Laju perubahan berat tidak boleh lebih dari 1 kg per minggu. Bila dataku mengarah ke angka yang tidak aman, tolak dengan sopan dan sarankan aku berkonsultasi ke ahli gizi atau dokter.\n5. Tampilkan hasil akhir: BMR, TDEE, target kalori harian, dan pembagian makronya dalam gram (protein sekitar 20 sampai 25 persen, lemak 25 sampai 30 persen, sisanya karbohidrat).\n6. Akhiri dengan kalimat bahwa ini perkiraan umum untuk edukasi, bukan saran medis.';
+  autoGrow(box);
+}
+
+function updateB2(){
+  var pantangan = val('bPantangan') || 'tidak ada';
+  var tidakSuka = val('bTidakSuka') || 'tidak ada';
+  var bujet = ph(radioVal('bBujet'), '[bujet]');
+  var masak = ph(radioVal('bMasak'), '[cara masak]');
+  var box = document.getElementById('promptB2');
+  box.value = 'Sekarang susun menu makan untukku selama 7 hari berdasarkan target kalori yang baru kamu hitung. Preferensiku:\nPantangan dan alergi: ' + pantangan + '. Bahan yang tidak kusuka: ' + tidakSuka + '. Bujet belanja: ' + bujet + '. Cara masak: ' + masak + '. Semua makanan harus halal dan mudah ditemukan di pasar atau minimarket Indonesia, dengan nama bahan dan takaran rumah tangga (sendok, gelas, potong) yang jelas.\n\nAturan penyusunan:\n1. Setiap hari berisi sarapan, makan siang, makan malam, dan 1 camilan.\n2. Tulis perkiraan kalori setiap sajian dan total kalori setiap hari. Total harian harus mendekati targetku, boleh berbeda paling banyak 50 kalori.\n3. Gunakan bahan makanan Indonesia dan perkiraan kalori yang masuk akal berdasarkan komposisi pangan Indonesia. Bila ragu pada angka suatu bahan, tulis perkiraannya sebagai kisaran.\n4. Variasikan sumber protein dan sayur antar hari, jangan mengulang menu yang sama dua hari berturut turut.\n5. Setelah tabel 7 hari, buat daftar belanja mingguan yang dikelompokkan: protein, sayur dan buah, bahan pokok, bumbu dan lain lain, lengkap dengan perkiraan jumlah yang perlu dibeli.\n6. Beri estimasi total biaya belanja mingguan sebagai kisaran, dan tulis bahwa harga bisa berbeda di setiap daerah.\n7. Jangan menjanjikan angka penurunan berat badan. Ini rencana makan edukasi umum, bukan saran medis.';
+  autoGrow(box);
+}
+
+function updateB3(){
+  var hari = ph(val('b3Hari'), '[hari]');
+  var a = document.getElementById('promptB3a');
+  a.value = 'Ganti menu hari ' + hari + ' dengan menu lain yang total kalorinya hampir sama, tetap mengikuti semua aturan dan preferensiku di atas. Tampilkan hanya hari yang diganti dan perubahan daftar belanjanya.';
+  var bahan = ph(val('b3Bahan'), '[nama bahan]');
+  var waktu = ph(val('b3Waktu'), '[hari dan waktu makan]');
+  var b = document.getElementById('promptB3b');
+  b.value = 'Aku tidak punya ' + bahan + ' untuk menu ' + waktu + '. Beri aku pengganti yang kalorinya hampir sama, mudah ditemukan di Indonesia, dan jelaskan perubahan kalori total hari itu setelah diganti.';
+  var c = document.getElementById('promptB3c');
+  c.value = 'Susun ulang menu 7 hari ini menjadi versi yang lebih hemat tanpa mengubah target kalori hariannya: ganti protein mahal dengan sumber protein yang lebih murah seperti telur, tempe, tahu, dan ikan kembung, dan kurangi makanan beli jadi. Tampilkan daftar belanja barunya dan perkiraan kisaran biayanya.';
+  autoGrow(a); autoGrow(b); autoGrow(c);
+}
+
+function autoGrow(el){
+  if (!el) return;
+  el.style.height = 'auto';
+  el.style.height = Math.max(120, el.scrollHeight + 4) + 'px';
+}
+
+/* Salin */
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+function copyPrompt(id, btn){
+  var el = document.getElementById(id);
+  var text = el.value;
+  var original = btn.textContent;
+  function done(){
+    btn.textContent = 'Tersalin';
+    showToast('Prompt tersalin, tinggal tempel di AI milikmu');
+    setTimeout(function(){ btn.textContent = original; }, 2200);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(el, done); });
+  } else {
+    fallbackCopy(el, done);
+  }
+}
+function fallbackCopy(el, done){
+  el.focus(); el.select();
+  try { document.execCommand('copy'); done(); }
+  catch(e){ showToast('Teks sudah terpilih, salin dengan papan ketikmu'); }
+  if (window.getSelection) window.getSelection().removeAllRanges();
+}
+
+/* Init */
+updateB1(); updateB2(); updateB3();
+</script>
+</body>
+</html>
