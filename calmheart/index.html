@@ -237,6 +237,7 @@ img{max-width:100%}
       <div class="block-head"><span class="num-badge sage">2</span><h3>Riwayat catatanmu</h3></div>
       <div id="chList"><p class="hint">Belum ada catatan. Catatan pertamamu akan muncul di sini.</p></div>
       <div class="add-grid">
+        <button class="btn-ghost btn-small" type="button" onclick="chExport()" style="margin-right:8px;margin-bottom:8px">Unduh cadangan catatan (.txt)</button>
         <button class="link-danger" type="button" onclick="chWipe()">Hapus semua data CalmHeart di peramban ini</button>
       </div>
     </div>
@@ -280,6 +281,28 @@ function chSave(){
 chRender(); showToast('Catatan hari ini tersimpan di perambanmu.');
 }
 function chDelete(k){ var s=chLoad(); delete s.entries[k]; chStore(s); chRender(); showToast('Catatan dihapus.'); }
+function chExport(){
+  var s=chLoad(); var keys=Object.keys(s.entries).sort();
+  if(!keys.length){ showToast('Belum ada catatan untuk diunduh.'); return; }
+  var lines=['Cadangan Catatan CalmHeart', 'Diunduh: '+new Date().toLocaleString('id-ID'), 'Jumlah catatan: '+keys.length, ''];
+  keys.forEach(function(k){ var e=s.entries[k]; var d=new Date(k+'T00:00:00');
+    lines.push('========================================');
+    lines.push(d.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'}));
+    lines.push('Mood: '+(e.mood||'-'));
+    var bits=[]; if(e.sleep) bits.push('Tidur '+e.sleep+' jam'); if(e.cycle) bits.push(e.cycle);
+    if(bits.length) lines.push(bits.join(' - '));
+    if(e.gratitude) lines.push('Syukur: '+e.gratitude);
+    if(e.note){ lines.push(''); lines.push(e.note); }
+    lines.push('');
+  });
+  var blob=new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a'); var now=new Date();
+  a.href=URL.createObjectURL(blob);
+  a.download='calmheart-cadangan-'+now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+'.txt';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 400);
+  showToast('Cadangan '+keys.length+' catatan diunduh.');
+}
 function chWipe(){ localStorage.removeItem('calmheart.v1'); chRender(); showToast('Semua data CalmHeart di peramban ini sudah dihapus.'); }
 chRender();
 
