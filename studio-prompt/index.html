@@ -218,7 +218,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
   </header>
 
   <div class="chooser" role="tablist" aria-label="Pilih alur prompt">
-    <button class="flow-card active" id="tabA" role="tab" aria-selected="true" onclick="switchFlow('A')">
+    <a class="flow-card" href="/studio-prompt/coba-dulu/" style="display:block;text-decoration:none;color:inherit">
       <span class="card-illus" aria-hidden="true">
         <svg viewBox="0 0 360 170">
           <rect width="360" height="170" fill="#FBECE4"/>
@@ -252,10 +252,10 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
       <span class="card-body">
         <h2>Coba Dulu AI</h2>
         <p>Lihat dulu baju, dress, atau satu set outfit di fotomu sebelum membeli.</p>
-        <span class="go" id="goA">Alur ini sedang dibuka</span>
+        <span class="go">Buka alat ini</span>
       </span>
-    </button>
-    <button class="flow-card" id="tabB" role="tab" aria-selected="false" onclick="switchFlow('B')">
+    </a>
+    <a class="flow-card" href="/studio-prompt/menu-sehat/" style="display:block;text-decoration:none;color:inherit">
       <span class="card-illus" aria-hidden="true">
         <svg viewBox="0 0 360 170">
           <rect width="360" height="170" fill="#EAF0E2"/>
@@ -291,327 +291,21 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
       <span class="card-body">
         <h2>Menu Sehat AI</h2>
         <p>Hitung kalorimu, lalu susun menu sehat 7 hari lengkap dengan daftar belanja.</p>
-        <span class="go" id="goB">Ketuk untuk membuka alur ini</span>
+        <span class="go">Buka alat ini</span>
       </span>
-    </button>
+    </a>
   </div>
 
   <!-- ALUR A -->
-  <section class="flow-panel show" id="panelA" aria-label="Alur Coba Dulu AI">
-    <div class="panel-head">
-      <h2>Coba Dulu AI</h2>
-      <p>Satu layar, tiga blok. Siapkan foto, salin prompt, selesai.</p>
-    </div>
-
-    <div class="block">
-      <div class="block-head"><span class="num-badge">1</span><h3>Siapkan 2 foto</h3></div>
-      <ul class="check-list">
-        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span><strong>Foto dirimu:</strong> seluruh badan, terang, latar polos.</span></li>
-        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span><strong>Foto produk dari toko:</strong> warna dan motif terlihat jelas, tidak buram.</span></li>
-      </ul>
-      <div class="note"><strong>Catatan:</strong> hasil AI adalah pratinjau penampilan, bukan jaminan ukuran pas. Tetap cocokkan dengan tabel ukuran toko.</div>
-    </div>
-
-    <div class="block">
-      <div class="block-head"><span class="num-badge">2</span><h3>Prompt untukmu</h3></div>
-      <p class="desc">Pilih jenisnya, prompt di bawah langsung menyesuaikan.</p>
-      <fieldset>
-        <legend>Jenis percobaan</legend>
-        <div class="seg" role="radiogroup" aria-label="Jenis percobaan">
-          <label><span class="seg-box"><input type="radio" name="aMode" value="single" checked onchange="updateA2()">Satu produk</span></label>
-          <label><span class="seg-box"><input type="radio" name="aMode" value="outfit" onchange="updateA2()">Satu set outfit</span></label>
-        </div>
-      </fieldset>
-      <div id="aOutfitFields" style="display:none">
-        <div class="field"><label for="aAtasan">Atasan atau dress</label><input type="text" id="aAtasan" placeholder="Contoh: blus bunga merah" oninput="updateA2()"></div>
-        <div class="field"><label for="aBawahan">Bawahan</label><input type="text" id="aBawahan" placeholder="Contoh: celana kulot putih, rok plisket, jeans" oninput="updateA2()"></div>
-        <div class="field"><label for="aAksesori">Aksesori, bila ada <small>(boleh kosong)</small></label><input type="text" id="aAksesori" placeholder="Contoh: topi, tas, sepatu, atau kosongkan saja" oninput="updateA2()"></div>
-      </div>
-      <div class="prompt-wrap">
-        <textarea class="prompt-text" id="promptA2" readonly aria-label="Pratinjau prompt Coba Dulu"></textarea>
-        <div class="copy-row">
-          <button class="btn btn-copy-big" onclick="copyPrompt('promptA2', this)">Salin Prompt</button>
-        </div>
-      </div>
-      <p class="hint">Di aplikasi AI milikmu: lampirkan fotomu sebagai gambar pertama, foto produk berikutnya, lalu tempel prompt ini.</p>
-    </div>
-
-    <div class="block secondary">
-      <div class="block-head"><span class="num-badge">3</span><h3>Setelah dapat hasilnya</h3></div>
-      <p class="desc">Kirim prompt ini di obrolan yang sama untuk menilai kecocokannya.</p>
-      <div class="prompt-wrap" style="background:var(--cream)">
-        <textarea class="prompt-text short" id="promptA3" readonly aria-label="Pratinjau prompt penilaian kecocokan"></textarea>
-        <div class="copy-row">
-          <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptA3', this)">Salin Prompt Penilaian</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ALUR B -->
-  <section class="flow-panel" id="panelB" aria-label="Alur Menu Sehat AI">
-    <div class="panel-head">
-      <h2>Menu Sehat AI</h2>
-      <p>Satu formulir, dua prompt berurutan. Isi sekali, salin dua kali.</p>
-    </div>
-
-    <div class="block">
-      <div class="block-head"><span class="num-badge sage">1</span><h3>Isi datamu</h3></div>
-
-      <p class="sub-label">Data diri</p>
-      <div class="form-grid">
-        <div class="field"><label for="bUsia">Usia (tahun)</label><input type="number" id="bUsia" inputmode="numeric" min="10" max="90" placeholder="Contoh: 28" oninput="updateB1()"></div>
-        <div class="field"><label for="bBB">Berat badan (kg)</label><input type="number" id="bBB" inputmode="decimal" min="30" max="200" placeholder="Contoh: 58" oninput="updateB1()"></div>
-        <div class="field"><label for="bTB">Tinggi badan (cm)</label><input type="number" id="bTB" inputmode="numeric" min="120" max="210" placeholder="Contoh: 160" oninput="updateB1()"></div>
-      </div>
-
-      <fieldset>
-        <legend>Tingkat aktivitas</legend>
-        <div class="radio-list cols">
-          <label class="radio-item"><input type="radio" name="bAkt" value="sangat ringan, kerja duduk dan jarang olahraga" onchange="updateB1()"><span><b>Sangat ringan</b><span>Kerja duduk, jarang olahraga.</span></span></label>
-          <label class="radio-item"><input type="radio" name="bAkt" value="ringan, olahraga 1 sampai 3 hari per minggu" onchange="updateB1()"><span><b>Ringan</b><span>Olahraga 1 sampai 3 hari per minggu.</span></span></label>
-          <label class="radio-item"><input type="radio" name="bAkt" value="sedang, olahraga 3 sampai 5 hari per minggu" onchange="updateB1()"><span><b>Sedang</b><span>Olahraga 3 sampai 5 hari per minggu.</span></span></label>
-          <label class="radio-item"><input type="radio" name="bAkt" value="aktif, olahraga 6 sampai 7 hari per minggu atau kerja fisik" onchange="updateB1()"><span><b>Aktif</b><span>Olahraga 6 sampai 7 hari atau kerja fisik.</span></span></label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Tujuanmu</legend>
-        <div class="radio-list cols">
-          <label class="radio-item"><input type="radio" name="bTujuan" value="menurunkan berat badan" onchange="updateB1()"><span><b>Menurunkan berat badan</b></span></label>
-          <label class="radio-item"><input type="radio" name="bTujuan" value="menjaga berat badan" onchange="updateB1()"><span><b>Menjaga berat badan</b></span></label>
-          <label class="radio-item"><input type="radio" name="bTujuan" value="menaikkan berat badan secara sehat" onchange="updateB1()"><span><b>Menaikkan berat badan secara sehat</b></span></label>
-        </div>
-      </fieldset>
-
-      <p class="sub-label">Preferensi menu</p>
-      <div class="form-grid two">
-        <div class="field"><label for="bPantangan">Pantangan dan alergi</label><input type="text" id="bPantangan" placeholder="Contoh: tidak makan seafood, alergi kacang" oninput="updateB2()"></div>
-        <div class="field"><label for="bTidakSuka">Bahan yang tidak kamu suka</label><input type="text" id="bTidakSuka" placeholder="Contoh: jeroan, pare, petai" oninput="updateB2()"></div>
-      </div>
-      <p class="hint" style="margin:-4px 0 14px">Kosongkan saja bila tidak ada.</p>
-
-      <fieldset>
-        <legend>Bujet belanja</legend>
-        <div class="seg" role="radiogroup" aria-label="Bujet belanja">
-          <label><span class="seg-box"><input type="radio" name="bBujet" value="hemat" onchange="updateB2()">Hemat</span></label>
-          <label><span class="seg-box"><input type="radio" name="bBujet" value="standar" onchange="updateB2()">Standar</span></label>
-        </div>
-      </fieldset>
-      <fieldset style="margin-bottom:2px">
-        <legend>Cara masak</legend>
-        <div class="seg" role="radiogroup" aria-label="Cara masak">
-          <label><span class="seg-box"><input type="radio" name="bMasak" value="banyak masak sendiri" onchange="updateB2()">Banyak masak sendiri</span></label>
-          <label><span class="seg-box"><input type="radio" name="bMasak" value="campuran masak dan beli jadi" onchange="updateB2()">Campuran masak dan beli jadi</span></label>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="block">
-      <div class="block-head"><span class="num-badge sage">2</span><h3>Salin promptnya berurutan</h3></div>
-      <div class="order-note" style="margin-top:2px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg>
-        <span>Tempel <strong>Prompt 1</strong> dulu di obrolan AI mu. Setelah dijawab, tempel <strong>Prompt 2</strong> di obrolan yang sama.</span>
-      </div>
-
-      <div class="prompt-block">
-        <div class="prompt-title"><h4>Prompt 1: Hitung kalorimu</h4><span>Kirim pertama</span></div>
-        <div class="prompt-wrap">
-          <textarea class="prompt-text" id="promptB1" readonly aria-label="Pratinjau prompt hitung kalori"></textarea>
-          <div class="copy-row">
-            <button class="btn btn-copy-big" onclick="copyPrompt('promptB1', this)">Salin Prompt 1</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt-block">
-        <div class="prompt-title"><h4>Prompt 2: Susun menu 7 hari</h4><span>Kirim setelah Prompt 1 dijawab</span></div>
-        <div class="prompt-wrap">
-          <textarea class="prompt-text" id="promptB2" readonly aria-label="Pratinjau prompt susun menu"></textarea>
-          <div class="copy-row">
-            <button class="btn btn-copy-big" onclick="copyPrompt('promptB2', this)">Salin Prompt 2</button>
-          </div>
-        </div>
-      </div>
-      <div class="note"><strong>Ingat:</strong> angka kalori dari AI adalah perkiraan untuk edukasi, bukan saran medis. Prompt 1 sudah membawa batas amannya: target tidak boleh di bawah 1.200 kalori per hari. Bila kamu hamil, menyusui, di bawah 18 tahun, atau punya kondisi khusus, konsultasikan dulu ke dokter atau ahli gizi.</div>
-    </div>
-
-    <details class="fold">
-      <summary><span class="num-badge sage">3</span> Kalau perlu lanjutan <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
-      <div class="fold-body">
-        <p class="desc" style="color:var(--muted);font-size:14px;margin:0 0 14px">Pakai setelah menu 7 harimu jadi, masih di obrolan yang sama. Pilih yang kamu butuhkan saja.</p>
-
-        <div class="mini-card">
-          <h4>Ganti satu hari yang tidak cocok</h4>
-          <div class="field" style="margin-bottom:0"><label for="b3Hari">Hari yang diganti</label>
-            <select id="b3Hari" onchange="updateB3()">
-              <option value="">Pilih hari dulu</option>
-              <option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option><option>Sabtu</option><option>Minggu</option>
-            </select>
-          </div>
-          <div class="prompt-wrap">
-            <textarea class="prompt-text short" id="promptB3a" readonly aria-label="Prompt ganti satu hari"></textarea>
-            <div class="copy-row">
-              <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3a', this)">Salin Prompt</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="mini-card">
-          <h4>Substitusi bahan yang sedang tidak ada</h4>
-          <div class="form-grid two">
-            <div class="field"><label for="b3Bahan">Nama bahan</label><input type="text" id="b3Bahan" placeholder="Contoh: dada ayam" oninput="updateB3()"></div>
-            <div class="field"><label for="b3Waktu">Hari dan waktu makan</label><input type="text" id="b3Waktu" placeholder="Contoh: Rabu makan siang" oninput="updateB3()"></div>
-          </div>
-          <div class="prompt-wrap">
-            <textarea class="prompt-text short" id="promptB3b" readonly aria-label="Prompt substitusi bahan"></textarea>
-            <div class="copy-row">
-              <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3b', this)">Salin Prompt</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="mini-card">
-          <h4>Versi lebih hemat</h4>
-          <p>Susun ulang seluruh menu jadi lebih ramah bujet, target kalori tetap sama.</p>
-          <div class="prompt-wrap">
-            <textarea class="prompt-text short" id="promptB3c" readonly aria-label="Prompt versi lebih hemat"></textarea>
-            <div class="copy-row">
-              <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3c', this)">Salin Prompt</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </details>
-  </section>
+  
 
   <div class="privacy"><strong>Privasi:</strong> isianmu hanya diproses di perambanmu untuk menyusun prompt. Tidak ada yang dikirim atau disimpan oleh Cantikna. Cantikna juga tidak menyimpan fotomu, foto hanya kamu unggah sendiri ke aplikasi AI pilihanmu.</div>
 
   <p class="footer-note">Studio Prompt Cantikna AI, bagian dari Cantikna. Belajar AI, pakai AI, untuk cantik dan sehat dengan cara yang smart.</p>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite">Tersalin</div>
 
-<script>
-function switchFlow(flow){
-  document.getElementById('panelA').classList.toggle('show', flow === 'A');
-  document.getElementById('panelB').classList.toggle('show', flow === 'B');
-  var tabA = document.getElementById('tabA'), tabB = document.getElementById('tabB');
-  tabA.classList.toggle('active', flow === 'A');
-  tabB.classList.toggle('active', flow === 'B');
-  tabA.setAttribute('aria-selected', flow === 'A' ? 'true' : 'false');
-  tabB.setAttribute('aria-selected', flow === 'B' ? 'true' : 'false');
-  document.getElementById('goA').textContent = flow === 'A' ? 'Alur ini sedang dibuka' : 'Ketuk untuk membuka alur ini';
-  document.getElementById('goB').textContent = flow === 'B' ? 'Alur ini sedang dibuka' : 'Ketuk untuk membuka alur ini';
-  var panel = document.getElementById('panel' + flow);
-  var y = panel.getBoundingClientRect().top + window.pageYOffset - 12;
-  window.scrollTo({ top: y, behavior: 'smooth' });
-}
 
-function radioVal(name){
-  var el = document.querySelector('input[name="' + name + '"]:checked');
-  return el ? el.value : '';
-}
-function val(id){ var e = document.getElementById(id); return e ? e.value.trim() : ''; }
-function ph(v, placeholder){ return v ? v : placeholder; }
 
-/* Alur A */
-var PROMPT_A_SINGLE = 'Aku melampirkan dua gambar. Gambar pertama adalah fotoku. Gambar kedua adalah foto produk fashion yang ingin kubeli.\n\nTolong edit fotoku sehingga aku terlihat memakai produk dari gambar kedua, menggantikan pakaian yang kupakai sekarang. Aturannya:\n1. Wajah, rambut, warna kulit, dan bentuk tubuhku tidak boleh berubah.\n2. Warna, motif, dan detail produk harus sama persis dengan gambar produk, jangan diubah atau ditambah.\n3. Sesuaikan lipatan dan jatuhnya kain dengan postur tubuhku secara realistis, dengan cahaya dan bayangan yang natural.\n4. Hasilnya foto seluruh badan dengan latar yang sama seperti fotoku.\n5. Jangan menambahkan aksesori atau barang apa pun yang tidak ada di kedua gambar.';
-
-function updateA2(){
-  var mode = radioVal('aMode') || 'single';
-  var fields = document.getElementById('aOutfitFields');
-  var box = document.getElementById('promptA2');
-  if (mode === 'outfit'){
-    fields.style.display = 'block';
-    var atasan = ph(val('aAtasan'), '[atasan atau dress]');
-    var bawahan = ph(val('aBawahan'), '[bawahan]');
-    var aksRaw = val('aAksesori');
-    var aks = aksRaw ? aksRaw : 'tanpa aksesori tambahan';
-    box.value = 'Aku melampirkan beberapa gambar. Gambar pertama adalah fotoku. Gambar berikutnya adalah produk produk yang ingin kupadukan menjadi satu outfit: ' + atasan + ', ' + bawahan + ', dan ' + aks + '.\n\nTolong edit fotoku sehingga aku memakai semua produk itu sekaligus sebagai satu outfit yang utuh. Aturannya:\n1. Wajah, rambut, warna kulit, dan bentuk tubuhku tidak boleh berubah.\n2. Warna, motif, dan detail setiap produk harus sama persis dengan gambar produknya masing masing.\n3. Padukan dengan realistis: atasan dimasukkan atau dikeluarkan dari bawahan mengikuti gaya yang paling umum untuk produk seperti itu, kain jatuh natural, cahaya dan bayangan konsisten.\n4. Hasilnya foto seluruh badan dengan latar yang sama seperti fotoku.\n5. Jangan menambahkan barang apa pun di luar yang kulampirkan.';
-  } else {
-    fields.style.display = 'none';
-    box.value = PROMPT_A_SINGLE;
-  }
-  autoGrow(box);
-}
-
-var PROMPT_A3 = 'Berdasarkan hasil edit barusan, nilai kecocokannya untukku dengan jujur dan singkat:\n1. Apakah warna produk ini cocok dengan warna kulitku? Jelaskan alasannya.\n2. Apakah potongannya menyanjung bentuk tubuhku? Bagian mana yang terbantu dan bagian mana yang kurang terbantu?\n3. Untuk acara apa outfit ini paling cocok dipakai?\n4. Satu saran perbaikan padu padan yang realistis.\nBerikan nilai akhir 1 sampai 10 untuk kecocokan keseluruhan.';
-
-/* Alur B */
-function updateB1(){
-  var usia = ph(val('bUsia'), '[usia]');
-  var bb = ph(val('bBB'), '[berat badan]');
-  var tb = ph(val('bTB'), '[tinggi badan]');
-  var akt = ph(radioVal('bAkt'), '[aktivitas]');
-  var tujuan = ph(radioVal('bTujuan'), '[tujuan]');
-  var box = document.getElementById('promptB1');
-  box.value = 'Kamu adalah asisten perencanaan makan. Hitung kebutuhan kaloriku dengan rumus Mifflin-St Jeor untuk wanita, lalu tunjukkan langkah hitungnya.\n\nData diriku:\nUsia: ' + usia + ' tahun. Berat badan: ' + bb + ' kg. Tinggi badan: ' + tb + ' cm. Aktivitas: ' + akt + '. Tujuan: ' + tujuan + '.\n\nAturan yang wajib kamu ikuti:\n1. BMR wanita = (10 x berat kg) + (6,25 x tinggi cm) - (5 x usia) - 161.\n2. TDEE = BMR x faktor aktivitas: sangat ringan 1,2; ringan 1,375; sedang 1,55; aktif 1,725.\n3. Target kalori harian: menjaga = TDEE; menurunkan = TDEE dikurangi 300 sampai 500; menaikkan = TDEE ditambah 250.\n4. Target tidak boleh di bawah 1.200 kalori per hari. Laju perubahan berat tidak boleh lebih dari 1 kg per minggu. Bila dataku mengarah ke angka yang tidak aman, tolak dengan sopan dan sarankan aku berkonsultasi ke ahli gizi atau dokter.\n5. Tampilkan hasil akhir: BMR, TDEE, target kalori harian, dan pembagian makronya dalam gram (protein sekitar 20 sampai 25 persen, lemak 25 sampai 30 persen, sisanya karbohidrat).\n6. Akhiri dengan kalimat bahwa ini perkiraan umum untuk edukasi, bukan saran medis.';
-  autoGrow(box);
-}
-
-function updateB2(){
-  var pantangan = val('bPantangan') || 'tidak ada';
-  var tidakSuka = val('bTidakSuka') || 'tidak ada';
-  var bujet = ph(radioVal('bBujet'), '[bujet]');
-  var masak = ph(radioVal('bMasak'), '[cara masak]');
-  var box = document.getElementById('promptB2');
-  box.value = 'Sekarang susun menu makan untukku selama 7 hari berdasarkan target kalori yang baru kamu hitung. Preferensiku:\nPantangan dan alergi: ' + pantangan + '. Bahan yang tidak kusuka: ' + tidakSuka + '. Bujet belanja: ' + bujet + '. Cara masak: ' + masak + '. Semua makanan harus halal dan mudah ditemukan di pasar atau minimarket Indonesia, dengan nama bahan dan takaran rumah tangga (sendok, gelas, potong) yang jelas.\n\nAturan penyusunan:\n1. Setiap hari berisi sarapan, makan siang, makan malam, dan 1 camilan.\n2. Tulis perkiraan kalori setiap sajian dan total kalori setiap hari. Total harian harus mendekati targetku, boleh berbeda paling banyak 50 kalori.\n3. Gunakan bahan makanan Indonesia dan perkiraan kalori yang masuk akal berdasarkan komposisi pangan Indonesia. Bila ragu pada angka suatu bahan, tulis perkiraannya sebagai kisaran.\n4. Variasikan sumber protein dan sayur antar hari, jangan mengulang menu yang sama dua hari berturut turut.\n5. Setelah tabel 7 hari, buat daftar belanja mingguan yang dikelompokkan: protein, sayur dan buah, bahan pokok, bumbu dan lain lain, lengkap dengan perkiraan jumlah yang perlu dibeli.\n6. Beri estimasi total biaya belanja mingguan sebagai kisaran, dan tulis bahwa harga bisa berbeda di setiap daerah.\n7. Jangan menjanjikan angka penurunan berat badan. Ini rencana makan edukasi umum, bukan saran medis.';
-  autoGrow(box);
-}
-
-function updateB3(){
-  var hari = ph(val('b3Hari'), '[hari]');
-  var a = document.getElementById('promptB3a');
-  a.value = 'Ganti menu hari ' + hari + ' dengan menu lain yang total kalorinya hampir sama, tetap mengikuti semua aturan dan preferensiku di atas. Tampilkan hanya hari yang diganti dan perubahan daftar belanjanya.';
-  var bahan = ph(val('b3Bahan'), '[nama bahan]');
-  var waktu = ph(val('b3Waktu'), '[hari dan waktu makan]');
-  var b = document.getElementById('promptB3b');
-  b.value = 'Aku tidak punya ' + bahan + ' untuk menu ' + waktu + '. Beri aku pengganti yang kalorinya hampir sama, mudah ditemukan di Indonesia, dan jelaskan perubahan kalori total hari itu setelah diganti.';
-  var c = document.getElementById('promptB3c');
-  c.value = 'Susun ulang menu 7 hari ini menjadi versi yang lebih hemat tanpa mengubah target kalori hariannya: ganti protein mahal dengan sumber protein yang lebih murah seperti telur, tempe, tahu, dan ikan kembung, dan kurangi makanan beli jadi. Tampilkan daftar belanja barunya dan perkiraan kisaran biayanya.';
-  autoGrow(a); autoGrow(b); autoGrow(c);
-}
-
-function autoGrow(el){
-  if (!el) return;
-  el.style.height = 'auto';
-  el.style.height = Math.max(120, el.scrollHeight + 4) + 'px';
-}
-
-/* Salin */
-function showToast(msg){
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 2200);
-}
-function copyPrompt(id, btn){
-  var el = document.getElementById(id);
-  var text = el.value;
-  var original = btn.textContent;
-  function done(){
-    btn.textContent = 'Tersalin';
-    showToast('Prompt tersalin, tinggal tempel di AI milikmu');
-    setTimeout(function(){ btn.textContent = original; }, 2200);
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(el, done); });
-  } else {
-    fallbackCopy(el, done);
-  }
-}
-function fallbackCopy(el, done){
-  el.focus(); el.select();
-  try { document.execCommand('copy'); done(); }
-  catch(e){ showToast('Teks sudah terpilih, salin dengan papan ketikmu'); }
-  if (window.getSelection) window.getSelection().removeAllRanges();
-}
-
-/* Init */
-document.getElementById('promptA3').value = PROMPT_A3;
-updateA2(); updateB1(); updateB2(); updateB3();
-autoGrow(document.getElementById('promptA3'));
-</script>
 </body>
 </html>
