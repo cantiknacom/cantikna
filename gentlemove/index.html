@@ -171,17 +171,6 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .center{text-align:center}
 .mt{margin-top:14px}
 
-.player-top{display:block}
-@media(max-width:640px){
-  .player-top{display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:start}
-  .player-top .move-img{width:100%;margin:0}
-  .player-side .move-name{text-align:left;font-size:1.12rem;margin-top:0}
-  .player-side .timer-cap{text-align:left}
-  .player-side .timer-big{text-align:left;font-size:2.7rem}
-  .player-side .center{text-align:left}
-  .hero h1{font-size:30px;margin:10px 0 6px}
-}
-
 html,body{overflow-x:hidden}
 img{max-width:100%}
 @media(max-width:560px){
@@ -191,12 +180,12 @@ img{max-width:100%}
   .add-grid>.btn{flex:1 1 100%}
   .add-grid>.btn-ghost{flex:1 1 42%}
   .timer-big{font-size:clamp(3.2rem,17vw,4.6rem)}
-  .player-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin:14px 0 4px}
+  .player-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px 0 2px}
 .ctl-btn{appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;transition:transform .15s ease,box-shadow .15s ease;padding:0}
-.ctl-btn svg{width:26px;height:26px;fill:currentColor;display:block}
-.ctl-main{width:78px;height:78px;background:linear-gradient(135deg,#C58F87,#B4715F);color:#fff;box-shadow:0 14px 30px rgba(180,113,95,.38)}
-.ctl-main svg{width:36px;height:36px}
-.ctl-side{width:54px;height:54px;background:var(--sage-soft);color:#5C6650;border:1.5px solid #C9CFBB}
+.ctl-btn svg{width:21px;height:21px;fill:currentColor;display:block}
+.ctl-main{width:60px;height:60px;background:linear-gradient(135deg,#C58F87,#B4715F);color:#fff;box-shadow:0 14px 30px rgba(180,113,95,.38)}
+.ctl-main svg{width:28px;height:28px}
+.ctl-side{width:44px;height:44px;background:var(--sage-soft);color:#5C6650;border:1.5px solid #C9CFBB}
 .ctl-btn:active{transform:scale(.93)}
 .sticky-player .sp-btn{width:46px;height:46px;border-radius:50%;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#C58F87;color:#fff;flex:none;min-height:46px}
 .sticky-player .sp-btn svg{width:24px;height:24px;fill:currentColor;display:block}
@@ -234,28 +223,23 @@ img{max-width:100%}
     <div class="block" id="gmPlayerBlock">
       <div class="block-head"><span class="num-badge">1</span><h3>Pemain peregangan</h3></div>
       <p class="center hint" id="gmStepLabel">10 gerakan lembut, total 15 menit. Tanpa alat, cukup ruang kecil dan napas yang tenang.</p>
-      <div class="player-top">
-        <img class="move-img" id="gmMoveImg" src="/assets/gm-01.jpg" alt="Ilustrasi gerakan Napas pembuka" />
-        <div class="player-side">
-          <p class="move-name" id="gmMoveName">Siap mulai?</p>
-          <p class="timer-cap">Sisa waktu gerakan ini</p>
-          <p class="timer-big" id="gmTimer">1:00</p>
-          <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
-          <p class="center hint" id="gmMoveTimeInfo">Gerakan ini: sisa 1:00 dari 1:00</p>
-          <p class="center hint" id="gmNextInfo"></p>
-          <div class="progress-track total-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
-          <p class="center hint" id="gmTotalInfo">Total sesi: tersisa 15:00 dari 15:00</p>
-        </div>
-      </div>
+      <img class="move-img" id="gmMoveImg" src="/assets/gm-01.jpg" alt="Ilustrasi gerakan Napas pembuka" />
+      <p class="move-name" id="gmMoveName">Siap mulai?</p>
       <div class="player-controls">
-              <button class="ctl-btn ctl-side" id="gmRestartBtn" type="button" onclick="gmRestart()" aria-label="Ulangi dari awal" title="Ulangi dari awal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg></button>
-              <button class="ctl-btn ctl-main" id="gmMainBtn" type="button" onclick="gmToggle()" aria-label="Mulai" title="Mulai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
-              <button class="ctl-btn ctl-side" id="gmSkipBtn" type="button" onclick="gmSkip()" aria-label="Lewati gerakan ini" title="Lewati gerakan ini"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
-            </div>
-            <p class="timer-cap">Sisa waktu gerakan ini</p>
-            <p class="timer-big" id="gmTimer">1:00</p>
-            <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
+        <button class="ctl-btn ctl-side" id="gmRestartBtn" type="button" onclick="gmRestart()" aria-label="Ulangi dari awal" title="Ulangi dari awal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg></button>
+        <button class="ctl-btn ctl-main" id="gmMainBtn" type="button" onclick="gmToggle()" aria-label="Mulai" title="Mulai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+        <button class="ctl-btn ctl-side" id="gmSkipBtn" type="button" onclick="gmSkip()" aria-label="Lewati gerakan ini" title="Lewati gerakan ini"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+      </div>
+      <p class="timer-cap">Sisa waktu gerakan ini</p>
+      <p class="timer-big" id="gmTimer">1:00</p>
+      <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
+      <p class="center hint" id="gmMoveTimeInfo">Gerakan ini: sisa 1:00 dari 1:00</p>
+      <p class="center hint" id="gmNextInfo"></p>
+      
       <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
+      <div class="progress-track total-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
+      <p class="center hint" id="gmTotalInfo">Total sesi: tersisa 15:00 dari 15:00</p>
+      
       <p class="center hint" id="gmDoneInfo"></p>
     </div>
 
@@ -329,8 +313,9 @@ function gmRender(){
 }
 function gmTick(){ gmLeft--; if(gmLeft<=0){ gmBeep(); gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
 function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
+function gmScrollTime(){ var el=document.getElementById('gmMoveBar'); if(!el || !el.scrollIntoView) return; var r=el.getBoundingClientRect(); if(r.bottom > window.innerHeight - 8 || r.top < 0){ el.scrollIntoView({behavior:'smooth', block:'center'}); } }
 function gmToggle(){ if(gmIdx>=MOVES.length){ gmRestart(); }
-  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); } gmRender(); }
+  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); } gmRender(); }
 function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; } } gmRender(); }
 function gmRestart(){ gmStop(); gmIdx=0; gmLeft=MOVES[0].secs; gmRender(); }
 function gmComplete(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
