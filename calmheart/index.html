@@ -170,6 +170,8 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .link-danger{color:#B3261E;background:none;border:none;cursor:pointer;font:inherit;font-size:.85rem;text-decoration:underline}
 .center{text-align:center}
 .mt{margin-top:14px}
+#chNote{min-height:210px;font-size:16px;line-height:1.65;padding:14px 16px;resize:vertical}
+#chNote:focus{border-color:#C58F87;box-shadow:0 0 0 3px rgba(197,143,135,.18);outline:none}
 
 html,body{overflow-x:hidden}
 img{max-width:100%}
@@ -220,7 +222,7 @@ img{max-width:100%}
         </div>
       </div>
       <div class="field" style="margin-top:12px"><label for="chGrat">Satu hal yang kamu syukuri hari ini</label><input type="text" id="chGrat" placeholder="Contoh: sempat sarapan tenang bersama keluarga"></div>
-      <div class="field" style="margin-top:12px"><label for="chNote">Catatan bebas</label><textarea id="chNote" rows="4" placeholder="Tulis apa pun yang ingin kamu ingat dari hari ini."></textarea></div>
+      <div class="field" style="margin-top:12px"><label for="chNote">Catatan bebas</label><textarea id="chNote" rows="8" oninput="chCount()" placeholder="Tulis apa pun yang ingin kamu ingat dari hari ini. Ceritakan harimu, hal yang kamu pelajari, atau apa yang sedang kamu rasakan."></textarea><p class="hint" id="chNoteCount" style="margin-top:4px">0 kata</p></div>
       <div class="add-grid">
         <button class="btn" type="button" onclick="chSave()">Simpan catatan hari ini</button>
       </div>
@@ -270,7 +272,8 @@ function chSave(){
   var s=chLoad(); var k=chTodayKey();
   s.entries[k]={ mood:mood, sleep:document.getElementById('chSleep').value, cycle:document.getElementById('chCycle').value,
     gratitude:document.getElementById('chGrat').value.trim(), note:document.getElementById('chNote').value.trim() };
-  chStore(s); chRender(); showToast('Catatan hari ini tersimpan di perambanmu.');
+  chStore(s); function chCount(){ var v=document.getElementById('chNote').value.trim(); var n=v ? v.split(/\s+/).length : 0; document.getElementById('chNoteCount').textContent = n+' kata'; }
+chRender(); showToast('Catatan hari ini tersimpan di perambanmu.');
 }
 function chDelete(k){ var s=chLoad(); delete s.entries[k]; chStore(s); chRender(); showToast('Catatan dihapus.'); }
 function chWipe(){ localStorage.removeItem('calmheart.v1'); chRender(); showToast('Semua data CalmHeart di peramban ini sudah dihapus.'); }
