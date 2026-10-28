@@ -170,6 +170,19 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .link-danger{color:#B3261E;background:none;border:none;cursor:pointer;font:inherit;font-size:.85rem;text-decoration:underline}
 .center{text-align:center}
 .mt{margin-top:14px}
+
+html,body{overflow-x:hidden}
+img{max-width:100%}
+@media(max-width:560px){
+  .hist-row{flex-wrap:wrap;row-gap:4px}
+  .hist-row>span{min-width:0!important}
+  .hist-row .thumb{width:56px;height:70px}
+  .add-grid>.btn{flex:1 1 100%}
+  .add-grid>.btn-ghost{flex:1 1 42%}
+  .timer-big{font-size:clamp(3.2rem,17vw,4.6rem)}
+  .move-img{width:min(320px,88%)}
+  .block{border-radius:20px}
+}
 </style>
 
 <body>
