@@ -307,7 +307,10 @@ var ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5
 function gmTotalLeft(){ var t=gmLeft; for(var i=gmIdx+1;i<MOVES.length;i++){ t+=MOVES[i].secs; } return t; }
 function gmFmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
 function showToast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },2600); }
-function gmBeep(){ try { var ctx=gmBeep.ctx||(gmBeep.ctx=new (window.AudioContext||window.webkitAudioContext)()); var o=ctx.createOscillator(); var g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value=660; g.gain.setValueAtTime(0.001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime+0.05); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.7); o.start(); o.stop(ctx.currentTime+0.75); } catch(e){} }
+function gmAudio(){ try { var Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return null; if(!gmAudio.ctx) gmAudio.ctx=new Ctx(); if(gmAudio.ctx.state==='suspended') gmAudio.ctx.resume(); return gmAudio.ctx; } catch(e){ return null; } }
+function gmTone(freq, delay, dur, vol){ var ctx=gmAudio.ctx; if(!ctx) return; try { var o=ctx.createOscillator(); var g=ctx.createGain(); o.type='sine'; o.frequency.value=freq; var s=ctx.currentTime+delay; g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(vol, s+0.03); g.gain.exponentialRampToValueAtTime(0.001, s+dur); o.connect(g); g.connect(ctx.destination); o.start(s); o.stop(s+dur+0.05); } catch(e){} }
+function gmSound(kind){ if(!gmAudio()) return; if(kind==='start'){ gmTone(523.25,0,0.28,0.12); gmTone(783.99,0.13,0.45,0.12); } else if(kind==='done'){ gmTone(523.25,0,0.3,0.12); gmTone(659.25,0.15,0.3,0.12); gmTone(783.99,0.3,0.6,0.13); } else { gmTone(659.25,0,0.3,0.1); } }
+function gmBeep(){ gmSound('next'); }
 function gmRender(){
   var done = gmIdx>=MOVES.length;
   var started = gmRunning || gmIdx>0 || (gmIdx<MOVES.length && gmLeft<MOVES[gmIdx].secs);
@@ -328,14 +331,14 @@ function gmRender(){
   mb.innerHTML = gmRunning ? ICON_PAUSE : ICON_PLAY; mb.setAttribute('aria-label', mlabel); mb.title = mlabel;
   gmStickySync();
 }
-function gmTick(){ gmLeft--; if(gmLeft<=0){ gmBeep(); gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
+function gmTick(){ gmLeft--; if(gmLeft<=0){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; gmSound('next'); showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
 function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
 function gmScrollTime(){ var info=document.getElementById('gmTotalInfo'); var img=document.getElementById('gmMoveImg'); if(!info || !img || !img.scrollIntoView) return; var r=info.getBoundingClientRect(); if(r.bottom > window.innerHeight - 4){ img.scrollIntoView({behavior:'smooth', block:'start'}); } }
 function gmToggle(){ if(gmIdx>=MOVES.length){ gmRestart(); }
-  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); } gmRender(); }
-function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; } } gmRender(); }
+  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); gmSound((gmIdx===0 && gmLeft===MOVES[0].secs) ? 'start' : 'next'); } gmRender(); }
+function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; gmSound('next'); } } gmRender(); }
 function gmRestart(){ gmStop(); gmIdx=0; gmLeft=MOVES[0].secs; gmRender(); }
-function gmComplete(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
+function gmComplete(){ gmSound('done'); try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
   showToast('Sesi 15 menit selesai. Kerja bagus!'); gmRenderDone(); }
 function gmRenderDone(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var count=0; for(var i=0;i<7;i++){ var d=new Date(); d.setDate(d.getDate()-i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); if(s[k]) count+=s[k]; }
   document.getElementById('gmDoneInfo').textContent = count>0 ? ('Sesi selesai yang tercatat di peramban ini dalam 7 hari terakhir: '+count+' kali.') : ''; } catch(e){} }
