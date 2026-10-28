@@ -172,6 +172,10 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .mt{margin-top:14px}
 #chNote{min-height:210px;font-size:16px;line-height:1.65;padding:14px 16px;resize:vertical}
 #chNote:focus{border-color:#C58F87;box-shadow:0 0 0 3px rgba(197,143,135,.18);outline:none}
+.entry-item{color:#3A2E28}
+.entry-item .meta{color:#6B584D;font-size:.88rem}
+.entry-grat{color:#54443C}
+.entry-note{font-size:1rem;line-height:1.65;white-space:pre-wrap}
 
 html,body{overflow-x:hidden}
 img{max-width:100%}
@@ -261,8 +265,8 @@ function chRender(){
     var bits=[]; if(e.sleep) bits.push('Tidur '+e.sleep+' jam'); if(e.cycle) bits.push(e.cycle);
     return '<div class="entry-item"><b>'+label+'</b> &middot; Mood: <b>'+chEsc(e.mood||'-')+'</b>'
       +(bits.length?'<div class="meta">'+bits.join(' &middot; ')+'</div>':'')
-      +(e.gratitude?'<div style="margin-top:6px">Syukur: '+chEsc(e.gratitude)+'</div>':'')
-      +(e.note?'<div style="margin-top:4px">'+chEsc(e.note)+'</div>':'')
+      +(e.gratitude?'<div class="entry-grat" style="margin-top:6px">Syukur: '+chEsc(e.gratitude)+'</div>':'')
+      +(e.note?'<div class="entry-note" style="margin-top:4px">'+chEsc(e.note)+'</div>':'')
       +'<div style="margin-top:8px"><button class="link-danger" type="button" onclick="chDelete(\''+k+'\')">Hapus catatan ini</button></div></div>'; }).join('');
 }
 function chSave(){
