@@ -216,6 +216,7 @@ img{max-width:100%}
 .move-track{height:22px}
 .move-fill{background:linear-gradient(90deg,#8FA37E,#7D8C6F)}
 .total-track{height:12px;margin-top:8px}
+#gmMoveDesc{font-weight:600;color:var(--charcoal);margin-top:4px}
 .move-img{display:block;width:min(300px,78%);aspect-ratio:4/5;object-fit:cover;border-radius:20px;margin:10px auto 4px;box-shadow:0 10px 30px rgba(44,38,36,.12)}
 .thumb{width:74px;height:94px;object-fit:cover;border-radius:12px;flex:none}
 </style>
@@ -242,6 +243,7 @@ img{max-width:100%}
         <button class="ctl-btn ctl-main" id="gmMainBtn" type="button" onclick="gmToggle()" aria-label="Mulai" title="Mulai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
         <button class="ctl-btn ctl-side" id="gmSkipBtn" type="button" onclick="gmSkip()" aria-label="Lewati gerakan ini" title="Lewati gerakan ini"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
       </div>
+      <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
       <p class="timer-cap">Sisa waktu gerakan ini</p>
       <p class="timer-big" id="gmTimer">1:00</p>
       <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
@@ -250,7 +252,6 @@ img{max-width:100%}
       <div class="progress-track total-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
       <p class="center hint" id="gmTotalInfo">Total sesi: tersisa 15:00 dari 15:00</p>
       
-      <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
       
       <p class="center hint" id="gmDoneInfo"></p>
     </div>
