@@ -6,6 +6,13 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
 <title>HydroGlow - Pencatat Minum Air Cantikna</title>
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#7D8C6F" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="HydroGlow" />
+<link rel="apple-touch-icon" href="/assets/hg-apple-180.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -305,7 +312,7 @@ img{max-width:100%}
 
   <div class="privacy"><strong>Privasi:</strong> semua catatanmu hanya tersimpan di perambanmu sendiri (penyimpanan lokal). Tidak ada yang dikirim atau disimpan oleh Cantikna, dan kamu bisa menghapusnya kapan saja.</div>
 
-  <p class="footer-note">Teman Digital Cantikna, bagian dari Cantikna. Alat bantu harian yang lembut, praktis, dan gratis.</p>
+  <p class="footer-note">Teman Digital Cantikna, bagian dari Cantikna. Alat bantu harian yang lembut, praktis, dan gratis.<br /><a href="/privacy/">Kebijakan Privasi</a></p>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite">Tersalin</div>
@@ -395,6 +402,14 @@ document.getElementById('hgInterval').addEventListener('change', function(){ var
 (function(){ var s=hgLoad(); if(s.weight){ document.getElementById('hgBB').value=s.weight; } if(s.target){ document.getElementById('hgTarget').value=s.target; }
   if(s.interval){ document.getElementById('hgInterval').value=String(s.interval); hgRem.total=hgRem.left=s.interval*60; }
   hgRender(false); hgRingDraw(); hgSetLabel(); })();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
 </script>
 </body>
 </html>
