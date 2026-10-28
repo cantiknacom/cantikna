@@ -189,7 +189,8 @@ img{max-width:100%}
 .ctl-btn:active{transform:scale(.93)}
 .sticky-player .sp-btn{width:46px;height:46px;border-radius:50%;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#C58F87;color:#fff;flex:none;min-height:46px}
 .sticky-player .sp-btn svg{width:24px;height:24px;fill:currentColor;display:block}
-.move-img{width:min(320px,88%)}
+.move-img{scroll-margin-top:14px}
+.move-img{width:min(290px,80%)}
   .block{border-radius:20px}
 }
 
@@ -200,10 +201,10 @@ img{max-width:100%}
 .sticky-player .btn{background:#C58F87;color:#fff;min-height:46px;padding:10px 20px;flex:none}
 @media(max-width:760px){.sticky-player.show{display:flex}}
 .timer-big{font-size:4.6rem;font-weight:700;letter-spacing:.01em}
-.timer-cap{text-align:center;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#A96F66;font-weight:700;margin:4px 0 0}
+.timer-cap{text-align:center;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#A96F66;font-weight:700;margin:2px 0 0}
 .move-track{height:22px}
 .move-fill{background:linear-gradient(90deg,#8FA37E,#7D8C6F)}
-.total-track{height:12px;margin-top:16px}
+.total-track{height:12px;margin-top:8px}
 .move-img{display:block;width:min(300px,78%);aspect-ratio:4/5;object-fit:cover;border-radius:20px;margin:10px auto 4px;box-shadow:0 10px 30px rgba(44,38,36,.12)}
 .thumb{width:74px;height:94px;object-fit:cover;border-radius:12px;flex:none}
 </style>
@@ -235,10 +236,10 @@ img{max-width:100%}
       <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
       <p class="center hint" id="gmMoveTimeInfo">Gerakan ini: sisa 1:00 dari 1:00</p>
       <p class="center hint" id="gmNextInfo"></p>
-      
-      <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
       <div class="progress-track total-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
       <p class="center hint" id="gmTotalInfo">Total sesi: tersisa 15:00 dari 15:00</p>
+      
+      <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
       
       <p class="center hint" id="gmDoneInfo"></p>
     </div>
@@ -313,7 +314,7 @@ function gmRender(){
 }
 function gmTick(){ gmLeft--; if(gmLeft<=0){ gmBeep(); gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
 function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
-function gmScrollTime(){ var el=document.getElementById('gmMoveBar'); if(!el || !el.scrollIntoView) return; var r=el.getBoundingClientRect(); if(r.bottom > window.innerHeight - 8 || r.top < 0){ el.scrollIntoView({behavior:'smooth', block:'center'}); } }
+function gmScrollTime(){ var info=document.getElementById('gmTotalInfo'); var img=document.getElementById('gmMoveImg'); if(!info || !img || !img.scrollIntoView) return; var r=info.getBoundingClientRect(); if(r.bottom > window.innerHeight - 4){ img.scrollIntoView({behavior:'smooth', block:'start'}); } }
 function gmToggle(){ if(gmIdx>=MOVES.length){ gmRestart(); }
   if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); } gmRender(); }
 function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; } } gmRender(); }
