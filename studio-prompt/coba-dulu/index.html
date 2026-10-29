@@ -135,6 +135,7 @@ legend{font-weight:800;font-size:14px;margin-bottom:9px;padding:0}
 .prompt-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--sand)}
 .prompt-text{width:100%;border:0;background:transparent;color:var(--muted);font-family:inherit;font-size:13px;line-height:1.55;padding:10px 14px 12px;resize:none;height:58px;overflow-y:auto;outline:none;display:block}
 .prompt-text.short{height:46px}
+.prompt-toggle{display:block;margin:2px 12px 10px auto;background:none;border:0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--sage-dark);padding:4px 6px}
 .prompt-label{padding:9px 14px 0;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--sage-dark)}
 .step-illus{width:100%;height:auto;display:block;border-radius:16px;margin:6px 0 14px}
 .copy-row{padding:0 14px 14px}
@@ -219,6 +220,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
       <div class="prompt-wrap">
         <div class="prompt-label">Prompt siap salin, cukup tekan tombol di bawah</div>
         <textarea class="prompt-text" id="promptA2" readonly aria-label="Pratinjau prompt Coba Dulu"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptA2', this)">Lihat prompt lengkap</button>
         <div class="copy-row">
           <button class="btn btn-copy-big" onclick="copyPrompt('promptA2', this)">Salin Prompt</button>
         </div>
@@ -233,6 +235,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
       <div class="prompt-wrap" style="background:var(--cream)">
         <div class="prompt-label">Prompt penilaian, siap disalin</div>
         <textarea class="prompt-text short" id="promptA3" readonly aria-label="Pratinjau prompt penilaian kecocokan"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptA3', this)">Lihat prompt lengkap</button>
         <div class="copy-row">
           <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptA3', this)">Salin Prompt Penilaian</button>
         </div>
@@ -285,8 +288,19 @@ var PROMPT_A3 = 'Berdasarkan hasil edit barusan, nilai kecocokannya untukku deng
 /* Alur B */
 function autoGrow(el){
   if (!el) return;
-  el.style.height = 'auto';
-  el.style.height = Math.max(120, el.scrollHeight + 4) + 'px';
+  if (el.classList.contains('prompt-open')) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight + 4, 360) + 'px';
+  } else {
+    el.style.height = '';
+  }
+}
+function togglePrompt(id, btn){
+  var el = document.getElementById(id);
+  if (!el) return;
+  var open = el.classList.toggle('prompt-open');
+  btn.textContent = open ? 'Tutup prompt' : 'Lihat prompt lengkap';
+  autoGrow(el);
 }
 
 /* Salin */
