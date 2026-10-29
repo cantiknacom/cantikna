@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="id">
 <head>
+<!-- Google Tag Manager -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PQVR7NH8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
@@ -125,8 +133,10 @@ legend{font-weight:800;font-size:14px;margin-bottom:9px;padding:0}
 .prompt-title h4{font-size:18px}
 .prompt-title span{font-size:12.5px;color:var(--muted);font-weight:700}
 .prompt-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--sand)}
-.prompt-text{width:100%;border:0;background:transparent;color:var(--charcoal);font-family:inherit;font-size:14.8px;line-height:1.65;padding:16px;resize:vertical;min-height:180px;outline:none;display:block}
-.prompt-text.short{min-height:130px}
+.prompt-text{width:100%;border:0;background:transparent;color:var(--muted);font-family:inherit;font-size:13px;line-height:1.55;padding:10px 14px 12px;resize:none;height:84px;overflow-y:auto;outline:none;display:block}
+.prompt-text.short{height:68px}
+.prompt-label{padding:12px 14px 0;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--sage-dark)}
+.step-illus{width:100%;height:auto;display:block;border-radius:16px;margin:6px 0 14px}
 .copy-row{padding:0 14px 14px}
 .hint{font-size:13px;color:var(--muted);margin:10px 0 0}
 .order-note{display:flex;gap:10px;align-items:flex-start;background:var(--sage-soft);border-radius:16px;padding:13px 15px;font-size:14px;margin-top:16px}
@@ -155,6 +165,8 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQVR7NH8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div style="background:#FAF7F2;border-bottom:1px solid rgba(197,143,135,.25);padding:10px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;"><a href="/" style="color:#2C2624;text-decoration:none;font-weight:600;">&#8592; Cantikna.com</a><span style="color:#8a7a72;"> &nbsp;|&nbsp; Studio Prompt AI, gratis dari Cantikna</span></div>
 <div class="wrap">
 
@@ -180,6 +192,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 
     <div class="block">
       <div class="block-head"><span class="num-badge">1</span><h3>Siapkan 2 foto</h3></div>
+      <img class="step-illus" src="/assets/coba-langkah-1.jpg" alt="Karakter Cantikna memegang ponsel berisi foto dress yang ingin dicoba" loading="lazy" />
       <ul class="check-list">
         <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span><strong>Foto dirimu:</strong> seluruh badan, terang, latar polos.</span></li>
         <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 L10 18 L20 6"/></svg></span><span><strong>Foto produk dari toko:</strong> warna dan motif terlihat jelas, tidak buram.</span></li>
@@ -189,6 +202,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 
     <div class="block">
       <div class="block-head"><span class="num-badge">2</span><h3>Prompt untukmu</h3></div>
+      <img class="step-illus" src="/assets/coba-langkah-2.jpg" alt="Karakter Cantikna mengetuk ponsel untuk menyalin prompt" loading="lazy" />
       <p class="desc">Pilih jenisnya, prompt di bawah langsung menyesuaikan.</p>
       <fieldset>
         <legend>Jenis percobaan</legend>
@@ -203,6 +217,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
         <div class="field"><label for="aAksesori">Aksesori, bila ada <small>(boleh kosong)</small></label><input type="text" id="aAksesori" placeholder="Contoh: topi, tas, sepatu, atau kosongkan saja" oninput="updateA2()"></div>
       </div>
       <div class="prompt-wrap">
+        <div class="prompt-label">Prompt siap salin, cukup tekan tombol di bawah</div>
         <textarea class="prompt-text" id="promptA2" readonly aria-label="Pratinjau prompt Coba Dulu"></textarea>
         <div class="copy-row">
           <button class="btn btn-copy-big" onclick="copyPrompt('promptA2', this)">Salin Prompt</button>
@@ -213,8 +228,10 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 
     <div class="block secondary">
       <div class="block-head"><span class="num-badge">3</span><h3>Setelah dapat hasilnya</h3></div>
+      <img class="step-illus" src="/assets/coba-langkah-3.jpg" alt="Karakter Cantikna membayangkan dirinya memakai dress terracotta dari hasil Coba Dulu AI" loading="lazy" />
       <p class="desc">Kirim prompt ini di obrolan yang sama untuk menilai kecocokannya.</p>
       <div class="prompt-wrap" style="background:var(--cream)">
+        <div class="prompt-label">Prompt penilaian, siap disalin</div>
         <textarea class="prompt-text short" id="promptA3" readonly aria-label="Pratinjau prompt penilaian kecocokan"></textarea>
         <div class="copy-row">
           <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptA3', this)">Salin Prompt Penilaian</button>
