@@ -293,7 +293,7 @@ img{max-width:100%}
     </div>
 
 
-  <div class="privacy"><strong>Privasi:</strong> semua catatanmu hanya tersimpan di perambanmu sendiri (penyimpanan lokal). Tidak ada yang dikirim atau disimpan oleh Cantikna, dan kamu bisa menghapusnya kapan saja.</div>
+  <div class="privacy"><strong>Privasi:</strong> semua catatanmu hanya tersimpan di browsermu sendiri (penyimpanan lokal). Tidak ada yang dikirim atau disimpan oleh Cantikna, dan kamu bisa menghapusnya kapan saja.</div>
 
   <p class="footer-note">Teman Digital Cantikna, bagian dari Cantikna. Alat bantu harian yang lembut, praktis, dan gratis.<br /><a href="/privacy/">Kebijakan Privasi</a></p>
 </div>
@@ -358,7 +358,7 @@ function gmRestart(){ gmStop(); gmIdx=0; gmLeft=MOVES[0].secs; gmRender(); }
 function gmComplete(){ gmSound('done'); try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
   showToast('Sesi 15 menit selesai. Kerja bagus!'); gmRenderDone(); }
 function gmRenderDone(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var count=0; for(var i=0;i<7;i++){ var d=new Date(); d.setDate(d.getDate()-i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); if(s[k]) count+=s[k]; }
-  document.getElementById('gmDoneInfo').textContent = count>0 ? ('Sesi selesai yang tercatat di peramban ini dalam 7 hari terakhir: '+count+' kali.') : ''; } catch(e){} }
+  document.getElementById('gmDoneInfo').textContent = count>0 ? ('Sesi selesai yang tercatat di browser ini dalam 7 hari terakhir: '+count+' kali.') : ''; } catch(e){} }
 gmRender(); gmRenderDone();
 var gmPlayerVisible=true;
 function gmStickySync(){ var bar=document.getElementById('gmSticky'); if(!bar) return;
