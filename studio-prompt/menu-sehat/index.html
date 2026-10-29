@@ -133,8 +133,9 @@ legend{font-weight:800;font-size:14px;margin-bottom:9px;padding:0}
 .prompt-title h4{font-size:18px}
 .prompt-title span{font-size:12.5px;color:var(--muted);font-weight:700}
 .prompt-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--sand)}
-.prompt-text{width:100%;border:0;background:transparent;color:var(--charcoal);font-family:inherit;font-size:14.8px;line-height:1.65;padding:16px;resize:vertical;min-height:180px;outline:none;display:block}
-.prompt-text.short{min-height:130px}
+.prompt-text{width:100%;border:0;background:transparent;color:var(--charcoal);font-family:inherit;font-size:14.8px;line-height:1.65;padding:16px;resize:none;height:58px;overflow-y:auto;outline:none;display:block}
+.prompt-toggle{display:block;margin:2px 12px 10px auto;background:none;border:0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--sage-dark);padding:4px 6px}
+.prompt-text.short{height:46px}
 .copy-row{padding:0 14px 14px}
 .hint{font-size:13px;color:var(--muted);margin:10px 0 0}
 .order-note{display:flex;gap:10px;align-items:flex-start;background:var(--sage-soft);border-radius:16px;padding:13px 15px;font-size:14px;margin-top:16px}
@@ -251,6 +252,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
         <div class="prompt-title"><h4>Prompt 1: Hitung kalorimu</h4><span>Kirim pertama</span></div>
         <div class="prompt-wrap">
           <textarea class="prompt-text" id="promptB1" readonly aria-label="Pratinjau prompt hitung kalori"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptB1', this)">Lihat prompt lengkap</button>
           <div class="copy-row">
             <button class="btn btn-copy-big" onclick="copyPrompt('promptB1', this)">Salin Prompt 1</button>
           </div>
@@ -261,6 +263,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
         <div class="prompt-title"><h4>Prompt 2: Susun menu 7 hari</h4><span>Kirim setelah Prompt 1 dijawab</span></div>
         <div class="prompt-wrap">
           <textarea class="prompt-text" id="promptB2" readonly aria-label="Pratinjau prompt susun menu"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptB2', this)">Lihat prompt lengkap</button>
           <div class="copy-row">
             <button class="btn btn-copy-big" onclick="copyPrompt('promptB2', this)">Salin Prompt 2</button>
           </div>
@@ -284,6 +287,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
           </div>
           <div class="prompt-wrap">
             <textarea class="prompt-text short" id="promptB3a" readonly aria-label="Prompt ganti satu hari"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptB3a', this)">Lihat prompt lengkap</button>
             <div class="copy-row">
               <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3a', this)">Salin Prompt</button>
             </div>
@@ -298,6 +302,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
           </div>
           <div class="prompt-wrap">
             <textarea class="prompt-text short" id="promptB3b" readonly aria-label="Prompt substitusi bahan"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptB3b', this)">Lihat prompt lengkap</button>
             <div class="copy-row">
               <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3b', this)">Salin Prompt</button>
             </div>
@@ -309,6 +314,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
           <p>Susun ulang seluruh menu jadi lebih ramah bujet, target kalori tetap sama.</p>
           <div class="prompt-wrap">
             <textarea class="prompt-text short" id="promptB3c" readonly aria-label="Prompt versi lebih hemat"></textarea>
+          <button type="button" class="prompt-toggle" onclick="togglePrompt('promptB3c', this)">Lihat prompt lengkap</button>
             <div class="copy-row">
               <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptB3c', this)">Salin Prompt</button>
             </div>
@@ -371,8 +377,19 @@ function updateB3(){
 
 function autoGrow(el){
   if (!el) return;
-  el.style.height = 'auto';
-  el.style.height = Math.max(120, el.scrollHeight + 4) + 'px';
+  if (el.classList.contains('prompt-open')) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight + 4, 360) + 'px';
+  } else {
+    el.style.height = '';
+  }
+}
+function togglePrompt(id, btn){
+  var el = document.getElementById(id);
+  if (!el) return;
+  var open = el.classList.toggle('prompt-open');
+  btn.textContent = open ? 'Tutup prompt' : 'Lihat prompt lengkap';
+  autoGrow(el);
 }
 
 /* Salin */
