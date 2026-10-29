@@ -220,6 +220,16 @@ textarea{resize:vertical;min-height:64px}
   <section class="card" aria-label="Pengingat Google Calendar">
     <h2>Pengingat di Google Calendar</h2>
     <p class="sub">Sekali ketuk, perkiraan pentingmu masuk ke Google Calendar dan pengingatnya berjalan di sana, tanpa perlu membuka aplikasi ini.</p>
+    <div id="gcSyncBox" style="background:var(--sand);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:16px">
+      <p style="font-weight:800;margin-bottom:4px">Sinkron otomatis (pilihan baru)</p>
+      <p class="sub" style="margin-bottom:10px">Hubungkan sekali, lalu SiklusKu menulis perkiraan mens, masa subur, dan ovulasimu ke kalender khusus bernama SiklusKu di Google Calendar milikmu, lengkap dengan pengingat. Tanggal otomatis diperbarui setiap kali kamu menekan Sinkronkan setelah mencatat perubahan.</p>
+      <p id="gcStatus" class="sub" style="margin-bottom:10px"></p>
+      <div class="row-btns" style="margin-top:0">
+        <button class="btn btn-sage" id="gcConnect">Hubungkan Google Calendar</button>
+        <button class="btn btn-sage hidden" id="gcSync">Sinkronkan Sekarang</button>
+        <button class="btn btn-ghost hidden" id="gcDisconnect">Putuskan</button>
+      </div>
+    </div>
     <div id="gcalEmpty" class="note hidden">Catat dulu mens terakhirmu, tombol pengingat akan muncul setelah perkiraan siklusmu terbaca.</div>
     <div class="gcal-list" id="gcalList">
       <a class="btn btn-ghost" id="gcPeriod" target="_blank" rel="noopener">Tambah: perkiraan mens berikutnya</a>
@@ -246,7 +256,7 @@ textarea{resize:vertical;min-height:64px}
 
   <section class="card" aria-label="Data saya">
     <h2>Data Saya</h2>
-    <p class="sub">Semua catatan tersimpan hanya di perangkat ini. Unduh cadangan secara berkala agar datamu aman bila berganti HP atau membersihkan peramban.</p>
+    <p class="sub">Semua catatan tersimpan hanya di perangkat ini. Unduh cadangan secara berkala agar datamu aman bila berganti HP atau membersihkan browser.</p>
     <div class="row-btns">
       <button class="btn btn-ghost" id="exportBtn">Unduh Cadangan (.json)</button>
       <button class="btn btn-ghost" id="importBtn">Impor Cadangan</button>
@@ -259,7 +269,7 @@ textarea{resize:vertical;min-height:64px}
 
   <div class="note"><strong>Perlu diingat:</strong> perkiraan SiklusKu adalah perhitungan kalender dari riwayatmu, bukan alat kontrasepsi dan bukan nasihat medis. Bila siklusmu sangat tidak teratur, nyeri berlebihan, atau ada keluhan lain, konsultasikan ke dokter atau bidan.</div>
 
-  <p class="privacy"><strong>Privasi:</strong> catatan siklus dan jurnal harianmu hanya tersimpan di penyimpanan lokal peramban perangkat ini (localStorage). Cantikna tidak menerima, melihat, atau menyimpan datamu di server. Tombol Google Calendar membuka layanan Google di perangkatmu; yang kamu tambahkan ke sana tunduk pada kebijakan Google. Baca juga <a href="/privacy/">Kebijakan Privasi Cantikna</a>.</p>
+  <p class="privacy"><strong>Privasi:</strong> catatan siklus dan jurnal harianmu hanya tersimpan di penyimpanan lokal browser perangkat ini (localStorage). Cantikna tidak menerima, melihat, atau menyimpan datamu di server. Tombol Google Calendar membuka layanan Google di perangkatmu; yang kamu tambahkan ke sana tunduk pada kebijakan Google. Baca juga <a href="/privacy/">Kebijakan Privasi Cantikna</a>.</p>
 
   <p class="footer-note">SiklusKu, bagian dari Teman Digital Cantikna. <a href="/">cantikna.com</a></p>
 </div>
@@ -546,9 +556,145 @@ $("icsBtn").addEventListener("click", function(){
   toast("Berkas pengingat terunduh. Impor berkas itu ke Google Calendar agar pengingatnya aktif.");
 });
 
+/* ---------- Sinkron otomatis Google Calendar ---------- */
+var GCAL_CLIENT_ID = "__GCAL_CLIENT_ID__";
+var GCAL_SCOPE = "https://www.googleapis.com/auth/calendar.app.created";
+var SYNC_KEY = "siklusku.sync";
+var syncMeta = { calId: null, lastSync: null, sig: "" };
+try { var sm = JSON.parse(localStorage.getItem(SYNC_KEY) || "null"); if (sm && sm.calId) syncMeta = sm; } catch (e) {}
+var gToken = null, gTokenExp = 0, gisReady = false;
+
+function stateSig() {
+  var ps = sortedPeriods();
+  return ps.map(function (x) { return x.start + ":" + (x.end || ""); }).join("|") + "#" + avgCycleLen() + "/" + avgPeriodLen();
+}
+function saveSyncMeta() { try { localStorage.setItem(SYNC_KEY, JSON.stringify(syncMeta)); } catch (e) {} }
+function renderSync() {
+  var box = $("gcSyncBox");
+  if (GCAL_CLIENT_ID.indexOf("__") === 0) { box.classList.add("hidden"); return; }
+  var connected = !!syncMeta.calId;
+  $("gcConnect").classList.toggle("hidden", connected);
+  $("gcSync").classList.toggle("hidden", !connected);
+  $("gcDisconnect").classList.toggle("hidden", !connected);
+  var st = $("gcStatus");
+  if (!connected) { st.textContent = "Belum terhubung. Kamu tetap bisa memakai tombol tambah manual di bawah tanpa login."; return; }
+  var dirty = syncMeta.sig !== stateSig();
+  st.innerHTML = "Terhubung ke kalender <strong>SiklusKu</strong> di Google Calendar kamu."
+    + (syncMeta.lastSync ? " Sinkron terakhir: " + shortDate(syncMeta.lastSync.slice(0, 10)) + "." : "")
+    + (dirty ? " <strong>Ada perubahan catatan yang belum disinkronkan.</strong>" : " Semua perubahan sudah tersinkron.");
+}
+function loadGis() {
+  return new Promise(function (resolve, reject) {
+    if (gisReady) return resolve();
+    var sc = document.createElement("script");
+    sc.src = "https://accounts.google.com/gsi/client";
+    sc.onload = function () { gisReady = true; resolve(); };
+    sc.onerror = reject;
+    document.head.appendChild(sc);
+  });
+}
+function ensureToken(interactive) {
+  return loadGis().then(function () {
+    return new Promise(function (resolve, reject) {
+      if (gToken && Date.now() < gTokenExp - 30000) return resolve(gToken);
+      var client = google.accounts.oauth2.initTokenClient({
+        client_id: GCAL_CLIENT_ID, scope: GCAL_SCOPE,
+        callback: function (resp) {
+          if (resp && resp.access_token) {
+            gToken = resp.access_token;
+            gTokenExp = Date.now() + (resp.expires_in ? resp.expires_in * 1000 : 3000000);
+            resolve(gToken);
+          } else { reject(new Error("token kosong")); }
+        },
+        error_callback: function () { reject(new Error("izin ditolak")); }
+      });
+      client.requestAccessToken({ prompt: interactive ? "" : "none" });
+    });
+  });
+}
+function gfetch(path, method, body) {
+  return fetch("https://www.googleapis.com/calendar/v3" + path, {
+    method: method || "GET",
+    headers: { "Authorization": "Bearer " + gToken, "Content-Type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined
+  }).then(function (r) {
+    if (r.status === 204) return {};
+    return r.json().then(function (j) { if (!r.ok) throw new Error("HTTP " + r.status); return j; });
+  });
+}
+function ensureCalendar() {
+  if (syncMeta.calId) {
+    return gfetch("/calendars/" + encodeURIComponent(syncMeta.calId)).then(function () { return syncMeta.calId; })
+      .catch(function () { syncMeta.calId = null; return ensureCalendar(); });
+  }
+  return gfetch("/calendars", "POST", { summary: "SiklusKu, Kalender Mens Cantikna", timeZone: "Asia/Jakarta" })
+    .then(function (cal) { syncMeta.calId = cal.id; saveSyncMeta(); return cal.id; });
+}
+function clearCalendar(calId) {
+  return gfetch("/calendars/" + encodeURIComponent(calId) + "/events?maxResults=250&singleEvents=true").then(function (list) {
+    var items = (list.items || []);
+    return items.reduce(function (chain, ev) {
+      return chain.then(function () { return gfetch("/calendars/" + encodeURIComponent(calId) + "/events/" + encodeURIComponent(ev.id), "DELETE").catch(function () {}); });
+    }, Promise.resolve());
+  });
+}
+function syncEvents() {
+  var ps = sortedPeriods(); if (!ps.length) return [];
+  var avg = avgCycleLen(), plen = avgPeriodLen(), last = ps[ps.length - 1].start, evs = [];
+  for (var k = 1; k <= 6; k++) {
+    var s = addDays(last, avg * k), ovul = addDays(s, -14);
+    evs.push({ summary: "Perkiraan mens (SiklusKu)", start: s, end: addDays(s, plen), colorId: "11",
+      desc: "Perkiraan awal mens dari SiklusKu, cantikna.com. Rata-rata siklus " + avg + " hari. Tanggal bisa bergeser, sesuaikan dengan catatanmu.",
+      reminders: [{ method: "popup", minutes: 2880 }] });
+    evs.push({ summary: "Masa subur (perkiraan, SiklusKu)", start: addDays(ovul, -5), end: addDays(ovul, 2), colorId: "2",
+      desc: "Perkiraan masa subur dari SiklusKu, cantikna.com. Perkiraan kalender, bukan alat kontrasepsi.", reminders: [] });
+    evs.push({ summary: "Ovulasi (perkiraan, SiklusKu)", start: ovul, end: addDays(ovul, 1), colorId: "5",
+      desc: "Perkiraan hari ovulasi dari SiklusKu, cantikna.com.",
+      reminders: [{ method: "popup", minutes: 1440 }] });
+  }
+  return evs;
+}
+function doSync(interactive) {
+  var btn = $("gcSync"), conn = $("gcConnect");
+  var busy = interactive && !syncMeta.calId ? conn : btn;
+  var oldText = busy.textContent; busy.textContent = "Menghubungkan..."; busy.disabled = true;
+  return ensureToken(interactive)
+    .catch(function () { if (!interactive) return ensureToken(true); throw new Error("perlu izin"); })
+    .then(ensureCalendar)
+    .then(function (calId) {
+      busy.textContent = "Mensinkronkan...";
+      return clearCalendar(calId).then(function () { return calId; });
+    })
+    .then(function (calId) {
+      var evs = syncEvents();
+      return evs.reduce(function (chain, ev) {
+        return chain.then(function () {
+          return gfetch("/calendars/" + encodeURIComponent(calId) + "/events", "POST", {
+            summary: ev.summary, description: ev.desc,
+            start: { date: ev.start }, end: { date: ev.end }, colorId: ev.colorId,
+            reminders: { useDefault: false, overrides: ev.reminders }
+          });
+        });
+      }, Promise.resolve()).then(function () {
+        syncMeta.lastSync = new Date().toISOString();
+        syncMeta.sig = stateSig(); saveSyncMeta(); renderSync();
+        toast("Sinkron selesai: perkiraan 6 siklus kini ada di Google Calendar kamu");
+      });
+    })
+    .catch(function () { toast("Sinkron belum berhasil. Periksa koneksi internet lalu coba lagi."); })
+    .finally(function () { busy.textContent = oldText; busy.disabled = false; });
+}
+$("gcConnect").addEventListener("click", function () { doSync(true); });
+$("gcSync").addEventListener("click", function () { doSync(false); });
+$("gcDisconnect").addEventListener("click", function () {
+  try { if (gToken && window.google) google.accounts.oauth2.revoke(gToken, function () {}); } catch (e) {}
+  gToken = null; syncMeta = { calId: null, lastSync: null, sig: "" }; saveSyncMeta(); renderSync();
+  toast("Koneksi diputuskan. Kalender SiklusKu di Google Calendar tidak ikut terhapus, hapus manual bila kamu mau.");
+});
+
 /* ---------- Pengingat dalam aplikasi ---------- */
 $("notifBtn").addEventListener("click", function(){
-  if(!("Notification" in window)){ toast("Peramban ini tidak mendukung notifikasi"); return; }
+  if(!("Notification" in window)){ toast("Browser ini tidak mendukung notifikasi"); return; }
   Notification.requestPermission().then(function(p){
     toast(p==="granted" ? "Pengingat aplikasi aktif, akan muncul saat SiklusKu dibuka menjelang mens" : "Izin notifikasi belum diberikan");
   });
@@ -597,7 +743,7 @@ $("wipeBtn").addEventListener("click", function(){
 });
 
 /* ---------- Muat ---------- */
-function refresh(){ renderStatus(); renderCalendar(); renderStats(); renderGcal(); }
+function refresh(){ renderStatus(); renderCalendar(); renderStats(); renderGcal(); renderSync(); }
 refresh();
 maybeNotify();
 if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
