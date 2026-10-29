@@ -215,7 +215,7 @@ img{max-width:100%}
   <header class="hero">
     <span class="top-badge"><i></i> Teman Digitalmu</span>
     <h1>CalmHeart</h1>
-    <p>Ruang privat untuk mencatat mood, tidur, siklus, dan hal-hal kecil yang kamu syukuri setiap hari. Semua tersimpan hanya di perambanmu.</p>
+    <p>Ruang privat untuk mencatat mood, tidur, siklus, dan hal-hal kecil yang kamu syukuri setiap hari. Semua tersimpan hanya di browsermu.</p>
     <div class="hero-illus" style="max-width:540px"><img src="/assets/calmheart-karakter.jpg" alt="Karakter Cantikna menulis jurnal dengan tenang di malam hari" style="width:100%;height:auto;display:block;border-radius:24px" /></div>
   </header>
 
@@ -255,12 +255,12 @@ img{max-width:100%}
       <div id="chList"><p class="hint">Belum ada catatan. Catatan pertamamu akan muncul di sini.</p></div>
       <div class="add-grid">
         <button class="btn-ghost btn-small" type="button" onclick="chExport()" style="margin-right:8px;margin-bottom:8px">Unduh cadangan catatan (.txt)</button>
-        <button class="link-danger" type="button" onclick="chWipe()">Hapus semua data CalmHeart di peramban ini</button>
+        <button class="link-danger" type="button" onclick="chWipe()">Hapus semua data CalmHeart di browser ini</button>
       </div>
     </div>
 
 
-  <div class="privacy"><strong>Privasi:</strong> semua catatanmu hanya tersimpan di perambanmu sendiri (penyimpanan lokal). Tidak ada yang dikirim atau disimpan oleh Cantikna, dan kamu bisa menghapusnya kapan saja.</div>
+  <div class="privacy"><strong>Privasi:</strong> semua catatanmu hanya tersimpan di browsermu sendiri (penyimpanan lokal). Tidak ada yang dikirim atau disimpan oleh Cantikna, dan kamu bisa menghapusnya kapan saja.</div>
 
   <p class="footer-note">Teman Digital Cantikna, bagian dari Cantikna. Alat bantu harian yang lembut, praktis, dan gratis.<br /><a href="/privacy/">Kebijakan Privasi</a></p>
 </div>
@@ -295,7 +295,7 @@ function chSave(){
   s.entries[k]={ mood:mood, sleep:document.getElementById('chSleep').value, cycle:document.getElementById('chCycle').value,
     gratitude:document.getElementById('chGrat').value.trim(), note:document.getElementById('chNote').value.trim() };
   chStore(s); function chCount(){ var v=document.getElementById('chNote').value.trim(); var n=v ? v.split(/\s+/).length : 0; document.getElementById('chNoteCount').textContent = n+' kata'; }
-chRender(); showToast('Catatan hari ini tersimpan di perambanmu.');
+chRender(); showToast('Catatan hari ini tersimpan di browsermu.');
 }
 function chDelete(k){ var s=chLoad(); delete s.entries[k]; chStore(s); chRender(); showToast('Catatan dihapus.'); }
 function chExport(){
@@ -320,7 +320,7 @@ function chExport(){
   setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 400);
   showToast('Cadangan '+keys.length+' catatan diunduh.');
 }
-function chWipe(){ localStorage.removeItem('calmheart.v1'); chRender(); showToast('Semua data CalmHeart di peramban ini sudah dihapus.'); }
+function chWipe(){ localStorage.removeItem('calmheart.v1'); chRender(); showToast('Semua data CalmHeart di browser ini sudah dihapus.'); }
 chRender();
 
 </script>
