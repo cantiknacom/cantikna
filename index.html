@@ -111,7 +111,7 @@
         <a href="#wellness" class="hover:text-brand-rose transition-colors">Wellness & Jiwa</a>
         <a href="#tech-apps" class="hover:text-brand-rose transition-colors">Aplikasi Pilihan</a>
         <a href="/ebook/" class="hover:text-brand-rose transition-colors">Ebook</a>
-        <a href="#newsletter" class="hover:text-brand-rose transition-colors">Surat Sahabat</a>
+        <a href="#newsletter" class="hover:text-brand-rose transition-colors">Instagram</a>
       </nav>
 
       <!-- Header CTA -->
@@ -138,7 +138,7 @@
       <a href="#wellness" class="mobile-link py-2 border-b border-brand-rose/10 hover:text-brand-rose">Wellness & Jiwa</a>
       <a href="#tech-apps" class="mobile-link py-2 border-b border-brand-rose/10 hover:text-brand-rose">Aplikasi Pilihan</a>
         <a href="/ebook/" class="mobile-link py-2 border-b border-brand-rose/10 hover:text-brand-rose">Ebook</a>
-      <a href="#newsletter" class="mobile-link py-2 hover:text-brand-rose">Surat Sahabat</a>
+      <a href="#newsletter" class="mobile-link py-2 hover:text-brand-rose">Instagram</a>
       <a href="https://instagram.com/cantiknaselalu" target="_blank" rel="noopener" class="mobile-link py-2 border-b border-brand-rose/10 hover:text-brand-rose inline-flex items-center gap-2">
         <i data-lucide="instagram" class="w-5 h-5"></i>
         <span>Instagram @cantiknaselalu</span>
@@ -504,40 +504,27 @@
 
           <div class="relative z-10 max-w-2xl mx-auto text-center space-y-6">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold text-white tracking-wide">
-              <span>💌 Surat Hangat Setiap Akhir Pekan</span>
+              <span>📸 Kabar &amp; Inspirasi di Instagram</span>
             </div>
 
             <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              Kabar Baik & Inspirasi Merawat Diri, Langsung ke Inbox-mu.
+              Kabar Baik & Inspirasi Merawat Diri, Langsung di Instagram-mu.
             </h2>
 
             <p class="text-white/90 text-sm sm:text-base leading-relaxed">
-              Dapatkan kurasi resep sehat, tips skincare usia 30+, dan obrolan reflektif. Tanpa spam—murni inspirasi hangat layaknya surat dari sahabat lama.
+              Ikuti Cantikna di Instagram untuk kurasi resep sehat, tips skincare, prompt AI terbaru, dan kabar alat gratis kami. Semua kabar baik kami sampaikan di sana, hangat seperti obrolan dengan sahabat lama.
             </p>
 
-            <!-- Newsletter Subscription Form -->
-            <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3 pt-2 max-w-md mx-auto" onsubmit="event.preventDefault(); showSubscribeFeedback();">
-              <input 
-                id="subscriberEmail"
-                type="email" 
-                required 
-                placeholder="Masukkan alamat email terbaikmu..." 
-                class="flex-1 px-5 py-3.5 rounded-full bg-white text-brand-charcoal placeholder-brand-taupe/70 text-sm focus:outline-none focus:ring-2 focus:ring-white/80 shadow-md"
-              />
-              <button 
-                type="submit" 
-                class="px-7 py-3.5 rounded-full bg-brand-charcoal text-white font-semibold text-sm hover:bg-brand-charcoal-deep transition-colors shadow-lg hover:shadow-xl flex-shrink-0"
-              >
-                Kirimkan Saya Inspirasi
-              </button>
-            </form>
-
-            <div id="newsletterSuccess" class="hidden p-4 rounded-2xl bg-white/20 backdrop-blur-md text-white text-xs font-medium animate-fade-in">
-              ✨ Terima kasih, Sahabat! Cek kotak masuk emailmu untuk sambutan hangat dari Cantikna.
+            <!-- Instagram Follow Button -->
+            <div class="pt-2">
+              <a href="https://www.instagram.com/cantiknaselalu/" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-brand-charcoal text-white font-semibold text-sm hover:bg-brand-charcoal-deep transition-colors shadow-lg hover:shadow-xl">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                Ikuti @cantiknaselalu di Instagram
+              </a>
             </div>
 
             <p class="text-[11px] text-white/70">
-              Kami menghargai privasimu sepenuhnya. Berhenti berlangganan kapan saja dengan 1 klik.
+              Ketuk tombolnya lalu tekan Ikuti di Instagram. Berhenti mengikuti kapan saja, semudah 1 klik.
             </p>
           </div>
 
@@ -637,18 +624,6 @@
       });
     });
 
-    // Newsletter feedback simulation
-    function showSubscribeFeedback() {
-      const emailInput = document.getElementById('subscriberEmail');
-      const successBox = document.getElementById('newsletterSuccess');
-      if (emailInput.value) {
-        successBox.classList.remove('hidden');
-        emailInput.value = '';
-        setTimeout(() => {
-          successBox.classList.add('hidden');
-        }, 5000);
-      }
-    }
   </script>
 </body>
 </html>
