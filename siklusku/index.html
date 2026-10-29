@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<!-- Google Tag Manager -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PQVR7NH8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SiklusKu, Kalender Mens Cantikna</title>
+<meta name="description" content="SiklusKu adalah kalender mens sederhana dari Cantikna: catat mens, lihat perkiraan mens berikutnya, masa subur, dan ovulasi, lalu tambahkan pengingat ke Google Calendar. Semua data hanya tersimpan di perangkatmu.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#C58F87">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SiklusKu">
+<link rel="apple-touch-icon" href="/assets/sk-apple-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/sk-icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FBF6EF; --sand:#F6F0E6; --card:#FFFFFF; --ink:#3E3A36; --muted:#8A7F76;
+  --terra:#C4705A; --terra-dark:#A85A44; --terra-soft:#F7E3DB; --rose:#C58F87;
+  --sage:#7D8C6F; --sage-dark:#5F7052; --sage-soft:#E3EADB; --gold:#C9A24B; --gold-soft:#F6ECD4;
+  --line:#EDDFD0; --shadow:0 10px 30px rgba(62,58,54,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;padding:20px 16px 56px}
+.wrap{max-width:640px;margin:0 auto}
+a{color:var(--terra-dark)}
+.topnav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:.92rem}
+.topnav a{text-decoration:none;font-weight:600}
+header.hero{text-align:center;margin-bottom:20px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sand);border:1px solid var(--line);color:var(--terra-dark);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--terra);display:inline-block}
+.hero-img{margin:16px auto 4px;max-width:520px}
+.hero-img img{width:100%;height:auto;display:block;border-radius:24px;border:4px solid #fff;box-shadow:var(--shadow)}
+h1{font-family:"Playfair Display",serif;font-size:42px;line-height:1.15;margin:10px 0 6px}
+.hero p{color:var(--muted);max-width:520px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:22px;margin-top:18px}
+.card h2{font-family:"Playfair Display",serif;font-size:24px;margin-bottom:6px}
+.card .sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.status{text-align:center}
+.status .big{font-family:"Playfair Display",serif;font-size:30px;line-height:1.25;margin:4px 0}
+.status .big b{color:var(--terra-dark)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 4px}
+.chip{background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.chip.sage{background:var(--sage-soft);border-color:#CFDAC2}
+.chip.gold{background:var(--gold-soft);border-color:#E8D9AE}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-family:inherit;font-weight:700;border-radius:999px;padding:13px 22px;font-size:15px;text-decoration:none;transition:background .2s,transform .15s}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--terra);color:#fff;width:100%;min-height:56px;font-size:16px;box-shadow:0 10px 22px rgba(196,112,90,.32);margin-top:14px}
+.btn-main:hover{background:var(--terra-dark)}
+.btn-sage{background:var(--sage);color:#fff}
+.btn-sage:hover{background:var(--sage-dark)}
+.btn-ghost{background:transparent;color:var(--terra-dark);border:1.5px solid var(--terra);padding:11px 18px}
+.btn-ghost:hover{background:var(--terra-soft)}
+.btn-small{padding:9px 14px;font-size:13.5px}
+.banner{display:none;background:var(--gold-soft);border:1px solid #E8D9AE;border-radius:16px;padding:12px 14px;font-size:14px;margin-top:14px;text-align:left}
+.banner.show{display:block}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head h2{margin:0}
+.cal-nav{display:flex;gap:8px}
+.cal-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--sand);font-size:18px;cursor:pointer;color:var(--ink)}
+.cal-nav button:hover{background:var(--terra-soft)}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.day{position:relative;border:0;background:transparent;font-family:inherit;font-size:14.5px;font-weight:600;color:var(--ink);aspect-ratio:1;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.day:hover{background:var(--sand)}
+.day.dim{color:#CBBBA9;cursor:default}
+.day.period{background:var(--terra);color:#fff}
+.day.pred{background:var(--terra-soft);color:var(--terra-dark);box-shadow:inset 0 0 0 1.5px var(--rose)}
+.day.fertile{background:var(--sage-soft);color:var(--sage-dark)}
+.day.ovul{box-shadow:inset 0 0 0 2px var(--gold);font-weight:800}
+.day.today{outline:2px solid var(--ink);outline-offset:1px}
+.day.sel{outline:2px solid var(--terra-dark);outline-offset:1px}
+.day .dot{position:absolute;bottom:5px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.55}
+.day .star{position:absolute;top:2px;right:5px;font-size:9px;color:var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:50%;display:inline-block}
+.sw.p{background:var(--terra)} .sw.pr{background:var(--terra-soft);box-shadow:inset 0 0 0 1.5px var(--rose)} .sw.f{background:var(--sage-soft);box-shadow:inset 0 0 0 1.5px var(--sage)} .sw.o{background:#fff;box-shadow:inset 0 0 0 2px var(--gold)}
+.field{margin-top:14px}
+.field label{display:block;font-weight:700;font-size:14px;margin-bottom:7px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:1.5px solid var(--line);background:var(--sand);color:var(--ink);font-family:inherit;font-weight:600;font-size:13.5px;border-radius:999px;padding:8px 14px;cursor:pointer}
+.seg button.on{background:var(--terra);border-color:var(--terra);color:#fff}
+.seg.sage button.on{background:var(--sage);border-color:var(--sage)}
+textarea,input[type=text]{width:100%;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:11px 13px;font-family:inherit;font-size:14.5px;color:var(--ink)}
+textarea{resize:vertical;min-height:64px}
+.row-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.row-btns .btn{flex:1}
+.mini-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.mini-actions button{border:1px dashed var(--rose);background:#fff;color:var(--terra-dark);font-family:inherit;font-weight:700;font-size:13px;border-radius:999px;padding:8px 13px;cursor:pointer}
+.mini-actions button:hover{background:var(--terra-soft)}
+.gcal-list{display:grid;gap:10px}
+.gcal-list .btn{justify-content:flex-start}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;margin-bottom:8px}
+.stat{background:var(--sand);border:1px solid var(--line);border-radius:18px;padding:14px 6px}
+.stat b{display:block;font-family:"Playfair Display",serif;font-size:26px;color:var(--terra-dark)}
+.stat span{font-size:12px;color:var(--muted);font-weight:600}
+.hist{list-style:none;display:grid;gap:8px;margin-top:10px}
+.hist li{display:flex;justify-content:space-between;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:14px}
+.hist li b{color:var(--terra-dark)}
+.note{background:var(--sage-soft);border-radius:16px;padding:13px 15px;font-size:13.5px;margin-top:16px}
+.privacy{font-size:13px;color:var(--muted);margin-top:22px;background:var(--sand);border:1px solid var(--line);border-radius:16px;padding:13px 15px}
+.footer-note{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+.hidden{display:none!important}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:480px){ h1{font-size:34px} .stats{grid-template-columns:repeat(3,1fr);gap:7px} .stat b{font-size:21px} }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQVR7NH8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="wrap">
+  <nav class="topnav">
+    <a href="/#tech-apps">&larr; Teman Digital Cantikna</a>
+    <a href="/studio-prompt/menu-sehat/">Menu Sehat AI &rarr;</a>
+  </nav>
+
+  <header class="hero">
+    <span class="badge"><i></i> Teman Digital Cantikna</span>
+    <div class="hero-img"><img src="/assets/kalender-mens-hero.jpg" alt="Karakter Cantikna tersenyum sambil memegang kalender dan ponsel"></div>
+    <h1>SiklusKu</h1>
+    <p>Kalender mens yang sederhana dan jujur: catat mensmu, lihat perkiraan mens berikutnya, masa subur, dan ovulasi, lalu pasang pengingatnya di Google Calendar. Tanpa akun, tanpa iklan.</p>
+  </header>
+
+  <section class="card status" aria-label="Status siklus">
+    <p class="sub" style="margin-bottom:2px">Siklusmu saat ini</p>
+    <p class="big" id="statusBig">Catat mens terakhirmu untuk memulai</p>
+    <p class="sub" id="statusSub" style="margin:0">Ketuk tanggal di kalender, atau pakai tombol di bawah ini.</p>
+    <div class="chips" id="statusChips"></div>
+    <button class="btn btn-main" id="mainBtn">Mens Mulai Hari Ini</button>
+    <div class="banner" id="predBanner"></div>
+  </section>
+
+  <section class="card" aria-label="Kalender">
+    <div class="cal-head">
+      <h2 id="calTitle">Kalender</h2>
+      <div class="cal-nav">
+        <button id="prevMonth" aria-label="Bulan sebelumnya">&lsaquo;</button>
+        <button id="nextMonth" aria-label="Bulan berikutnya">&rsaquo;</button>
+      </div>
+    </div>
+    <div class="dow"><span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span></div>
+    <div class="grid" id="calGrid"></div>
+    <div class="legend">
+      <span><i class="sw p"></i> Hari mens</span>
+      <span><i class="sw pr"></i> Perkiraan mens</span>
+      <span><i class="sw f"></i> Masa subur</span>
+      <span><i class="sw o"></i> Ovulasi</span>
+      <span>&bull; ada catatan harian</span>
+    </div>
+
+    <div id="dayPanel" class="hidden">
+      <hr style="border:0;border-top:1px solid var(--line);margin:20px 0 4px">
+      <h2 id="dayTitle" style="font-size:21px">Tanggal</h2>
+      <div class="mini-actions" id="periodActions"></div>
+      <div class="field">
+        <label>Aliran</label>
+        <div class="seg" id="flowSeg">
+          <button data-v="bercak">Bercak</button>
+          <button data-v="ringan">Ringan</button>
+          <button data-v="sedang">Sedang</button>
+          <button data-v="deras">Deras</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Nyeri</label>
+        <div class="seg" id="painSeg">
+          <button data-v="0">Tidak ada</button>
+          <button data-v="1">Ringan</button>
+          <button data-v="2">Sedang</button>
+          <button data-v="3">Berat</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Suasana hati</label>
+        <div class="seg sage" id="moodSeg">
+          <button data-v="senang">Senang</button>
+          <button data-v="tenang">Tenang</button>
+          <button data-v="biasa">Biasa saja</button>
+          <button data-v="sensitif">Sensitif</button>
+          <button data-v="sedih">Sedih</button>
+          <button data-v="marah">Mudah marah</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Gejala</label>
+        <div class="seg sage" id="symSeg">
+          <button data-v="kram">Kram perut</button>
+          <button data-v="kepala">Sakit kepala</button>
+          <button data-v="kembung">Kembung</button>
+          <button data-v="jerawat">Jerawat</button>
+          <button data-v="payudara">Payudara nyeri</button>
+          <button data-v="lelah">Lelah</button>
+          <button data-v="punggung">Nyeri punggung</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="dayNote">Catatan</label>
+        <textarea id="dayNote" placeholder="Tulis catatan singkat untuk hari ini, bila ada"></textarea>
+      </div>
+      <div class="row-btns">
+        <button class="btn btn-sage" id="saveLog">Simpan Catatan</button>
+        <button class="btn btn-ghost" id="deleteLog">Hapus Catatan Hari Ini</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-label="Pengingat Google Calendar">
+    <h2>Pengingat di Google Calendar</h2>
+    <p class="sub">Sekali ketuk, perkiraan pentingmu masuk ke Google Calendar dan pengingatnya berjalan di sana, tanpa perlu membuka aplikasi ini.</p>
+    <div id="gcSyncBox" style="background:var(--sand);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:16px">
+      <p style="font-weight:800;margin-bottom:4px">Sinkron otomatis (pilihan baru)</p>
+      <p class="sub" style="margin-bottom:10px">Hubungkan sekali, lalu SiklusKu menulis perkiraan mens, masa subur, dan ovulasimu ke kalender khusus bernama SiklusKu di Google Calendar milikmu, lengkap dengan pengingat. Tanggal otomatis diperbarui setiap kali kamu menekan Sinkronkan setelah mencatat perubahan.</p>
+      <p id="gcStatus" class="sub" style="margin-bottom:10px"></p>
+      <div class="row-btns" style="margin-top:0">
+        <button class="btn btn-sage" id="gcConnect">Hubungkan Google Calendar</button>
+        <button class="btn btn-sage hidden" id="gcSync">Sinkronkan Sekarang</button>
+        <button class="btn btn-ghost hidden" id="gcDisconnect">Putuskan</button>
+      </div>
+    </div>
+    <div id="gcalEmpty" class="note hidden">Catat dulu mens terakhirmu, tombol pengingat akan muncul setelah perkiraan siklusmu terbaca.</div>
+    <div class="gcal-list" id="gcalList">
+      <a class="btn btn-ghost" id="gcPeriod" target="_blank" rel="noopener">Tambah: perkiraan mens berikutnya</a>
+      <a class="btn btn-ghost" id="gcFertile" target="_blank" rel="noopener">Tambah: masa subur</a>
+      <a class="btn btn-ghost" id="gcOvul" target="_blank" rel="noopener">Tambah: hari ovulasi</a>
+      <button class="btn btn-sage" id="icsBtn">Unduh semua pengingat (.ics, 3 siklus)</button>
+    </div>
+    <div class="row-btns">
+      <button class="btn btn-ghost btn-small" id="notifBtn">Aktifkan pengingat di aplikasi ini</button>
+    </div>
+    <p class="sub" style="margin-top:10px">Pengingat di aplikasi hanya muncul saat SiklusKu sedang dibuka. Untuk pengingat otomatis setiap bulan, pakai Google Calendar di atas.</p>
+  </section>
+
+  <section class="card" aria-label="Statistik siklus">
+    <h2>Siklusmu dalam Angka</h2>
+    <p class="sub">Dihitung dari catatanmu sendiri, makin lengkap catatannya makin pas perkiraannya.</p>
+    <div class="stats">
+      <div class="stat"><b id="stCycle">28</b><span>hari rata-rata siklus</span></div>
+      <div class="stat"><b id="stPeriod">5</b><span>hari rata-rata mens</span></div>
+      <div class="stat"><b id="stCount">0</b><span>siklus tercatat</span></div>
+    </div>
+    <ul class="hist" id="histList"></ul>
+  </section>
+
+  <section class="card" aria-label="Data saya">
+    <h2>Data Saya</h2>
+    <p class="sub">Semua catatan tersimpan hanya di perangkat ini. Unduh cadangan secara berkala agar datamu aman bila berganti HP atau membersihkan browser.</p>
+    <div class="row-btns">
+      <button class="btn btn-ghost" id="exportBtn">Backup ke File</button>
+      <button class="btn btn-ghost" id="importBtn">Import Backup</button>
+    </div>
+    <input type="file" id="importFile" accept=".json,application/json" class="hidden">
+    <div class="row-btns">
+      <button class="btn btn-ghost" id="wipeBtn">Hapus Semua Data</button>
+    </div>
+  </section>
+
+  <div class="note"><strong>Perlu diingat:</strong> perkiraan SiklusKu adalah perhitungan kalender dari riwayatmu, bukan alat kontrasepsi dan bukan nasihat medis. Bila siklusmu sangat tidak teratur, nyeri berlebihan, atau ada keluhan lain, konsultasikan ke dokter atau bidan.</div>
+
+  <p class="privacy"><strong>Privasi:</strong> catatan siklus dan jurnal harianmu hanya tersimpan di penyimpanan lokal browser perangkat ini (localStorage). Cantikna tidak menerima, melihat, atau menyimpan datamu di server. Tombol Google Calendar membuka layanan Google di perangkatmu; yang kamu tambahkan ke sana tunduk pada kebijakan Google. Baca juga <a href="/privacy/">Kebijakan Privasi Cantikna</a>.</p>
+
+  <p class="footer-note">SiklusKu, bagian dari Teman Digital Cantikna. <a href="/">cantikna.com</a></p>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ---------- Utilitas tanggal (semua tanggal lokal, format YYYY-MM-DD) ---------- */
+function pad(n){ return String(n).padStart(2,"0"); }
+function fmt(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function parse(s){ var p=s.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+function addDays(s, n){ var d=parse(s); d.setDate(d.getDate()+n); return fmt(d); }
+function diffDays(a, b){ return Math.round((parse(b)-parse(a))/86400000); }
+function todayStr(){ return fmt(new Date()); }
+var BULAN=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+var HARI=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+function longDate(s){ var d=parse(s); return HARI[d.getDay()]+", "+d.getDate()+" "+BULAN[d.getMonth()]+" "+d.getFullYear(); }
+function shortDate(s){ var d=parse(s); return d.getDate()+" "+BULAN[d.getMonth()].slice(0,3)+" "+d.getFullYear(); }
+
+/* ---------- State ---------- */
+var KEY="siklusku.v1";
+var state={periods:[], logs:{}};
+try{ var raw=localStorage.getItem(KEY); if(raw){ var j=JSON.parse(raw); if(j && Array.isArray(j.periods)) state=j; } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function sortedPeriods(){ return state.periods.slice().sort(function(a,b){ return a.start<b.start?-1:1; }); }
+function periodOn(s){
+  var ps=sortedPeriods();
+  for(var i=0;i<ps.length;i++){ var p=ps[i]; var end=p.end||addDays(p.start, avgPeriodLen()-1);
+    if(s>=p.start && s<=end) return p; }
+  return null;
+}
+function avgCycleLen(){
+  var ps=sortedPeriods(); if(ps.length<2) return 28;
+  var ds=[]; for(var i=1;i<ps.length;i++){ var d=diffDays(ps[i-1].start, ps[i].start); if(d>=15 && d<=90) ds.push(d); }
+  if(!ds.length) return 28;
+  ds=ds.slice(-6); var t=0; ds.forEach(function(x){t+=x;});
+  return Math.round(t/ds.length);
+}
+function avgPeriodLen(){
+  var ps=sortedPeriods(); var ls=[];
+  ps.forEach(function(p){ if(p.end){ var d=diffDays(p.start,p.end)+1; if(d>=1 && d<=14) ls.push(d); } });
+  if(!ls.length) return 5;
+  var t=0; ls.forEach(function(x){t+=x;}); return Math.round(t/ls.length);
+}
+/* Peta perkiraan: tanggal -> jenis (pred / fertile / ovul) untuk 14 siklus ke depan */
+function predictionMap(){
+  var map={}; var ps=sortedPeriods(); if(!ps.length) return map;
+  var avg=avgCycleLen(), plen=avgPeriodLen(), last=ps[ps.length-1].start;
+  for(var k=1;k<=14;k++){
+    var start=addDays(last, avg*k);
+    for(var d=0; d<plen; d++) map[addDays(start,d)]="pred";
+    var ovul=addDays(start,-14);
+    for(var f=-5; f<=1; f++){ var fd=addDays(ovul,f); if(!map[fd]) map[fd]="fertile"; }
+    map[ovul]="ovul";
+  }
+  return map;
+}
+function nextCycleInfo(){
+  var ps=sortedPeriods(); if(!ps.length) return null;
+  var avg=avgCycleLen(), plen=avgPeriodLen(), last=ps[ps.length-1];
+  var nextStart=addDays(last.start, avg);
+  return { avg:avg, plen:plen, last:last, nextStart:nextStart,
+           ovul:addDays(nextStart,-14), fertileStart:addDays(nextStart,-19), fertileEnd:addDays(nextStart,-13) };
+}
+
+/* ---------- Elemen ---------- */
+var $=function(id){ return document.getElementById(id); };
+var viewYear, viewMonth, selected=null, predMap={};
+(function(){ var n=new Date(); viewYear=n.getFullYear(); viewMonth=n.getMonth(); })();
+
+function toast(msg){ var t=$("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(function(){ t.classList.remove("show"); }, 2600); }
+
+/* ---------- Render status ---------- */
+function renderStatus(){
+  var info=nextCycleInfo(), t=todayStr(), big=$("statusBig"), sub=$("statusSub"), chips=$("statusChips"), btn=$("mainBtn"), banner=$("predBanner");
+  chips.innerHTML=""; banner.className="banner"; banner.innerHTML="";
+  var ps=sortedPeriods(), ongoing=null;
+  if(ps.length){ var lp=ps[ps.length-1]; if(!lp.end) ongoing=lp; }
+  if(ongoing){
+    var dayN=diffDays(ongoing.start, t)+1;
+    big.innerHTML="Kamu sedang mens, <b>hari ke-"+dayN+"</b>";
+    sub.textContent="Mulai "+longDate(ongoing.start)+". Semoga tetap nyaman, jangan lupa istirahat dan minum air.";
+    btn.textContent="Tandai Mens Selesai Hari Ini";
+  } else if(info){
+    var until=diffDays(t, info.nextStart);
+    if(until>0){
+      big.innerHTML="Mens berikutnya sekitar <b>"+until+" hari lagi</b>";
+      sub.textContent="Perkiraan mulai "+longDate(info.nextStart)+", berdasarkan rata-rata siklusmu "+info.avg+" hari.";
+    } else if(until===0){
+      big.innerHTML="Perkiraan mens <b>hari ini</b>";
+      sub.textContent="Bila sudah mulai, ketuk tombol di bawah agar catatanmu rapi.";
+    } else {
+      big.innerHTML="Perkiraan mens sudah lewat <b>"+Math.abs(until)+" hari</b>";
+      sub.textContent="Perkiraan awalnya "+longDate(info.nextStart)+". Bila mensmu sudah mulai, catat tanggal mulainya lewat kalender.";
+    }
+    btn.textContent="Mens Mulai Hari Ini";
+    var cycDay=diffDays(info.last.start, t)+1;
+    var chipsHtml='<span class="chip">Hari ke-'+cycDay+' siklus ini</span>'
+      +'<span class="chip sage">Masa subur '+shortDate(info.fertileStart)+' s.d. '+shortDate(info.fertileEnd)+'</span>'
+      +'<span class="chip gold">Ovulasi sekitar '+shortDate(info.ovul)+'</span>';
+    chips.innerHTML=chipsHtml;
+    if(until<=2 && until>=0){
+      banner.className="banner show";
+      banner.innerHTML="<strong>Pengingat lembut:</strong> perkiraan mensmu "+(until===0?"hari ini":(until===1?"besok":"dalam "+until+" hari"))+". Siapkan pembalut atau menstrual cup andalanmu dari sekarang.";
+    }
+  } else {
+    big.textContent="Catat mens terakhirmu untuk memulai";
+    sub.textContent="Ketuk tanggal mulai mens terakhirmu di kalender, atau pakai tombol di bawah ini bila mensmu mulai hari ini.";
+    btn.textContent="Mens Mulai Hari Ini";
+  }
+}
+
+/* ---------- Render kalender ---------- */
+function renderCalendar(){
+  predMap=predictionMap();
+  $("calTitle").textContent=BULAN[viewMonth]+" "+viewYear;
+  var grid=$("calGrid"); grid.innerHTML="";
+  var first=new Date(viewYear, viewMonth, 1);
+  var startDay=first.getDay();
+  var daysInMonth=new Date(viewYear, viewMonth+1, 0).getDate();
+  var daysPrev=new Date(viewYear, viewMonth, 0).getDate();
+  var t=todayStr();
+  for(var i=0;i<42;i++){
+    var dayNum, dateStr, dim=false;
+    if(i<startDay){ dayNum=daysPrev-startDay+1+i; dateStr=fmt(new Date(viewYear, viewMonth-1, dayNum)); dim=true; }
+    else if(i>=startDay+daysInMonth){ dayNum=i-startDay-daysInMonth+1; dateStr=fmt(new Date(viewYear, viewMonth+1, dayNum)); dim=true; }
+    else { dayNum=i-startDay+1; dateStr=fmt(new Date(viewYear, viewMonth, dayNum)); }
+    var b=document.createElement("button");
+    b.className="day"+(dim?" dim":"");
+    b.type="button"; b.dataset.date=dateStr;
+    var kind=predMap[dateStr];
+    if(periodOn(dateStr)) b.classList.add("period");
+    else if(kind==="pred") b.classList.add("pred");
+    else if(kind==="fertile"||kind==="ovul") b.classList.add("fertile");
+    if(kind==="ovul") b.classList.add("ovul");
+    if(dateStr===t) b.classList.add("today");
+    if(dateStr===selected) b.classList.add("sel");
+    var inner="<span>"+dayNum+"</span>";
+    if(kind==="ovul") inner+='<span class="star">&#9733;</span>';
+    if(state.logs[dateStr]) inner+='<span class="dot"></span>';
+    b.innerHTML=inner;
+    if(!dim){ (function(ds){ b.addEventListener("click", function(){ selectDay(ds); }); })(dateStr); }
+    grid.appendChild(b);
+    if(i>=startDay+daysInMonth && (i+1)%7===0) break;
+  }
+}
+
+/* ---------- Panel hari ---------- */
+var edit={flow:null, pain:null, moods:[], syms:[]};
+function segWire(id, key, multi){
+  var box=$(id);
+  box.querySelectorAll("button").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var v=btn.dataset.v;
+      if(multi){
+        var arr=edit[key], ix=arr.indexOf(v);
+        if(ix>=0){ arr.splice(ix,1); btn.classList.remove("on"); } else { arr.push(v); btn.classList.add("on"); }
+      } else {
+        edit[key]=(key==="pain")?(+v):v;
+        box.querySelectorAll("button").forEach(function(x){ x.classList.toggle("on", x===btn); });
+      }
+    });
+  });
+}
+segWire("flowSeg","flow",false); segWire("painSeg","pain",false);
+segWire("moodSeg","moods",true); segWire("symSeg","syms",true);
+function segSet(id, val){
+  $(id).querySelectorAll("button").forEach(function(b){
+    var on = Array.isArray(val) ? val.indexOf(b.dataset.v)>=0 : (String(val)===b.dataset.v);
+    b.classList.toggle("on", on);
+  });
+}
+function selectDay(ds){
+  selected=ds; renderCalendar();
+  $("dayPanel").classList.remove("hidden");
+  $("dayTitle").textContent=longDate(ds);
+  var log=state.logs[ds]||null;
+  edit={ flow: log?log.flow||null:null, pain: log&&log.pain!=null?log.pain:null,
+         moods: log? (log.moods|| []).slice():[], syms: log? (log.syms||[]).slice():[] };
+  segSet("flowSeg", edit.flow); segSet("painSeg", edit.pain==null? "" : String(edit.pain));
+  segSet("moodSeg", edit.moods); segSet("symSeg", edit.syms);
+  $("dayNote").value= log? (log.note||"") : "";
+  var pa=$("periodActions"); pa.innerHTML="";
+  function mkBtn(label, fn){ var b=document.createElement("button"); b.type="button"; b.textContent=label; b.addEventListener("click", fn); pa.appendChild(b); }
+  var p=periodOn(ds), ps=sortedPeriods(), startRec=null;
+  ps.forEach(function(x){ if(x.start===ds) startRec=x; });
+  if(startRec) mkBtn("Hapus periode yang mulai tanggal ini", function(){
+    state.periods=state.periods.filter(function(x){ return x.start!==ds; });
+    save(); refresh(); toast("Periode dihapus");
+  });
+  if(p && p.start!==ds) mkBtn("Akhiri mens di tanggal ini", function(){
+    p.end=ds; save(); refresh(); toast("Akhir mens tercatat");
+  });
+  if(!p) mkBtn("Mulai mens di tanggal ini", function(){
+    state.periods.push({start:ds, end:null}); save(); refresh(); toast("Awal mens tercatat");
+  });
+  $("dayPanel").scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+$("saveLog").addEventListener("click", function(){
+  if(!selected) return;
+  var note=$("dayNote").value.trim();
+  if(!edit.flow && edit.pain==null && !edit.moods.length && !edit.syms.length && !note){
+    toast("Isi dulu salah satu catatan hari ini"); return;
+  }
+  state.logs[selected]={flow:edit.flow, pain:edit.pain, moods:edit.moods, syms:edit.syms, note:note};
+  save(); renderCalendar(); toast("Catatan tersimpan");
+});
+$("deleteLog").addEventListener("click", function(){
+  if(!selected) return;
+  delete state.logs[selected]; save(); selectDay(selected); renderCalendar(); toast("Catatan hari ini dihapus");
+});
+
+/* ---------- Tombol utama ---------- */
+$("mainBtn").addEventListener("click", function(){
+  var t=todayStr(), ps=sortedPeriods(), ongoing=null;
+  if(ps.length && !ps[ps.length-1].end) ongoing=ps[ps.length-1];
+  if(ongoing){
+    if(t<ongoing.start){ toast("Tanggal selesai tidak bisa sebelum tanggal mulai"); return; }
+    ongoing.end=t; save(); refresh(); toast("Mens selesai tercatat. Istirahat yang cukup ya.");
+  } else {
+    if(periodOn(t)){ toast("Hari ini sudah termasuk hari mens"); return; }
+    state.periods.push({start:t, end:null}); save(); refresh(); toast("Awal mens tercatat. Semangat untuk hari ini.");
+  }
+});
+$("prevMonth").addEventListener("click", function(){ viewMonth--; if(viewMonth<0){ viewMonth=11; viewYear--; } renderCalendar(); });
+$("nextMonth").addEventListener("click", function(){ viewMonth++; if(viewMonth>11){ viewMonth=0; viewYear++; } renderCalendar(); });
+
+/* ---------- Statistik ---------- */
+function renderStats(){
+  $("stCycle").textContent=avgCycleLen();
+  $("stPeriod").textContent=avgPeriodLen();
+  var ps=sortedPeriods();
+  $("stCount").textContent= ps.length>=2 ? (ps.length-1) : 0;
+  var ul=$("histList"); ul.innerHTML="";
+  if(ps.length<2){ ul.innerHTML='<li><span>Belum ada riwayat siklus. Catat dua awal mens agar riwayat muncul di sini.</span></li>'; return; }
+  for(var i=ps.length-1;i>=1;i--){
+    var len=diffDays(ps[i-1].start, ps[i].start);
+    var li=document.createElement("li");
+    li.innerHTML="<span>Mulai "+shortDate(ps[i].start)+"</span><b>"+len+" hari</b>";
+    ul.appendChild(li);
+    if(ul.children.length>=6) break;
+  }
+}
+
+/* ---------- Google Calendar & ICS ---------- */
+function gcalUrl(title, start, endExclusive, details){
+  function d8(s){ return s.replace(/-/g,""); }
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(title)
+    +"&dates="+d8(start)+"/"+d8(endExclusive)+"&details="+encodeURIComponent(details);
+}
+function renderGcal(){
+  var info=nextCycleInfo(), has=!!info;
+  $("gcalEmpty").classList.toggle("hidden", has);
+  $("gcalList").classList.toggle("hidden", !has);
+  if(!has) return;
+  $("gcPeriod").href=gcalUrl("Perkiraan mens (SiklusKu)", info.nextStart, addDays(info.nextStart, info.plen),
+    "Perkiraan awal mens dari SiklusKu di cantikna.com, berdasarkan rata-rata siklus "+info.avg+" hari. Tanggal bisa bergeser, sesuaikan dengan catatanmu.");
+  $("gcFertile").href=gcalUrl("Masa subur (perkiraan, SiklusKu)", info.fertileStart, addDays(info.fertileEnd,1),
+    "Perkiraan masa subur dari SiklusKu di cantikna.com. Perkiraan kalender, bukan alat kontrasepsi.");
+  $("gcOvul").href=gcalUrl("Ovulasi (perkiraan, SiklusKu)", info.ovul, addDays(info.ovul,1),
+    "Perkiraan hari ovulasi dari SiklusKu di cantikna.com.");
+}
+function icsEscape(s){ return s.replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n"); }
+function icsEvent(uid, start, endEx, summary, desc, alarmDays){
+  var out="BEGIN:VEVENT\r\nUID:"+uid+"@cantikna.com\r\nDTSTAMP:"+fmt(new Date()).replace(/-/g,"")+"T000000Z\r\n"
+    +"DTSTART;VALUE=DATE:"+start.replace(/-/g,"")+"\r\nDTEND;VALUE=DATE:"+endEx.replace(/-/g,"")+"\r\n"
+    +"SUMMARY:"+icsEscape(summary)+"\r\nDESCRIPTION:"+icsEscape(desc)+"\r\n";
+  if(alarmDays!=null) out+="BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:"+icsEscape(summary)+"\r\nTRIGGER:-P"+alarmDays+"D\r\nEND:VALARM\r\n";
+  return out+"END:VEVENT\r\n";
+}
+$("icsBtn").addEventListener("click", function(){
+  var ps=sortedPeriods(); if(!ps.length){ toast("Catat dulu mens terakhirmu"); return; }
+  var avg=avgCycleLen(), plen=avgPeriodLen(), last=ps[ps.length-1].start, ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cantikna SiklusKu//ID\r\nCALSCALE:GREGORIAN\r\n";
+  for(var k=1;k<=3;k++){
+    var s=addDays(last, avg*k), ovul=addDays(s,-14);
+    ics+=icsEvent("mens-"+s, s, addDays(s,plen), "Perkiraan mens (SiklusKu)", "Perkiraan awal mens dari SiklusKu, cantikna.com. Rata-rata siklus "+avg+" hari.", 2);
+    ics+=icsEvent("subur-"+s, addDays(ovul,-5), addDays(ovul,2), "Masa subur (perkiraan, SiklusKu)", "Perkiraan masa subur dari SiklusKu, cantikna.com. Bukan alat kontrasepsi.", null);
+    ics+=icsEvent("ovulasi-"+s, ovul, addDays(ovul,1), "Ovulasi (perkiraan, SiklusKu)", "Perkiraan hari ovulasi dari SiklusKu, cantikna.com.", 1);
+  }
+  ics+="END:VCALENDAR\r\n";
+  var blob=new Blob([ics], {type:"text/calendar"});
+  var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="siklusku-pengingat.ics"; document.body.appendChild(a); a.click(); a.remove();
+  toast("Berkas pengingat terunduh. Impor berkas itu ke Google Calendar agar pengingatnya aktif.");
+});
+
+/* ---------- Sinkron otomatis Google Calendar ---------- */
+var GCAL_CLIENT_ID = "858429499256-t5ccmqu036mordskbon6it694d78n6c5.apps.googleusercontent.com";
+var GCAL_SCOPE = "https://www.googleapis.com/auth/calendar.app.created";
+var SYNC_KEY = "siklusku.sync";
+var syncMeta = { calId: null, lastSync: null, sig: "" };
+try { var sm = JSON.parse(localStorage.getItem(SYNC_KEY) || "null"); if (sm && sm.calId) syncMeta = sm; } catch (e) {}
+var gToken = null, gTokenExp = 0, gisReady = false;
+
+function stateSig() {
+  var ps = sortedPeriods();
+  return ps.map(function (x) { return x.start + ":" + (x.end || ""); }).join("|") + "#" + avgCycleLen() + "/" + avgPeriodLen();
+}
+function saveSyncMeta() { try { localStorage.setItem(SYNC_KEY, JSON.stringify(syncMeta)); } catch (e) {} }
+function renderSync() {
+  var box = $("gcSyncBox");
+  if (GCAL_CLIENT_ID.indexOf("__") === 0) { box.classList.add("hidden"); return; }
+  var connected = !!syncMeta.calId;
+  $("gcConnect").classList.toggle("hidden", connected);
+  $("gcSync").classList.toggle("hidden", !connected);
+  $("gcDisconnect").classList.toggle("hidden", !connected);
+  var st = $("gcStatus");
+  if (!connected) { st.textContent = "Belum terhubung. Kamu tetap bisa memakai tombol tambah manual di bawah tanpa login."; return; }
+  var dirty = syncMeta.sig !== stateSig();
+  st.innerHTML = "Terhubung ke kalender <strong>SiklusKu</strong> di Google Calendar kamu."
+    + (syncMeta.lastSync ? " Sinkron terakhir: " + shortDate(syncMeta.lastSync.slice(0, 10)) + "." : "")
+    + (dirty ? " <strong>Ada perubahan catatan yang belum disinkronkan.</strong>" : " Semua perubahan sudah tersinkron.");
+}
+function loadGis() {
+  return new Promise(function (resolve, reject) {
+    if (gisReady) return resolve();
+    var sc = document.createElement("script");
+    sc.src = "https://accounts.google.com/gsi/client";
+    sc.onload = function () { gisReady = true; resolve(); };
+    sc.onerror = reject;
+    document.head.appendChild(sc);
+  });
+}
+function ensureToken(interactive) {
+  return loadGis().then(function () {
+    return new Promise(function (resolve, reject) {
+      if (gToken && Date.now() < gTokenExp - 30000) return resolve(gToken);
+      var client = google.accounts.oauth2.initTokenClient({
+        client_id: GCAL_CLIENT_ID, scope: GCAL_SCOPE,
+        callback: function (resp) {
+          if (resp && resp.access_token) {
+            gToken = resp.access_token;
+            gTokenExp = Date.now() + (resp.expires_in ? resp.expires_in * 1000 : 3000000);
+            resolve(gToken);
+          } else { reject(new Error("token kosong")); }
+        },
+        error_callback: function () { reject(new Error("izin ditolak")); }
+      });
+      client.requestAccessToken({ prompt: interactive ? "" : "none" });
+    });
+  });
+}
+function gfetch(path, method, body) {
+  return fetch("https://www.googleapis.com/calendar/v3" + path, {
+    method: method || "GET",
+    headers: { "Authorization": "Bearer " + gToken, "Content-Type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined
+  }).then(function (r) {
+    if (r.status === 204) return {};
+    return r.json().then(function (j) { if (!r.ok) throw new Error("HTTP " + r.status); return j; });
+  });
+}
+function ensureCalendar() {
+  if (syncMeta.calId) {
+    return gfetch("/calendars/" + encodeURIComponent(syncMeta.calId)).then(function () { return syncMeta.calId; })
+      .catch(function () { syncMeta.calId = null; return ensureCalendar(); });
+  }
+  return gfetch("/calendars", "POST", { summary: "SiklusKu, Kalender Mens Cantikna", timeZone: "Asia/Jakarta" })
+    .then(function (cal) { syncMeta.calId = cal.id; saveSyncMeta(); return cal.id; });
+}
+function clearCalendar(calId) {
+  return gfetch("/calendars/" + encodeURIComponent(calId) + "/events?maxResults=250&singleEvents=true").then(function (list) {
+    var items = (list.items || []);
+    return items.reduce(function (chain, ev) {
+      return chain.then(function () { return gfetch("/calendars/" + encodeURIComponent(calId) + "/events/" + encodeURIComponent(ev.id), "DELETE").catch(function () {}); });
+    }, Promise.resolve());
+  });
+}
+function syncEvents() {
+  var ps = sortedPeriods(); if (!ps.length) return [];
+  var avg = avgCycleLen(), plen = avgPeriodLen(), last = ps[ps.length - 1].start, evs = [];
+  for (var k = 1; k <= 6; k++) {
+    var s = addDays(last, avg * k), ovul = addDays(s, -14);
+    evs.push({ summary: "Perkiraan mens (SiklusKu)", start: s, end: addDays(s, plen), colorId: "11",
+      desc: "Perkiraan awal mens dari SiklusKu, cantikna.com. Rata-rata siklus " + avg + " hari. Tanggal bisa bergeser, sesuaikan dengan catatanmu.",
+      reminders: [{ method: "popup", minutes: 2880 }] });
+    evs.push({ summary: "Masa subur (perkiraan, SiklusKu)", start: addDays(ovul, -5), end: addDays(ovul, 2), colorId: "2",
+      desc: "Perkiraan masa subur dari SiklusKu, cantikna.com. Perkiraan kalender, bukan alat kontrasepsi.", reminders: [] });
+    evs.push({ summary: "Ovulasi (perkiraan, SiklusKu)", start: ovul, end: addDays(ovul, 1), colorId: "5",
+      desc: "Perkiraan hari ovulasi dari SiklusKu, cantikna.com.",
+      reminders: [{ method: "popup", minutes: 1440 }] });
+  }
+  return evs;
+}
+function doSync(interactive) {
+  var btn = $("gcSync"), conn = $("gcConnect");
+  var busy = interactive && !syncMeta.calId ? conn : btn;
+  var oldText = busy.textContent; busy.textContent = "Menghubungkan..."; busy.disabled = true;
+  return ensureToken(interactive)
+    .catch(function () { if (!interactive) return ensureToken(true); throw new Error("perlu izin"); })
+    .then(ensureCalendar)
+    .then(function (calId) {
+      busy.textContent = "Mensinkronkan...";
+      return clearCalendar(calId).then(function () { return calId; });
+    })
+    .then(function (calId) {
+      var evs = syncEvents();
+      return evs.reduce(function (chain, ev) {
+        return chain.then(function () {
+          return gfetch("/calendars/" + encodeURIComponent(calId) + "/events", "POST", {
+            summary: ev.summary, description: ev.desc,
+            start: { date: ev.start }, end: { date: ev.end }, colorId: ev.colorId,
+            reminders: { useDefault: false, overrides: ev.reminders }
+          });
+        });
+      }, Promise.resolve()).then(function () {
+        syncMeta.lastSync = new Date().toISOString();
+        syncMeta.sig = stateSig(); saveSyncMeta(); renderSync();
+        toast("Sinkron selesai: perkiraan 6 siklus kini ada di Google Calendar kamu");
+      });
+    })
+    .catch(function () { toast("Sinkron belum berhasil. Periksa koneksi internet lalu coba lagi."); })
+    .finally(function () { busy.textContent = oldText; busy.disabled = false; });
+}
+$("gcConnect").addEventListener("click", function () { doSync(true); });
+$("gcSync").addEventListener("click", function () { doSync(false); });
+$("gcDisconnect").addEventListener("click", function () {
+  try { if (gToken && window.google) google.accounts.oauth2.revoke(gToken, function () {}); } catch (e) {}
+  gToken = null; syncMeta = { calId: null, lastSync: null, sig: "" }; saveSyncMeta(); renderSync();
+  toast("Koneksi diputuskan. Kalender SiklusKu di Google Calendar tidak ikut terhapus, hapus manual bila kamu mau.");
+});
+
+/* ---------- Pengingat dalam aplikasi ---------- */
+$("notifBtn").addEventListener("click", function(){
+  if(!("Notification" in window)){ toast("Browser ini tidak mendukung notifikasi"); return; }
+  Notification.requestPermission().then(function(p){
+    toast(p==="granted" ? "Pengingat aplikasi aktif, akan muncul saat SiklusKu dibuka menjelang mens" : "Izin notifikasi belum diberikan");
+  });
+});
+function maybeNotify(){
+  try{
+    if(!("Notification" in window) || Notification.permission!=="granted") return;
+    var info=nextCycleInfo(); if(!info) return;
+    var until=diffDays(todayStr(), info.nextStart);
+    if(until===2 || until===1 || until===0){
+      var key="siklusku.notified."+info.nextStart;
+      if(!localStorage.getItem(key)){
+        new Notification("SiklusKu", { body: until===0 ? "Perkiraan mensmu hari ini." : "Perkiraan mensmu dalam "+until+" hari ("+shortDate(info.nextStart)+").", icon:"/assets/sk-icon-192.png" });
+        localStorage.setItem(key, "1");
+      }
+    }
+  }catch(e){}
+}
+
+/* ---------- Cadangan data ---------- */
+$("exportBtn").addEventListener("click", function(){
+  var blob=new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+  var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="siklusku-cadangan-"+todayStr()+".json"; document.body.appendChild(a); a.click(); a.remove();
+  toast("Cadangan terunduh");
+});
+$("importBtn").addEventListener("click", function(){ $("importFile").click(); });
+$("importFile").addEventListener("change", function(ev){
+  var f=ev.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var j=JSON.parse(r.result);
+      if(!j || !Array.isArray(j.periods) || typeof j.logs!=="object") throw new Error("format");
+      state={periods:j.periods, logs:j.logs||{}};
+      save(); refresh(); toast("Cadangan berhasil diimpor");
+    }catch(e){ toast("Berkas cadangan tidak terbaca"); }
+  };
+  r.readAsText(f);
+});
+$("wipeBtn").addEventListener("click", function(){
+  if(confirm("Hapus semua catatan SiklusKu di perangkat ini? Tindakan ini tidak bisa dibatalkan.")){
+    state={periods:[], logs:{}}; save(); selected=null;
+    $("dayPanel").classList.add("hidden"); refresh(); toast("Semua data terhapus");
+  }
+});
+
+/* ---------- Muat ---------- */
+function refresh(){ renderStatus(); renderCalendar(); renderStats(); renderGcal(); renderSync(); }
+refresh();
+maybeNotify();
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
+</script>
+</body>
+</html>
