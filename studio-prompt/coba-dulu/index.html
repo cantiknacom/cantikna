@@ -173,8 +173,9 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
 .seg-text b{font-size:15px;font-weight:800}
 .seg-text small{font-size:12px;font-weight:600;color:var(--muted)}
 .seg label:has(input:checked) .seg-box{box-shadow:0 8px 18px rgba(185,106,75,.16)}
-.btn-copy-big{background:linear-gradient(135deg,var(--sage-dark),var(--sage));min-height:58px;font-size:16.5px;letter-spacing:.01em;box-shadow:0 12px 26px rgba(95,112,82,.32)}
-.btn-copy-big:hover{background:linear-gradient(135deg,var(--sage-dark),var(--sage-dark));transform:translateY(-1px)}
+.btn-copy-big{background:linear-gradient(135deg,var(--terra-dark),var(--terra));min-height:58px;font-size:16.5px;letter-spacing:.01em;box-shadow:0 12px 26px rgba(185,106,75,.35),inset 0 1px 0 rgba(255,255,255,.28);border:1px solid rgba(185,106,75,.35)}
+.btn-copy-big:hover{background:linear-gradient(135deg,var(--terra-dark),var(--terra-dark));transform:translateY(-1px)}
+.btn-copy-big::before{content:"";width:19px;height:19px;flex:0 0 auto;background:#fff;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='12' height='12' rx='2'/%3E%3Cpath d='M5 15V5a2 2 0 0 1 2-2h10'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='12' height='12' rx='2'/%3E%3Cpath d='M5 15V5a2 2 0 0 1 2-2h10'/%3E%3C/svg%3E") center/contain no-repeat}
 .btn-ghost{background:var(--cream)}
 .btn-ghost:hover{border-color:var(--sage);color:var(--sage-dark)}
 .prompt-toggle{border-radius:8px;padding:6px 8px}
@@ -288,7 +289,7 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
         <textarea class="prompt-text short" id="promptA3" readonly aria-label="Pratinjau prompt penilaian kecocokan"></textarea>
           <button type="button" class="prompt-toggle" onclick="togglePrompt('promptA3', this)">Lihat prompt lengkap</button>
         <div class="copy-row">
-          <button class="btn btn-ghost btn-small" onclick="copyPrompt('promptA3', this)">Salin Prompt Penilaian</button>
+          <button class="btn btn-copy-big" onclick="copyPrompt('promptA3', this)">Salin Prompt Penilaian</button>
         </div>
       </div>
     </div>
