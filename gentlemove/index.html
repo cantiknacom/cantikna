@@ -291,6 +291,19 @@ img{max-width:100%}
 #gmMoveDesc{margin-top:2px}
 .move-img{display:block;width:min(300px,78%);aspect-ratio:4/5;object-fit:cover;border-radius:20px;margin:10px auto 4px;box-shadow:0 10px 30px rgba(44,38,36,.12)}
 .thumb{width:74px;height:94px;object-fit:cover;border-radius:12px;flex:none}
+@media(max-width:640px){
+  #gmPlayerBlock{padding:18px 16px 20px}
+  #gmPlayerBlock .move-img{width:min(216px,60%);margin:6px auto 2px}
+  #gmPlayerBlock .move-name{font-size:1.35rem;margin:4px 0 0}
+  #gmPlayerBlock .player-controls{margin:6px 0 0;gap:12px}
+  #gmPlayerBlock .ctl-main{width:54px;height:54px}
+  #gmPlayerBlock #gmMoveDesc{font-size:.92rem}
+  #gmPlayerBlock .timer-cap{margin-top:0}
+  #gmPlayerBlock .timer-big{font-size:3.1rem;margin:2px 0 0}
+  #gmPlayerBlock .bar-meta{margin-top:8px}
+  #gmPlayerBlock .progress-track{height:16px;margin-top:4px}
+  #gmPlayerBlock .hint{font-size:.9rem}
+}
 </style>
 
 <body>
