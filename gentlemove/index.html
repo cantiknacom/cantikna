@@ -179,6 +179,23 @@ details.fold[open ] summary .chev{transform:rotate(180deg)}
   #gmPlayerBlock .block-head{margin-bottom:0}
   .move-img{width:min(260px,74%)}
 }
+
+/* Progress bar: estetik, informatif, sesuai tema */
+.bar-meta{display:flex;justify-content:flex-end;margin-top:12px}
+.bar-pct{font-size:12.5px;font-weight:800;color:var(--rose-dark);background:#FBECE4;padding:3px 11px;border-radius:999px;letter-spacing:.02em}
+.bar-pct.total{color:var(--sage-dark);background:var(--sage-soft)}
+.progress-track{height:20px;background:#EFE6DA;box-shadow:inset 0 2px 5px rgba(44,38,36,.10)}
+.progress-fill{position:relative;z-index:1;background:linear-gradient(90deg,var(--terra),var(--rose-dark));box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -3px 6px rgba(0,0,0,.08)}
+.progress-fill::after{content:"";position:absolute;right:3px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:#FFFDF9;box-shadow:0 1px 4px rgba(44,38,36,.3)}
+#gmBar{background:linear-gradient(90deg,var(--sage),var(--sage-dark))}
+.total-track{position:relative}
+.total-track::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(10% - 2px),rgba(255,253,249,.85) calc(10% - 2px),rgba(255,253,249,.85) 10%)}
+@media (prefers-color-scheme: dark){
+  .progress-track{background:#3A332C}
+  .total-track::before{background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(10% - 2px),rgba(0,0,0,.35) calc(10% - 2px),rgba(0,0,0,.35) 10%)}
+  .bar-pct{background:#3A2C24;color:#E8B4A6}
+  .bar-pct.total{background:var(--sage-soft);color:#B7C9A5}
+}
 </style>
 
 <link rel="canonical" href="https://cantikna.com/gentlemove/">
@@ -303,8 +320,10 @@ img{max-width:100%}
       <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
       <p class="timer-cap">Sisa waktu gerakan ini</p>
       <p class="timer-big" id="gmTimer">1:00</p>
+      <div class="bar-meta"><span class="bar-pct" id="gmMovePct">0%</span></div>
       <div class="progress-track move-track"><div class="progress-fill move-fill" id="gmMoveBar" style="width:0%"></div></div>
       <p class="center hint" id="gmMoveTimeInfo">Gerakan ini: sisa 1:00 dari 1:00</p>
+      <div class="bar-meta"><span class="bar-pct total" id="gmTotalPct">0%</span></div>
       <div class="progress-track total-track"><div class="progress-fill" id="gmBar" style="width:0%"></div></div>
       <p class="center hint" id="gmTotalInfo">Total sesi: tersisa 15:00 dari 15:00</p>
       <p class="center hint" id="gmNextInfo"></p>
@@ -373,11 +392,13 @@ function gmRender(){
   document.getElementById('gmTimer').textContent = done ? '0:00' : gmFmt(gmLeft);
   var moveElapsed = done ? cur.secs : (cur.secs - gmLeft);
   document.getElementById('gmMoveBar').style.width = Math.round(moveElapsed/cur.secs*100)+'%';
+        document.getElementById('gmMovePct').textContent = Math.round(moveElapsed/cur.secs*100)+'%';
   document.getElementById('gmMoveTimeInfo').textContent = done ? 'Semua gerakan selesai.' : ('Gerakan ini: sisa '+gmFmt(gmLeft)+' dari '+gmFmt(cur.secs));
   document.getElementById('gmNextInfo').textContent = (!done && gmIdx+1<MOVES.length) ? ('Berikutnya: '+MOVES[gmIdx+1].name+' ('+gmFmt(MOVES[gmIdx+1].secs)+')') : '';
   document.getElementById('gmMoveDesc').textContent = done ? 'Kamu menyelesaikan 15 menit peregangan lembut. Catat di CalmHeart bila ingin menyimpan momen ini.' : (started ? cur.desc : 'Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.');
   var totalLeft = done ? 0 : gmTotalLeft();
   document.getElementById('gmBar').style.width = Math.round((900-totalLeft)/900*100)+'%';
+        document.getElementById('gmTotalPct').textContent = Math.round((900-totalLeft)/900*100)+'%';
   document.getElementById('gmTotalInfo').textContent = 'Total sesi: tersisa '+gmFmt(totalLeft)+' dari 15:00';
   document.getElementById('gmStepLabel').textContent = done ? 'Sesi selesai.' : ('Gerakan '+(gmIdx+1)+' dari '+MOVES.length);
   var mb=document.getElementById('gmMainBtn'); var mlabel = done ? 'Mulai lagi' : (gmRunning ? 'Jeda' : (started ? 'Lanjut' : 'Mulai'));
