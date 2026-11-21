@@ -291,6 +291,7 @@ img{max-width:100%}
 #gmMoveDesc{margin-top:2px}
 .move-img{display:block;width:min(300px,78%);aspect-ratio:4/5;object-fit:cover;border-radius:20px;margin:10px auto 4px;box-shadow:0 10px 30px rgba(44,38,36,.12)}
 .thumb{width:74px;height:94px;object-fit:cover;border-radius:12px;flex:none}
+#gmPlayerBlock{scroll-margin-top:10px}
 @media(max-width:640px){
   #gmPlayerBlock{padding:18px 16px 20px}
   #gmPlayerBlock .move-img{width:min(216px,60%);margin:6px auto 2px}
@@ -420,7 +421,7 @@ function gmRender(){
 }
 function gmTick(){ gmLeft--; if(gmLeft<=0){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; gmSound('next'); showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
 function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
-function gmScrollTime(){ var info=document.getElementById('gmTotalInfo'); var img=document.getElementById('gmMoveImg'); if(!info || !img || !img.scrollIntoView) return; var r=info.getBoundingClientRect(); if(r.bottom > window.innerHeight - 4){ img.scrollIntoView({behavior:'smooth', block:'start'}); } }
+function gmScrollTime(){ var blk=document.getElementById('gmPlayerBlock'); if(!blk || !blk.scrollIntoView) return; var r=blk.getBoundingClientRect(); if(r.top < -1 || r.bottom > window.innerHeight + 1){ blk.scrollIntoView({behavior:'smooth', block:'start'}); } }
 function gmToggle(){ if(gmIdx>=MOVES.length){ gmRestart(); }
   if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); gmSound((gmIdx===0 && gmLeft===MOVES[0].secs) ? 'start' : 'next'); } gmRender(); }
 function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; gmSound('next'); } } gmRender(); }
