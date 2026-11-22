@@ -330,6 +330,7 @@ img{max-width:100%}
         <button class="ctl-btn ctl-side" id="gmRestartBtn" type="button" onclick="gmRestart()" aria-label="Ulangi dari awal" title="Ulangi dari awal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg></button>
         <button class="ctl-btn ctl-main" id="gmMainBtn" type="button" onclick="gmToggle()" aria-label="Mulai" title="Mulai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
         <button class="ctl-btn ctl-side" id="gmSkipBtn" type="button" onclick="gmSkip()" aria-label="Lewati gerakan ini" title="Lewati gerakan ini"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+        <button class="ctl-btn ctl-side" id="gmMusicBtn" type="button" onclick="gmToggleMusic()" aria-label="Musik relaks: nyala" title="Musik relaks: nyala"></button>
       </div>
       <p class="center hint" id="gmMoveDesc">Tekan Mulai, lalu ikuti satu gerakan demi satu gerakan. Timer berjalan otomatis.</p>
       <p class="timer-cap">Sisa waktu gerakan ini</p>
@@ -397,6 +398,18 @@ function gmAudio(){ try { var Ctx=window.AudioContext||window.webkitAudioContext
 function gmTone(freq, delay, dur, vol){ var ctx=gmAudio.ctx; if(!ctx) return; try { var o=ctx.createOscillator(); var g=ctx.createGain(); o.type='sine'; o.frequency.value=freq; var s=ctx.currentTime+delay; g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(vol, s+0.03); g.gain.exponentialRampToValueAtTime(0.001, s+dur); o.connect(g); g.connect(ctx.destination); o.start(s); o.stop(s+dur+0.05); } catch(e){} }
 function gmSound(kind){ if(!gmAudio()) return; if(kind==='start'){ gmTone(523.25,0,0.28,0.12); gmTone(783.99,0.13,0.45,0.12); } else if(kind==='done'){ gmTone(523.25,0,0.3,0.12); gmTone(659.25,0.15,0.3,0.12); gmTone(783.99,0.3,0.6,0.13); } else { gmTone(659.25,0,0.3,0.1); } }
 function gmBeep(){ gmSound('next'); }
+var GM_CHORDS=[[130.81,164.81,196.00,246.94],[110.00,130.81,164.81,196.00],[174.61,220.00,261.63,329.63],[164.81,196.00,246.94,293.66]];
+var gmMusic={on:(function(){ try{ return localStorage.getItem('gentlemove.music')!=='off'; }catch(e){ return true; } })(),gain:null,filter:null,timer:null,idx:0,nodes:[]};
+var ICON_MUSIC_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none"/><path d="M16 9.2c1.1 1 1.1 4.6 0 5.6M18.6 6.8c2.1 2 2.1 8.4 0 10.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+var ICON_MUSIC_OFF='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none"/><path d="M16.2 9.2l5.3 5.3M21.5 9.2l-5.3 5.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+function gmMusicSetup(ctx){ if(gmMusic.gain) return true; try{ gmMusic.filter=ctx.createBiquadFilter(); gmMusic.filter.type='lowpass'; gmMusic.filter.frequency.value=900; gmMusic.gain=ctx.createGain(); gmMusic.gain.gain.value=0; gmMusic.gain.connect(gmMusic.filter); gmMusic.filter.connect(ctx.destination); return true; }catch(e){ return false; } }
+function gmMusicChord(){ var ctx=gmAudio.ctx; if(!ctx||!gmMusic.gain) return; var freqs=GM_CHORDS[gmMusic.idx%GM_CHORDS.length]; gmMusic.idx++; var t=ctx.currentTime; gmMusic.nodes=gmMusic.nodes.filter(function(n){ return n.end>t; }); freqs.forEach(function(f,i){ try{ var o=ctx.createOscillator(); var g=ctx.createGain(); o.type=(i===0)?'triangle':'sine'; o.frequency.value=f; var peak=(i===0)?0.30:0.20; g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(peak,t+3); g.gain.setValueAtTime(peak,t+6.5); g.gain.exponentialRampToValueAtTime(0.0001,t+10.5); o.connect(g); g.connect(gmMusic.gain); o.start(t); o.stop(t+10.7); gmMusic.nodes.push({o:o,end:t+10.7}); }catch(e){} }); }
+function gmMusicPlay(){ if(!gmMusic.on) return; var ctx=gmAudio(); if(!ctx) return; if(!gmMusicSetup(ctx)) return; try{ var t=ctx.currentTime; gmMusic.gain.gain.cancelScheduledValues(t); gmMusic.gain.gain.setTargetAtTime(0.055,t,0.8); }catch(e){} if(!gmMusic.timer){ gmMusicChord(); gmMusic.timer=setInterval(gmMusicChord,9000); } }
+function gmMusicFade(tau,stopAfter){ var ctx=gmAudio.ctx; if(!ctx||!gmMusic.gain) return; try{ var t=ctx.currentTime; gmMusic.gain.gain.cancelScheduledValues(t); gmMusic.gain.gain.setTargetAtTime(0.0001,t,tau); }catch(e){} if(gmMusic.timer){ clearInterval(gmMusic.timer); gmMusic.timer=null; } var nodes=gmMusic.nodes; gmMusic.nodes=[]; setTimeout(function(){ nodes.forEach(function(n){ try{ n.o.stop(); }catch(e){} }); },stopAfter); }
+function gmMusicPause(){ gmMusicFade(0.35,1200); }
+function gmMusicEnd(){ gmMusicFade(0.9,3200); }
+function gmToggleMusic(){ gmMusic.on=!gmMusic.on; try{ localStorage.setItem('gentlemove.music', gmMusic.on?'on':'off'); }catch(e){} gmMusicBtnRender(); if(gmMusic.on){ if(gmRunning) gmMusicPlay(); } else { gmMusicPause(); } }
+function gmMusicBtnRender(){ var b=document.getElementById('gmMusicBtn'); if(!b) return; b.innerHTML=gmMusic.on?ICON_MUSIC_ON:ICON_MUSIC_OFF; b.style.opacity=gmMusic.on?'1':'0.45'; var l=gmMusic.on?'Musik relaks: nyala':'Musik relaks: mati'; b.setAttribute('aria-label',l); b.title=l; }
 function gmRender(){
   var done = gmIdx>=MOVES.length;
   var started = gmRunning || gmIdx>0 || (gmIdx<MOVES.length && gmLeft<MOVES[gmIdx].secs);
@@ -420,17 +433,17 @@ function gmRender(){
   gmStickySync();
 }
 function gmTick(){ gmLeft--; if(gmLeft<=0){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; gmSound('next'); showToast('Lanjut: '+MOVES[gmIdx].name); } } gmRender(); }
-function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } }
+function gmStop(){ gmRunning=false; if(gmInt){ clearInterval(gmInt); gmInt=null; } gmMusicPause(); }
 function gmScrollTime(){ var blk=document.getElementById('gmPlayerBlock'); if(!blk || !blk.scrollIntoView) return; var r=blk.getBoundingClientRect(); if(r.top < -1 || r.bottom > window.innerHeight + 1){ blk.scrollIntoView({behavior:'smooth', block:'start'}); } }
 function gmToggle(){ if(gmIdx>=MOVES.length){ gmRestart(); }
-  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); gmSound((gmIdx===0 && gmLeft===MOVES[0].secs) ? 'start' : 'next'); } gmRender(); }
+  if(gmRunning){ gmStop(); } else { gmRunning=true; gmInt=setInterval(gmTick,1000); setTimeout(gmScrollTime, 90); gmSound((gmIdx===0 && gmLeft===MOVES[0].secs) ? 'start' : 'next'); gmMusicPlay(); } gmRender(); }
 function gmSkip(){ if(gmIdx<MOVES.length){ gmIdx++; if(gmIdx>=MOVES.length){ gmStop(); gmComplete(); } else { gmLeft=MOVES[gmIdx].secs; gmSound('next'); } } gmRender(); }
 function gmRestart(){ gmStop(); gmIdx=0; gmLeft=MOVES[0].secs; gmRender(); }
-function gmComplete(){ gmSound('done'); try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
+function gmComplete(){ gmSound('done'); gmMusicEnd(); try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var d=new Date(); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); s[k]=(s[k]||0)+1; localStorage.setItem('gentlemove.v1', JSON.stringify(s)); } catch(e){}
   showToast('Sesi 15 menit selesai. Kerja bagus!'); gmRenderDone(); }
 function gmRenderDone(){ try { var s=JSON.parse(localStorage.getItem('gentlemove.v1'))||{}; var count=0; for(var i=0;i<7;i++){ var d=new Date(); d.setDate(d.getDate()-i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); if(s[k]) count+=s[k]; }
   document.getElementById('gmDoneInfo').textContent = count>0 ? ('Sesi selesai yang tercatat di browser ini dalam 7 hari terakhir: '+count+' kali.') : ''; } catch(e){} }
-gmRender(); gmRenderDone();
+gmRender(); gmRenderDone(); gmMusicBtnRender();
 var gmPlayerVisible=true;
 function gmStickySync(){ var bar=document.getElementById('gmSticky'); if(!bar) return;
   var done = gmIdx>=MOVES.length;
